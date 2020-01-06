@@ -4,6 +4,7 @@
 .cache
 node_modules
 lib/
+build/
 dist/
 storybook-static/
 coverage/
