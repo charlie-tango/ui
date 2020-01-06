@@ -21,7 +21,8 @@
     "build-storybook": "build-storybook -s public -o build",
     "pretty": "prettier '**/*.{js,ts,tsx,md,json,yml,html}' --write",
     "version": "run-p build",
-    "test": "react-scripts test"
+    "test": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test"
   },
   "license": "MIT",
   "module": "index.js",
