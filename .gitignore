@@ -13,3 +13,4 @@ coverage/
 .stylelintcache
 .tmp
 *.log
+src/react-app-env.d.ts

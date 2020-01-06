@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import {
   space,
   layout,
@@ -84,14 +84,3 @@ export const Box: React.FC<BoxProps> = styled.div(
     extraConfig,
   ),
 );
-
-/**
- * The Flex component is the same as the Box component, but with `display: flex` set as the default.
- * */
-export const Flex: React.FC<BoxProps> = styled(Box)({
-  display: 'flex',
-});
-
-export const Text: React.FC<BoxProps> = forwardRef((props, ref) => (
-  <Box ref={ref} as="p" tx="text" {...props} />
-));
