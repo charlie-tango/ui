@@ -1,0 +1,35 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks'
+import { Container } from '../index'
+import { Item } from './story-blocks'
+
+<Meta title="Components|Container" component={Container} />
+
+# Container
+
+The `<Container />` component is used to limit the maximum width of your content, while keeping it centered on the page.
+
+<Preview>
+  <Story name="Basic container">
+    <Container>
+      <Item>Basic container</Item>
+    </Container>
+  </Story>
+</Preview>
+
+## Configuration
+
+The default styling for the `<Container />` can be controlled by setting the values on the theme.
+Use this to provide the `max-width` and `padding` values you are generally using on the site.
+
+```js
+const theme = {
+  variants: {
+    container: {
+      maxWidth: 1200,
+      px: [3, 4, null, 6],
+    },
+  },
+}
+```
+
+Like all other styles, values can be responsive. Use to this change the padding for various breakpoints.

@@ -1,0 +1,159 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks'
+import { Grid, GridItem } from '../index'
+import { Item } from './story-blocks'
+import { allBoxExcludedProps } from './prop-values.ts'
+
+<Meta title="Components|Grid" component={Grid} />
+
+# Grid
+
+<Preview>
+  <Story name="Basic grid">
+    <Grid gridGap="24px">
+      <GridItem col={12}>
+        <Item>col=12</Item>
+      </GridItem>
+      <GridItem col={6}>
+        <Item>col=6</Item>
+      </GridItem>
+      <GridItem col={6}>
+        <Item>col=6</Item>
+      </GridItem>
+      <GridItem col={3}>
+        <Item>col=3</Item>
+      </GridItem>
+      <GridItem col={3}>
+        <Item>col=3</Item>
+      </GridItem>
+      <GridItem col={3}>
+        <Item>col=3</Item>
+      </GridItem>
+      <GridItem col={3}>
+        <Item>col=3</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+      <GridItem col={1}>
+        <Item>col=1</Item>
+      </GridItem>
+    </Grid>
+  </Story>
+</Preview>
+
+### Responsive grid
+
+<Preview name="Responsive grid">
+  <Grid gridGap={[16, 32]}>
+    <GridItem col={[12, 6, 8]}>
+      <Item>xs=12, md=6, lg=8</Item>
+    </GridItem>
+    <GridItem col={[6, 3, 2]}>
+      <Item>xs=6, md=3, lg=2</Item>
+    </GridItem>
+    <GridItem col={[6, 3, 2]}>
+      <Item>xs=6, md=3, lg=2</Item>
+    </GridItem>
+  </Grid>
+</Preview>
+
+### Force Flexbox Grid
+
+You can always disable the CSS grid, and force the fallback Flexbox Grid to be used, by setting `forceFlexBox` to `true`.
+This can be useful for debugging the Flexbox layout in a modern browser.
+
+#### With Flexbox Grid
+
+<Preview name="Forced Flexbox grid">
+  <Grid gridGap="24px" forceFlexBox>
+    <GridItem col={12}>
+      <Item>col=12</Item>
+    </GridItem>
+    <GridItem col={6}>
+      <Item>col=6</Item>
+    </GridItem>
+    <GridItem col={6}>
+      <Item>col=6</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+  </Grid>
+</Preview>
+
+#### With CSS Grid
+
+<Preview name="Forced CSS grid">
+  <Grid gridGap="24px" disableGrid={false}>
+    <GridItem col={12}>
+      <Item>col=12</Item>
+    </GridItem>
+    <GridItem col={6}>
+      <Item>col=6</Item>
+    </GridItem>
+    <GridItem col={6}>
+      <Item>col=6</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+    <GridItem col={3}>
+      <Item>col=3</Item>
+    </GridItem>
+  </Grid>
+</Preview>
+
+### Props
+
+The components inherit the [Box](/?path=/docs/components-box--page#props) props. Below are just the unique props.
+
+<Props components={{ Grid, GridItem }} exclude={allBoxExcludedProps} />
+
+>  To provide the Flexbox fallback the `<Grid>` uses a negative `margin`, while the `<GridItem>` uses `padding`.
+> Therefor it's important that you don't change these values, since it will break the layout in browsers without support for CSS Grid.
+> If you have to change the padding/margin, add it to the wrapping element (like `<Container>`) or the inner items.

@@ -1,0 +1,14 @@
+.vscode
+.idea
+.tern
+.cache
+node_modules
+lib/
+dist/
+storybook-static/
+coverage/
+.DS_store
+.eslintcache
+.stylelintcache
+.tmp
+*.log
