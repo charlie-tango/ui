@@ -24,8 +24,8 @@
     "test": "react-scripts test"
   },
   "license": "MIT",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "module": "index.js",
+  "typings": "index.d.ts",
   "repository": "https://github.com/charlie-tango/ui",
   "np": {
     "yarn": true,
