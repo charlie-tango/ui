@@ -1,9 +1,7 @@
 # Charlie Tango UI
 
-[![Version Badge][npm-version-svg]][package-url]
-[![dependency status][deps-svg]][deps-url]
-[![dev dependency status][dev-deps-svg]][dev-deps-url]
-[![License][license-image]][license-url]
+[![Version Badge][npm-version-svg]][package-url] [![dependency status][deps-svg]][deps-url]
+[![dev dependency status][dev-deps-svg]][dev-deps-url] [![License][license-image]][license-url]
 [![styled with prettier][prettier-svg]][prettier-url]
 
 ## Installation
@@ -24,6 +22,13 @@ npm install @charlietango/ui
 
 - [styled-components](https://www.styled-components.com/)
 - [styled-system](https://styled-system.com/)
+
+## Publish
+
+We are using [semantic-release](https://github.com/semantic-release/semantic-release) to
+automatically publish a new package, whenever we merge to `master`. It's important to use the
+[Angular Commit Message Conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
+so the version can be correctly bumped.
 
 [package-url]: https://npmjs.org/package/@charlietango/ui
 [npm-version-svg]: https://img.shields.io/npm/v/@charlietango/ui.svg
