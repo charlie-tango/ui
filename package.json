@@ -4,33 +4,32 @@
   "version": "0.1.1",
   "author": "Charlie Tango",
   "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charlie-tango/ui.git"
+  },
   "keywords": [
     "styled-components",
     "styled-system",
     "ui"
   ],
+  "files": ["lib/*"],
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "dev": "run-s storybook",
     "build": "run-s build:*",
     "build:tsc": "tsc -p tsconfig.prod.json --noEmit false",
-    "build:copy": "node tools/build-copy.js",
     "now-build": "run-s build-storybook",
     "lint": "eslint . --ext js,ts,tsx",
-    "release": "np --contents dist",
     "storybook": "start-storybook -p 9000 -s public",
     "build-storybook": "build-storybook -s public -o build",
     "pretty": "prettier '**/*.{js,ts,tsx,md,json,yml,html}' --write",
     "version": "run-p build",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test"
-  },
-  "license": "MIT",
-  "module": "index.js",
-  "typings": "index.d.ts",
-  "repository": "https://github.com/charlie-tango/ui",
-  "np": {
-    "yarn": true,
-    "contents": "dist"
   },
   "eslintConfig": {
     "extends": "react-app"
