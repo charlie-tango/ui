@@ -10,7 +10,7 @@ export enum FontWeight {
   black = 900,
 }
 
-const typography = {
+export const typography = {
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
   fontWeights: {
     [FontWeight.hairline]: FontWeight.hairline,

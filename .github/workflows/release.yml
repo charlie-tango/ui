@@ -16,6 +16,10 @@ jobs:
           node-version: 12
       - name: Install dependencies
         run: yarn --frozen-lockfile
+      - name: Build
+        run: yarn build
+      - name: Navigate to publish dir
+        run: cd dist
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

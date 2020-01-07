@@ -7,7 +7,7 @@
       "esnext"
     ],
     "declaration": true,
-    "declarationDir": "./lib",
+    "declarationDir": "./dist",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,7 +17,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "outDir": "./lib",
+    "outDir": "./dist",
     "jsx": "react",
     "noEmit": true,
     "isolatedModules": true

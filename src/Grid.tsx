@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { system, flexbox, ResponsiveValue, Scale } from 'styled-system';
-import { BoxProps } from '../types';
-import { Box } from './Box';
+import { Box, BoxProps } from './Box';
 
 interface GridProps extends BoxProps {
   gridGap?: ResponsiveValue<string | number>;
@@ -19,11 +18,7 @@ interface GridItemInternalProps {
 }
 
 const getGapValue = (value: any, scale?: Scale) => {
-  if (
-    !!scale &&
-    ((Array.isArray(scale) && value < scale.length) ||
-      scale.hasOwnProperty(value))
-  ) {
+  if (!!scale && ((Array.isArray(scale) && value < scale.length) || scale.hasOwnProperty(value))) {
     // @ts-ignore
     return scale[value];
   }
@@ -152,11 +147,10 @@ const StyledGridItem = styled(Box)<GridItemProps & GridItemInternalProps>(
     },
 );
 
-export const GridItem: React.FC<GridItemProps> = forwardRef<
-  HTMLDivElement,
-  GridItemProps
->(({ col, ...rest }, ref) => {
-  return <StyledGridItem ref={ref} flexCol={col} gridCol={col} {...rest} />;
-});
+export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, GridItemProps>(
+  ({ col, ...rest }, ref) => {
+    return <StyledGridItem ref={ref} flexCol={col} gridCol={col} {...rest} />;
+  },
+);
 
 GridItem.displayName = 'GridItem';

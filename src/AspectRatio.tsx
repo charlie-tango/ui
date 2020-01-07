@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box } from './Box';
+import { Box, BoxProps } from './Box';
 import { ResponsiveValue, system } from 'styled-system';
-import { BoxProps } from '../types';
-import { isNumber } from '../utils';
+import { isNumber } from './utils';
 
 interface AspectRatioProps extends BoxProps {
   /**

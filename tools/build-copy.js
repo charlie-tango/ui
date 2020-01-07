@@ -20,11 +20,15 @@ const packageFieldsToRemove = [
   'jest',
   'eslintConfig',
   'eslintIgnore',
-  'np',
+  'files',
 ];
 
 packageFieldsToRemove.forEach(field => {
   delete pck[field];
 });
+
+pck.main = pck.main.replace('dist/', '');
+pck.module = pck.module.replace('dist/', '');
+pck.typings = pck.typings.replace('dist/', '');
 
 fs.writeFileSync(path.resolve(distDir, 'package.json'), JSON.stringify(pck, undefined, 2), 'utf-8');
