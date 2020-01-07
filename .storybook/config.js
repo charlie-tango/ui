@@ -2,7 +2,7 @@ import { addDecorator, addParameters } from '@storybook/react';
 import React from 'react';
 import { DocsContainer } from '@storybook/addon-docs/dist/blocks';
 import { ThemeProvider } from 'styled-components';
-import base from '../src/theme/base';
+import base from '../src/theme';
 import theme from './ct-theme';
 
 addParameters({

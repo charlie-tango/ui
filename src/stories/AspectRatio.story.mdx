@@ -1,14 +1,14 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks'
-import { AspectRatio, AspectRatioItem } from '../index'
-import { Item } from './story-blocks'
-import { allBoxExcludedProps } from './prop-values.ts'
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { AspectRatio, AspectRatioItem } from '../index';
+import { Item } from './story-blocks';
+import { allBoxExcludedProps } from './prop-values.ts';
 
 <Meta title="Components|AspectRatio" component={AspectRatio} />
 
 # Aspect Ratio
 
-Use the `<AspectRatio />` to force a fixed height and width ratio.
-This is commonly used to give images and video a fixed size.
+Use the `<AspectRatio />` to force a fixed height and width ratio. This is commonly used to give
+images and video a fixed size.
 
 <Preview>
   <AspectRatio ratio={16 / 9}>
@@ -19,20 +19,18 @@ This is commonly used to give images and video a fixed size.
 ## Usage
 
 ```jsx harmony
-import { AspectRatio, AspectRatioItem } from '@charlietango/ui'
+import { AspectRatio, AspectRatioItem } from '@charlietango/ui';
 
 export const MyComponent = props => (
   <AspectRatio ratio={16 / 9}>
     <AspectRatioItem>16:9 Aspect Ratio</AspectRatioItem>
   </AspectRatio>
-)
+);
 ```
 
-### Props
+### API
 
-The components inherit the [Box](/?path=/docs/components-box--page#props) props. Below are just the unique props.
+The components inherit the [Box](/?path=/docs/components-box--page#props) props. Below are just the
+unique props.
 
-<Props
-  components={{ AspectRatio, AspectRatioItem }}
-  exclude={allBoxExcludedProps}
-/>
+<Props components={{ AspectRatio, AspectRatioItem }} exclude={allBoxExcludedProps} />

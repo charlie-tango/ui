@@ -11,6 +11,9 @@ export default create({
   appBg: '#f5f5f5',
   textColor: '#1a1a1a',
 
+  colorPrimary: '#2112e6',
+  colorSecondary: '#ff6350',
+
   // Typography
   fontBase: [
     '-apple-system',

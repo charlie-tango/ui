@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { system, flexbox, ResponsiveValue, Scale } from 'styled-system';
+import { system, ResponsiveValue, Scale } from 'styled-system';
 import { Box, BoxProps } from './Box';
+import { isNumber } from './utils';
 
 interface GridProps extends BoxProps {
   gridGap?: ResponsiveValue<string | number>;
@@ -26,7 +27,7 @@ const getGapValue = (value: any, scale?: Scale) => {
 };
 
 const valueToString = (value: any) => {
-  return typeof value === 'number' ? value + 'px' : value;
+  return isNumber(value) ? value + 'px' : value;
 };
 
 const flexGridConfig = system({
@@ -92,7 +93,6 @@ const GridWrapper = styled(Box)<GridWrapperProps>(
     flexWrap: 'wrap',
     margin: 0,
   },
-  flexbox,
   flexGridConfig,
   props =>
     !props.forceFlexBox

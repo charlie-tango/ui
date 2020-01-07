@@ -1,0 +1,51 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs|Styling" />
+
+# Styling
+
+## `sx`
+
+One of the concepts implemented in [rebass](https://rebassjs.org/) is the `sx` prop. This allows you
+to define a CSS styles object on all `<Box>` components, that can consume the `theme` values. This
+is really useful for defining responsive styles using the `[]` syntax.
+
+```jsx harmony
+import { Box } from '@charlietango/ui';
+
+const Example = () => (
+  <Box
+    sx={{
+      color: 'red',
+      px: [3, 6],
+    }}
+  />
+);
+```
+
+Under the hood, this is using [@styled-system/css](https://styled-system.com/css) to convert the
+`sx` prop into styles.
+
+### Using `sx` with `css`
+
+By running [styled-components](https://www.styled-components.com/) through Babel you can use the
+`css` prop - This is inspired by [emotion](https://emotion.sh/), and allows you to write the (tagged
+template or Object) directly on the components. It's then converted into a `styled-component` by
+Babel.
+
+If we combine [@styled-system/css](https://styled-system.com/css) with the `css` prop, we can
+actually replicate the `sx` prop on any element - Especially useful for styling third party
+components.
+
+```jsx harmony
+import { sx } from '@charlietango/ui';
+
+const Example = () => (
+  <div
+    css={sx({
+      color: 'red',
+      px: [3, 6],
+    })}
+  />
+);
+```

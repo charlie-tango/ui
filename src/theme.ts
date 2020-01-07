@@ -49,7 +49,7 @@ export const baseTheme: PresetTheme = {
   },
   variants: {
     container: {
-      maxWidth: 1200,
+      maxWidth: 1280,
       px: 4,
     },
   },
