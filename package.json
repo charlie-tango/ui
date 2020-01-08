@@ -50,11 +50,15 @@
     ]
   },
   "release": {
-    "publish": [
-      {
-        "path": "@semantic-release/npm",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      ["@semantic-release/npm", {
         "pkgRoot": "dist"
-      }
+      }],
+      ["@semantic-release/github", {
+        "assets": "dist"
+      }]
     ]
   },
   "dependencies": {
