@@ -1,0 +1,53 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Heading } from '../index';
+import { divProps } from './prop-values.ts';
+
+<Meta title="Components|Heading" component={Heading} />
+
+# Heading
+
+The `<Heading />` should be used when creating heading elements _(h1-h6)_. By default it will render
+as an `h2` element, but use the `as` property to change to the correct HTML tag.
+
+## Usage
+
+```jsx harmony
+import { Heading } from '@charlietango/ui';
+```
+
+To modify the styling, you should add variants to the `text` area in the theme - preferably using a
+`TextVariant` enum as the key.
+
+```typescript
+export enum TextVariant {
+  H1 = 'h1',
+  H2 = 'h2',
+  H3 = 'h3',
+  H4 = 'h4',
+  Paragraph = 'paragraph',
+}
+
+const theme = {
+  text: {
+    [TextVariant.H1]: {
+      fontWeight: 500,
+      fontSizes: [30, null, 52],
+      lineHeight: [1.27, null, 1.38],
+    },
+    [TextVariant.H2]: {
+      fontWeight: 500,
+      fontSizes: [26, null, 44],
+      lineHeight: 1.32,
+    },
+    ...
+  },
+};
+```
+
+You could then create a `h1` like:
+
+```typescript jsx
+<Heading variant={TextVariant.H1} as="h1">
+  Page header
+</Heading>
+```

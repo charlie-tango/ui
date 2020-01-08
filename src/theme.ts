@@ -19,6 +19,9 @@ export interface PresetTheme extends Theme, DefaultTheme {
     container?: SystemStyleObject;
     [key: string]: SystemStyleObject | undefined;
   };
+  text: {
+    [key: string]: SystemStyleObject | undefined;
+  };
 }
 
 export const baseTheme: PresetTheme = {
@@ -47,6 +50,7 @@ export const baseTheme: PresetTheme = {
     body: `system-ui, Helvetica, Arial, sans-serif`,
     mono: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
   },
+  text: {},
   variants: {
     container: {
       maxWidth: 1280,
