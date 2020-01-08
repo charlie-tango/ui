@@ -93,6 +93,121 @@ responsive value - Like the breakpoints array.
   </Grid>
 </Preview>
 
+### Grid columns
+
+By default the grid uses a standard `12` column layout. You can change this if needed - for example
+when nesting grids. The typings do limit you to value between `1` and `12`.
+
+<Preview>
+  <Story name="Grid columns grid">
+    <Grid forceFlexBox gridColumns={10} gridGap="24px">
+      <GridItem col={10}>
+        <Item>10</Item>
+      </GridItem>
+      <GridItem col={5}>
+        <Item>5</Item>
+      </GridItem>
+      <GridItem col={5}>
+        <Item>5</Item>
+      </GridItem>
+      <GridItem col={3}>
+        <Item>3</Item>
+      </GridItem>
+      <GridItem col={2}>
+        <Item>2</Item>
+      </GridItem>
+      <GridItem col={2}>
+        <Item>2</Item>
+      </GridItem>
+      <GridItem col={3}>
+        <Item>3</Item>
+      </GridItem>
+    </Grid>
+  </Story>
+</Preview>
+
+Because we need to support the flexbox fallback method, the responsive handling is simplified a
+bit - Only the responsive array is supported.
+
+<Preview>
+  <Story name="Responsive Grid columns grid">
+    <Grid gridColumns={[8, 10, 12]} gridGap="24px">
+      <GridItem col={[8, 10, 12]}>
+        <Item>full</Item>
+      </GridItem>
+      <GridItem col={[4, 5, 6]}>
+        <Item>half</Item>
+      </GridItem>
+      <GridItem col={[4, 5, 6]}>
+        <Item>half</Item>
+      </GridItem>
+    </Grid>
+  </Story>
+</Preview>
+
+### Nested grid
+
+When nesting Grids, it might make sense to adjust the columns to match the outer Grid. This ensures
+you can keep the same grid gap, making it possible to keep the grid aligned with the design.
+
+<Preview>
+  <Story name="Nested grids">
+    <Grid gridColumns={12} gridGap="24px">
+      <GridItem col={12}>
+        <Grid gridColumns={[8, 10, 12]} gridGap="24px">
+          <GridItem col={[8, 10, 12]}>
+            <Item>full</Item>
+          </GridItem>
+          <GridItem col={[4, 5, 6]}>
+            <Item>half</Item>
+          </GridItem>
+          <GridItem col={[4, 5, 6]}>
+            <Item>half</Item>
+          </GridItem>
+        </Grid>
+      </GridItem>
+      <GridItem col={8}>
+        <Grid gridColumns={8} gridGap="24px">
+          <GridItem col={8}>
+            <Item bg="blue" color="white">
+              full
+            </Item>
+          </GridItem>
+          <GridItem col={4}>
+            <Item bg="blue" color="white">
+              half
+            </Item>
+          </GridItem>
+          <GridItem col={4}>
+            <Item bg="blue" color="white">
+              half
+            </Item>
+          </GridItem>
+        </Grid>
+      </GridItem>
+      <GridItem col={4}>
+        <Grid gridColumns={4} gridGap="24px">
+          <GridItem col={4}>
+            <Item bg="darkred" color="white">
+              full
+            </Item>
+          </GridItem>
+          <GridItem col={2}>
+            <Item bg="darkred" color="white">
+              half
+            </Item>
+          </GridItem>
+          <GridItem col={2}>
+            <Item bg="darkred" color="white">
+              half
+            </Item>
+          </GridItem>
+        </Grid>
+      </GridItem>
+    </Grid>
+  </Story>
+</Preview>
+
 ### Force Flexbox Grid
 
 When supported the `<Grid>` is styled using CSS Grid, but you can always disable this, and force the

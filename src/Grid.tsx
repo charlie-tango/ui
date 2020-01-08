@@ -4,13 +4,19 @@ import { system, ResponsiveValue, Scale } from 'styled-system';
 import { Box, BoxProps } from './Box';
 import { isNumber } from './utils';
 
+type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+
 interface GridProps extends BoxProps {
   gridGap?: ResponsiveValue<string | number>;
+  gridColumns?: GridCols | GridCols[];
   forceFlexBox?: boolean;
 }
 
 interface GridItemProps extends BoxProps {
-  col?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+  /** Number of columns this item should span */
+  col: GridCols | GridCols[];
+  /** @internal Grid columns is injected by the containing Grid - you should not attempt to set it manually. */
+  gridColumns?: GridCols | GridCols[];
 }
 
 interface GridItemInternalProps {
@@ -51,6 +57,12 @@ const flexGridConfig = system({
       return output * -0.5;
     },
   },
+  gridColumns: {
+    property: 'gridTemplateColumns',
+    transform: value => {
+      return `repeat(${value}, 1fr)`;
+    },
+  },
   gridGap: { scale: 'space', property: 'gridGap' },
 });
 
@@ -60,6 +72,8 @@ const flexGridItemConfig = system({
     property: 'padding',
     transform: (value, scale) => {
       let output = getGapValue(value, scale);
+      if (!output) return undefined;
+
       if (isNaN(output)) {
         return `calc(${output} * 0.5)`;
       }
@@ -67,10 +81,7 @@ const flexGridItemConfig = system({
     },
   },
   flexCol: {
-    properties: ['maxWidth', 'flexBasis'],
-    transform: (value = 1) => {
-      return (value / 12) * 100 + '%';
-    },
+    properties: ['flexBasis', 'maxWidth'],
   },
   gridCol: {
     property: 'gridColumnEnd',
@@ -99,7 +110,6 @@ const GridWrapper = styled(Box)<GridWrapperProps>(
       ? {
           '@supports (display: grid)': {
             display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
             margin: 0,
             width: '100%',
           },
@@ -108,7 +118,7 @@ const GridWrapper = styled(Box)<GridWrapperProps>(
 );
 
 export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
-  ({ children, gridGap, forceFlexBox, ...rest }, ref) => {
+  ({ children, gridGap, gridColumns, forceFlexBox, ...rest }, ref) => {
     return (
       <GridWrapper
         ref={ref}
@@ -116,6 +126,7 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
         flexWidthOffset={gridGap}
         flexGap={gridGap}
         gridGap={gridGap}
+        gridColumns={gridColumns}
         {...rest}
       >
         {React.Children.map(children, child =>
@@ -123,6 +134,7 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
           React.isValidElement(child)
             ? React.cloneElement(child, {
                 flexGap: gridGap,
+                gridColumns,
                 forceFlexBox,
               } as GridItemInternalProps)
             : null,
@@ -131,6 +143,11 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
     );
   },
 );
+
+Grid.defaultProps = {
+  gridColumns: 12,
+  gridGap: 0,
+};
 
 Grid.displayName = 'Grid';
 
@@ -147,10 +164,45 @@ const StyledGridItem = styled(Box)<GridItemProps & GridItemInternalProps>(
     },
 );
 
+const mapGridColumn = (key: number, gridColumns: GridCols | GridCols[]) => {
+  if (typeof gridColumns === 'number') return gridColumns;
+  if (Array.isArray(gridColumns)) {
+    return gridColumns[key] || 12;
+  }
+
+  return 12;
+};
+
+/**
+ * Need to convert the cols to a percentage value so they can be used by the Flexbox fallback.
+ * We need to take into account that the user can supply repsponsive values.
+ * */
+const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | GridCols[] = 12) => {
+  if (Array.isArray(col)) {
+    return col.map((val, index) =>
+      val ? (val / mapGridColumn(index, gridColumns)) * 100 + '%' : val,
+    );
+  }
+  if (col) {
+    return (col / mapGridColumn(0, gridColumns)) * 100 + '%';
+  }
+};
+
 export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, GridItemProps>(
-  ({ col, ...rest }, ref) => {
-    return <StyledGridItem ref={ref} flexCol={col} gridCol={col} {...rest} />;
+  ({ col, gridColumns, ...rest }, ref) => {
+    return (
+      <StyledGridItem
+        ref={ref}
+        flexCol={calculateFlexCols(col, gridColumns)}
+        gridCol={col}
+        {...rest}
+      />
+    );
   },
 );
+
+GridItem.defaultProps = {
+  col: 1,
+};
 
 GridItem.displayName = 'GridItem';
