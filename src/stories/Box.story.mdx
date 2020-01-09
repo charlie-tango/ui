@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Box } from '../index';
+import { Box, Text } from '../index';
 import { divProps } from './prop-values.ts';
 
 <Meta title="Components|Box" component={Box} />
@@ -19,7 +19,7 @@ import { Box } from '@charlietango/ui';
 ### Using props to style
 
 <Preview>
-  <Box p={5} fontSize={4} w={[1, 1, 0.5]} color="white" bg="blue">
+  <Box p={5} fontSize={4} width={[1, 1, 0.5]} color="white" bg="blue">
     Box
   </Box>
 </Preview>
@@ -50,4 +50,4 @@ transform values between 0 and 1 to percentages.
 
 ### API
 
-<Props of={Box} exclude={[...divProps, 'tx', '__css', 'key', 'ref']} />
+<Props of={Text} exclude={[...divProps, 'tx', '__css', 'key', 'ref']} />

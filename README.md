@@ -4,6 +4,9 @@
 [![dev dependency status][dev-deps-svg]][dev-deps-url] [![License][license-image]][license-url]
 [![styled with prettier][prettier-svg]][prettier-url]
 
+A set of UI components built with [Emotion](https://emotion.sh) and
+[styled-system](https://styled-system.com/), to be used between Charlie Tango projects.
+
 ## Installation
 
 Install using [Yarn](https://yarnpkg.com):
@@ -18,8 +21,11 @@ or NPM:
 npm install @charlietango/ui
 ```
 
-The library is built for **ESNext**, and will need to be processed by the consuming applications
-bundler.
+### Bundling
+
+The library is built for **ESNext**, and does not contain a **CommonJS** build. This means you will
+need to compile the library with the consuming applications bundler. Usually tools skip processing
+`node_modules` to speed up the build process, so you will need to configure this.
 
 #### Webpack
 

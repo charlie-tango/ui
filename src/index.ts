@@ -6,8 +6,7 @@ export * from './Text';
 export * from './theme';
 
 /**
- * Export the `css` prop as `sx` to avoid confusing it with the `styled-components` css prop.
- * This also fixes the typings to use the correct sx props, enabling it to use responsive object values.
+ * Export the `css` prop as `sx` to avoid confusing it with the `Emotion` css prop.
  * It enables you to hook into the styled-system theme on any component:
  *
  * @example

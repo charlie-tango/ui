@@ -16,7 +16,8 @@ import { Heading } from '@charlietango/ui';
 ```
 
 To modify the styling, you should add variants to the `text` area in the theme - preferably using a
-`TextVariant` enum as the key.
+`TextVariant` enum as the key. By default the `heading` variant is used, but it will be replaced if
+you set a custom value.
 
 ```typescript
 export enum TextVariant {

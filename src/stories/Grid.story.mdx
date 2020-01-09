@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Grid, GridItem } from '../index';
-import { Item } from './story-blocks';
+import { Item, Warning } from './story-blocks';
 import { allBoxExcludedProps } from './prop-values.ts';
 
 <Meta title="Components|Grid" component={Grid} />
@@ -154,6 +154,7 @@ you can keep the same grid gap, making it possible to keep the grid aligned with
   <Story name="Nested grids">
     <Grid gridColumns={12} gridGap="24px">
       <GridItem col={12}>
+        <strong>12 columns</strong>
         <Grid gridColumns={[8, 10, 12]} gridGap="24px">
           <GridItem col={[8, 10, 12]}>
             <Item>full</Item>
@@ -167,6 +168,7 @@ you can keep the same grid gap, making it possible to keep the grid aligned with
         </Grid>
       </GridItem>
       <GridItem col={8}>
+        <strong>8 columns</strong>
         <Grid gridColumns={8} gridGap="24px">
           <GridItem col={8}>
             <Item bg="blue" color="white">
@@ -186,6 +188,7 @@ you can keep the same grid gap, making it possible to keep the grid aligned with
         </Grid>
       </GridItem>
       <GridItem col={4}>
+        <strong>4 columns</strong>
         <Grid gridColumns={4} gridGap="24px">
           <GridItem col={4}>
             <Item bg="darkred" color="white">
@@ -270,14 +273,33 @@ Flexbox layout in a modern browser, and ensure you didn't break anything.
   </Grid>
 </Preview>
 
-### API
+## API
 
 The components inherit the [Box](/?path=/docs/components-box--page#props) props. Below are just the
 unique props.
-
-<Props components={{ Grid, GridItem }} exclude={allBoxExcludedProps} />
 
 > To provide the Flexbox fallback the `<Grid>` uses a negative `margin`, while the `<GridItem>` uses
 > `padding`. Therefor it's important that you don't change these values, since it will break the
 > layout in browsers without support for CSS Grid. If you have to change the padding/margin, add it
 > to the wrapping element (like `<Container>`) or the inner items.
+
+### Grid
+
+<Props of={Grid} exclude={allBoxExcludedProps} />
+
+The `<Grid>` has a default `variant` value set to `grid`, that you can use to modify the default
+styling. This can be useful to set a `gridGap` globally that matches the design style guide.
+
+```typescript
+const theme = {
+  variants: {
+    grid: {
+      gridGap: [15, 20, 30],
+    },
+  },
+};
+```
+
+### GridItem
+
+<Props of={GridItem} exclude={['gridColumns', ...allBoxExcludedProps]} />

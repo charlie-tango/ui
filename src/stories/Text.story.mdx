@@ -1,0 +1,46 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Heading } from '../index';
+import { divProps } from './prop-values.ts';
+
+<Meta title="Components|Text" component={Text} />
+
+# Text
+
+`<Text />` should be used when creating text elements _(p, span)_. By default it will render as a
+`<p>` element, but use the `as` property to change to the correct HTML tag.
+
+## Usage
+
+```typescript
+import { Text } from '@charlietango/ui';
+```
+
+To modify the styling, you should could variants to the `text` area in the theme - preferably using
+a `TextVariant` enum as the key. It might also make sense to wrap the <Text /> inside another
+component that, sets the styling.
+
+```typescript
+export enum TextVariant {
+  Paragraph = 'paragraph',
+}
+
+const theme = {
+  text: {
+    [TextVariant.Paragraph]: {
+      fontWeight: 400,
+      fontSizes: 16,
+      lineHeight: 1.4,
+    },
+    ...
+  },
+};
+```
+
+You could then create a `<p>` like:
+
+```typescript jsx
+<Text variant={TextVariant.paragraph}>
+  Amor, exsul, et luna. Heu.Cum ionicis tormento peregrinationes, omnes luraes amor ferox, castus
+  calcariaes.
+</Text>
+```

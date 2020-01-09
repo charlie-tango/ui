@@ -24,3 +24,7 @@ export const Item = (props: BoxProps) => {
     />
   );
 };
+
+export const Warning = (props: BoxProps) => {
+  return <Box sx={{}} {...props} />;
+};
