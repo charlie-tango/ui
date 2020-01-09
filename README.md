@@ -18,9 +18,44 @@ or NPM:
 npm install @charlietango/ui
 ```
 
-## Related
+The library is built for **ESNext**, and will need to be processed by the consuming applications
+bundler.
 
-- [styled-components](https://www.styled-components.com/)
+#### Webpack
+
+Include the `@charlietango` namespace in the `babel-loader` rule:
+
+```js
+const config = {
+  modules: {
+    rules: [
+      {
+        test: /\.(js|ts|tsx)$/,
+        include: [path.resolve('src'), path.resolve('node_modules/@charlietango')],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: DEBUG,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+#### Jest
+
+Jest will also need to include the library when transforming files:
+
+```js
+const config = { transformIgnorePatterns: ['/node_modules/(?!@charlietango).+\\.js$'] };
+```
+
+### Related libraries
+
 - [styled-system](https://styled-system.com/)
 
 ## Publish

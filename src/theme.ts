@@ -1,5 +1,4 @@
 import { Theme } from 'styled-system';
-import { DefaultTheme } from 'styled-components';
 import { SystemStyleObject } from '@styled-system/css';
 
 export enum FontWeight {
@@ -14,7 +13,7 @@ export enum FontWeight {
   black = 900,
 }
 
-export interface PresetTheme extends Theme, DefaultTheme {
+export interface PresetTheme extends Theme {
   variants: {
     container?: SystemStyleObject;
     [key: string]: SystemStyleObject | undefined;

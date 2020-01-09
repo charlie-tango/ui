@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { system, ResponsiveValue, Scale } from 'styled-system';
 import { Box, BoxProps } from './Box';
 import { isNumber } from './utils';
@@ -21,6 +21,8 @@ interface GridItemProps extends BoxProps {
 
 interface GridItemInternalProps {
   forceFlexBox?: boolean;
+  flexCol?: string | string[];
+  gridCol?: GridCols | GridCols[];
   flexGap?: ResponsiveValue<string | number>;
 }
 
@@ -92,12 +94,15 @@ const flexGridItemConfig = system({
   },
 });
 
-interface GridWrapperProps extends GridProps {
+interface GridWrapperProps {
+  forceFlexBox?: boolean;
   flexGap?: ResponsiveValue<string | number>;
+  gridGap?: ResponsiveValue<string | number>;
+  gridColumns?: GridCols | GridCols[];
   flexWidthOffset?: ResponsiveValue<string | number>;
 }
 
-const GridWrapper = styled(Box)<GridWrapperProps>(
+const StyledGrid = styled(Box)<GridWrapperProps>(
   {
     display: 'flex',
     boxSizing: 'border-box',
@@ -117,16 +122,18 @@ const GridWrapper = styled(Box)<GridWrapperProps>(
       : undefined,
 );
 
-export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
+export const Grid = forwardRef<HTMLDivElement, GridProps>(
   ({ children, gridGap, gridColumns, forceFlexBox, ...rest }, ref) => {
     return (
-      <GridWrapper
+      // @ts-ignore
+      <StyledGrid
         ref={ref}
         forceFlexBox={forceFlexBox}
         flexWidthOffset={gridGap}
         flexGap={gridGap}
         gridGap={gridGap}
         gridColumns={gridColumns}
+        variant="grid"
         {...rest}
       >
         {React.Children.map(children, child =>
@@ -139,7 +146,7 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
               } as GridItemInternalProps)
             : null,
         )}
-      </GridWrapper>
+      </StyledGrid>
     );
   },
 );
@@ -151,7 +158,7 @@ Grid.defaultProps = {
 
 Grid.displayName = 'Grid';
 
-const StyledGridItem = styled(Box)<GridItemProps & GridItemInternalProps>(
+const StyledGridItem = styled(Box)<GridItemInternalProps>(
   { boxSizing: 'border-box', minWidth: 0, flexGrow: 0 },
   flexGridItemConfig,
   props =>
@@ -191,10 +198,12 @@ const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | G
 export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, GridItemProps>(
   ({ col, gridColumns, ...rest }, ref) => {
     return (
+      // @ts-ignore
       <StyledGridItem
         ref={ref}
         flexCol={calculateFlexCols(col, gridColumns)}
         gridCol={col}
+        variant="gridItem"
         {...rest}
       />
     );

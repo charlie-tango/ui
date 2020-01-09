@@ -10,7 +10,7 @@
     "url": "https://github.com/charlie-tango/ui.git"
   },
   "keywords": [
-    "styled-components",
+    "emotion",
     "styled-system",
     "ui"
   ],
@@ -53,24 +53,33 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      ["@semantic-release/npm", {
-        "pkgRoot": "dist"
-      }],
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist"
+        }
+      ],
       "@semantic-release/github"
     ]
   },
   "dependencies": {
     "@styled-system/css": "^5.1.4",
+    "@styled-system/should-forward-prop": "^5.1.4",
+    "reflexbox": "^4.0.6",
     "styled-system": "^5.1.4"
   },
   "peerDependencies": {
+    "@emotion/core": ">=10.0.0",
+    "@emotion/styled": ">=10.0.0",
+    "emotion-theming": ">=10.0.0",
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "styled-components": "*"
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
     "@storybook/addon-actions": "^5.3.0-rc.9",
     "@storybook/addon-docs": "^5.3.0-rc.9",
     "@storybook/addon-links": "^5.3.0-rc.9",
@@ -86,9 +95,11 @@
     "@types/node": "^13.1.4",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "@types/styled-components": "^4.4.1",
     "@types/styled-system": "^5.1.4",
     "@types/styled-system__css": "^5.0.4",
+    "@types/styled-system__should-forward-prop": "^5.0.4",
+    "emotion-theming": "^10.0.27",
+    "globby": "^11.0.0",
     "husky": "^4.0.0",
     "lint-staged": "^9.5.0",
     "np": "^5.2.1",
@@ -97,7 +108,6 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
-    "styled-components": "^5.0.0-rc.3",
     "typescript": "~3.7.2"
   }
 }

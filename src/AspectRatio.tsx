@@ -1,10 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Box, BoxProps } from './Box';
+import styled from '@emotion/styled';
+import { Box } from './Box';
 import { ResponsiveValue, system } from 'styled-system';
 import { isNumber } from './utils';
 
-interface AspectRatioProps extends BoxProps {
+interface AspectRatioProps {
   /**
    * Ratio is the relation between height and width.
    * You calculate it as `width / height`, so to get the the default video aspect ratio you would say:
@@ -25,7 +24,7 @@ const aspectConfig = system({
   },
 });
 
-export const AspectRatio: React.FC<AspectRatioProps> = styled(Box)(
+export const AspectRatio = styled(Box)<AspectRatioProps>(
   {
     display: 'block',
     position: 'relative',
@@ -33,7 +32,7 @@ export const AspectRatio: React.FC<AspectRatioProps> = styled(Box)(
   aspectConfig,
 );
 
-export const AspectRatioItem: React.FC<BoxProps> = styled(Box)({
+export const AspectRatioItem = styled(Box)({
   position: 'absolute',
   top: 0,
   bottom: 0,
