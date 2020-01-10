@@ -4,7 +4,7 @@ import { system, ResponsiveValue, Scale } from 'styled-system';
 import { Box, BoxProps } from './Box';
 import { isNumber } from './utils';
 
-type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
 export interface GridProps {
   gridGap?: ResponsiveValue<string | number>;
@@ -29,7 +29,7 @@ export interface GridItemProps {
 
 interface GridItemInternalProps {
   forceFlexBox?: boolean;
-  flexCol?: string | string[];
+  flexCol?: string | (string | null | undefined)[] | null;
   gridCol?: GridCols | GridCols[];
   flexGap?: ResponsiveValue<string | number>;
 }

@@ -4,7 +4,7 @@ import { Grid, GridItem } from '../Grid';
 
 test('render grid', () => {
   render(
-    <Grid gridGap={16}>
+    <Grid gridGap={16} gridColumns={[8, null, undefined, 12]}>
       <GridItem col={8}>Item 1</GridItem>
       <GridItem col={4}>Item 2</GridItem>
     </Grid>,
