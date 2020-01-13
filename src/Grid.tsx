@@ -127,13 +127,14 @@ export const Grid: React.FC<GridProps & BoxProps> = forwardRef<HTMLDivElement, G
     return (
       <StyledGrid
         ref={ref}
+        variant="grid"
+        {...rest}
+        tx="grids"
         forceFlexBox={forceFlexBox}
         flexWidthOffset={gridGap}
         flexGap={gridGap}
         gridGap={gridGap}
         gridColumns={gridColumns}
-        variant="grid"
-        {...rest}
       >
         {React.Children.map(children, child =>
           // Clone the children so we can inject the correct `gridGap` value into it.
@@ -181,7 +182,7 @@ const mapGridColumn = (key: number, gridColumns: GridCols | GridCols[]) => {
 
 /**
  * Need to convert the cols to a percentage value so they can be used by the Flexbox fallback.
- * We need to take into account that the user can supply repsponsive values.
+ * We need to take into account that the user can supply responsive values.
  * */
 const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | GridCols[] = 12) => {
   if (Array.isArray(col)) {
@@ -203,6 +204,7 @@ export const GridItem: React.FC<GridItemProps & BoxProps> = forwardRef<
       ref={ref}
       flexCol={calculateFlexCols(col, gridColumns)}
       gridCol={col}
+      tx="grids"
       variant="gridItem"
       {...rest}
     />

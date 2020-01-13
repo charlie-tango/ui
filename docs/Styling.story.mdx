@@ -28,14 +28,13 @@ Under the hood, this is using [@styled-system/css](https://styled-system.com/css
 
 ### Using `sx` with `css`
 
-By running [styled-components](https://www.styled-components.com/) through Babel you can use the
-`css` prop - This is inspired by [emotion](https://emotion.sh/), and allows you to write the (tagged
-template or Object) directly on the components. It's then converted into a `styled-component` by
-Babel.
+By running [emotion](https://www.emotion.sh/) through Babel you can use the `css` prop - the allows
+you to write the tagged template or Object styling directly on the components. It's then converted
+into a style and `className` by Babel.
 
 If we combine [@styled-system/css](https://styled-system.com/css) with the `css` prop, we can
-actually replicate the `sx` prop on any element - Especially useful for styling third party
-components.
+actually replicate the `sx` prop on any element, so we still have access to the theme and responsive
+values.
 
 ```jsx harmony
 import { sx } from '@charlietango/ui';
@@ -48,4 +47,32 @@ const Example = () => (
     })}
   />
 );
+```
+
+## Base CSS
+
+The library includes a `<BaseCss />` Global styles file - It's built on top of
+[sanitize.css](https://github.com/csstools/sanitize.css), with some of our settings included.
+
+```typescript jsx
+import { ThemeProvider } from 'emotion-theming';
+import { BaseCss, baseTheme } from '@charlietango/ui';
+
+const App = () => (
+  <ThemeProvider theme={baseTheme}>
+    <BaseCss />
+    <App />
+  </ThemeProvider>
+);
+```
+
+In addition to this, it also extracts a few values (if set) from the theme, and defines as global
+defaults.
+
+```css
+html {
+  background-color: 'theme.colors.background';
+  color: 'theme.colors.text';
+  font-family: 'theme.fonts.body';
+}
 ```

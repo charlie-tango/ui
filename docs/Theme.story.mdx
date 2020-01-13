@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { baseTheme } from '../src/theme.ts';
+
+<Meta title="Docs|Theme" />
+
+# Theme
+
+The `theme` is based on the
+[System UI Theme Specification](https://styled-system.com/theme-specification). You can use the base
+theme by importing it from the library - or you can copy the values and adapt it fit your needs.
+
+```typescript
+import { baseTheme } from '@charlietango/ui';
+
+export const theme = { ...baseTheme };
+```
+
+## Base theme [./src/theme.ts](https://github.com/charlie-tango/ui/blob/master/src/theme.ts)
+
+<pre>
+  <code>{JSON.stringify(baseTheme, null, 2)}</code>
+</pre>

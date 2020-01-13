@@ -4,6 +4,7 @@ import { DocsContainer } from '@storybook/addon-docs/dist/blocks';
 import { ThemeProvider } from 'emotion-theming';
 import base from '../src/theme';
 import theme from './ct-theme';
+import { BaseCss } from '../src/BaseCss';
 
 addParameters({
   options: {
@@ -14,12 +15,13 @@ addParameters({
   docs: {
     container: ({ children, context }) => (
       <DocsContainer context={context}>
-        <ThemeProvider theme={base}>{children}</ThemeProvider>
+        <ThemeProvider theme={base}>
+          <BaseCss />
+          {children}
+        </ThemeProvider>
       </DocsContainer>
     ),
   },
 });
 
-addDecorator(storyFn => (
-  <ThemeProvider theme={base}>{storyFn()}</ThemeProvider>
-));
+addDecorator(storyFn => <ThemeProvider theme={base}>{storyFn()}</ThemeProvider>);

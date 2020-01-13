@@ -19,22 +19,33 @@ centered on the page.
 
 ## Configuration
 
-The default styling for the `<Container />` can be controlled by setting the values on the theme.
-Use this to provide the `max-width` and `padding` values you are generally using on the site.
+The max width for the `<Container />` can be controlled by setting the `sizes` value on the theme.
 
 ```js
 const theme = {
-  variants: {
+  sizes: {
     container: {
       maxWidth: 1280,
-      px: [3, 4, null, 6],
     },
   },
 };
 ```
 
-Like all other styles, values can be responsive. Use to this change the padding for various
-breakpoints.
+### Variants
+
+Container variants can be defined in the `theme.layout` object. The Container component uses
+`theme.layout.container` as its default variant style. Like all other styles, values can be
+responsive. Use to this change the padding for various breakpoints.
+
+```js
+const theme = {
+  layout: {
+    container: {
+      px: [3, 4, null, 6],
+    },
+  },
+};
+```
 
 ### API
 

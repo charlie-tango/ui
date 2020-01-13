@@ -287,13 +287,34 @@ unique props.
 
 <Props of={Grid} exclude={allBoxExcludedProps} />
 
-The `<Grid>` has a default `variant` value set to `grid`, that you can use to modify the default
+The `<Grid>` has the default `variant` value `grids.grid` - you can use it to modify the default
 styling. This can be useful to set a `gridGap` globally that matches the design style guide.
 
 ```typescript
 const theme = {
-  variants: {
+  grids: {
     grid: {
+      gridGap: [15, 20, 30],
+    },
+  },
+};
+```
+
+If needed, you can define different types of grid variants in this object - It's recommended to use
+`enum` values to keep it typed.
+
+```typescript
+export enum GridVariant {
+  Default = 'grid',
+  Layout = 'layout',
+}
+
+const theme = {
+  grids: {
+    [GridVariant.Default]: {
+      gridGap: 0,
+    },
+    [GridVariant.Layout]: {
       gridGap: [15, 20, 30],
     },
   },

@@ -62,6 +62,7 @@ const config = { transformIgnorePatterns: ['/node_modules/(?!@charlietango).+\\.
 
 ### Related libraries
 
+- [emotion](https://emotion.sh)
 - [styled-system](https://styled-system.com/)
 
 ## Publish

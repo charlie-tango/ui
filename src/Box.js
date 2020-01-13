@@ -11,17 +11,12 @@ const variant = ({ theme, variant, tx = 'variants' }) =>
 
 /**
  * The Box matches the Rebass implementation.
- * It's written .js with the types moved to a d.ts files, since it was just
+ * It's written in .js with the types moved to a d.ts files, since it was just
  * causing to much of a headache to try and solve the type matching.
  */
 export const Box = styled('div', {
   shouldForwardProp,
 })(
-  {
-    boxSizing: 'border-box',
-    margin: 0,
-    minWidth: 0,
-  },
   base,
   variant,
   sx,
