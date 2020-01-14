@@ -1,0 +1,22 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { VisuallyHidden } from '../index';
+import { divProps } from './prop-values.ts';
+
+<Meta title="Components|Visually Hidden" component={VisuallyHidden} />
+
+# Visually Hidden
+
+If you just set `display: none;` or `[hidden]` on elements, it will prevent it from being found by
+screen readers. Instead hide the content with styling, but keep it readable for screen readers. Read
+[how to hide content](https://a11yproject.com/posts/how-to-hide-content/) for more insights.
+
+## Usage
+
+```jsx harmony
+import { VisuallyHidden } from '@charlietango/ui';
+
+const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidden>;
+```
+
+It intentionally doesn't expose any of the normal `<Box />` properties, since you shouldn't need to
+to style it further.

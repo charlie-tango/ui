@@ -28,7 +28,7 @@ npm install @charlietango/ui
 | Accordion      | Todo       |
 | Tabs           | Todo       |
 | Modal          | Todo       |
-| VisuallyHidden | Todo       |
+| VisuallyHidden | ✅       |
 
 ### Bundling
 

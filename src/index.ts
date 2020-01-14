@@ -5,6 +5,7 @@ export * from './Grid';
 export * from './Text';
 export * from './Heading';
 export * from './theme';
+export * from './VisuallyHidden';
 
 /**
  * Export the `css` prop as `sx` to avoid confusing it with the `Emotion` css prop.

@@ -56,6 +56,21 @@ const Example = () => (
 );
 ```
 
-### API
+### Making reusable components
 
-<Props of={Box} exclude={[...divProps, '__themeKey', '__css', 'key', 'ref']} />
+When building components that style the `<Box />`, and expose them, you can use the `__css` prop to
+set the default styling values. These will be be merged with any values defined on `sx`, `css` or as
+props, and converted it to the final class name. If you were to just use the `sx` property, then the
+default styles would be overwritten the moment the consumer sets `sx`.
+
+See other UI components for more examples, like the `<Heading>` here, that resets the `my` value:
+
+```jsx harmony
+export const Heading = props => (
+  <Box as="h2" __themeKey="text" variant="heading" __css={{ my: 0 }} {...props} />
+);
+```
+
+## API
+
+<Props of={Box} exclude={[...divProps, 'key', 'ref']} />

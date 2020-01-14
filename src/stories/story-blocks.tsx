@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, BoxProps } from '../';
 
-export const Item = (props: BoxProps) => {
+export const Item = ({ ...props }: BoxProps) => {
   return (
     <Box
-      sx={{
+      __css={{
         fontFamily: 'system-ui, sans-serif',
         boxSizing: 'border-box',
         padding: '1rem 0.25rem',
