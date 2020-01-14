@@ -21,6 +21,15 @@ or NPM:
 npm install @charlietango/ui
 ```
 
+### Planned components
+
+| **Component**  | **Status** |
+| -------------- | ---------- |
+| Accordion      | Todo       |
+| Tabs           | Todo       |
+| Modal          | Todo       |
+| VisuallyHidden | Todo       |
+
 ### Bundling
 
 The library is built for **ESNext**, and does not contain a **CommonJS** build. This means you will
