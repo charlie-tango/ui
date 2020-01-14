@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
 import styled from '@emotion/styled';
-import { system, ResponsiveValue, Scale } from 'styled-system';
-import { Box, BoxProps } from './Box';
+import { system, ResponsiveValue, Scale, MarginProps, PaddingProps } from 'styled-system';
+import { BaseProps, Box } from './Box';
 import { isNumber } from './utils';
 
 type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
-export interface GridProps {
+export interface GridProps extends BaseProps, PaddingProps {
   gridGap?: ResponsiveValue<string | number>;
   gridColumns?: GridCols | GridCols[];
   forceFlexBox?: boolean;
@@ -20,7 +20,7 @@ interface GridWrapperProps {
   flexWidthOffset?: ResponsiveValue<string | number>;
 }
 
-export interface GridItemProps {
+export interface GridItemProps extends BaseProps, MarginProps {
   /** Number of columns this item should span */
   col: GridCols | GridCols[];
   /** @internal */
@@ -122,14 +122,14 @@ const StyledGrid = styled(Box)<GridWrapperProps>(
       : undefined,
 );
 
-export const Grid: React.FC<GridProps & BoxProps> = forwardRef<HTMLDivElement, GridProps>(
+export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
   ({ children, gridGap, gridColumns, forceFlexBox, ...rest }, ref) => {
     return (
       <StyledGrid
         ref={ref}
         variant="grid"
         {...rest}
-        tx="grids"
+        __themeKey="grids"
         forceFlexBox={forceFlexBox}
         flexWidthOffset={gridGap}
         flexGap={gridGap}
@@ -195,21 +195,20 @@ const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | G
   }
 };
 
-export const GridItem: React.FC<GridItemProps & BoxProps> = forwardRef<
-  HTMLDivElement,
-  GridItemProps
->(({ col, gridColumns, ...rest }, ref) => {
-  return (
-    <StyledGridItem
-      ref={ref}
-      flexCol={calculateFlexCols(col, gridColumns)}
-      gridCol={col}
-      tx="grids"
-      variant="gridItem"
-      {...rest}
-    />
-  );
-});
+export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, GridItemProps>(
+  ({ col, gridColumns, ...rest }, ref) => {
+    return (
+      <StyledGridItem
+        ref={ref}
+        flexCol={calculateFlexCols(col, gridColumns)}
+        gridCol={col}
+        __themeKey="grids"
+        variant="gridItem"
+        {...rest}
+      />
+    );
+  },
+);
 
 GridItem.defaultProps = {
   col: 1,

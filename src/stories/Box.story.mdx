@@ -6,9 +6,9 @@ import { divProps } from './prop-values.ts';
 
 # Box
 
-The `<Box />` is the building block that gives us the features of `styled-system`. It's a
-reimplementation of the of the [Rebass Box](https://rebassjs.org/box), and should be used in the
-same manner.
+The `<Box />` is the building block that gives us the features of `styled-system`. It's a stripped
+down version of the of the [Rebass Box](https://rebassjs.org/box), exposing only the space props,
+`sx` and `variants`.
 
 ## Usage
 
@@ -16,25 +16,16 @@ same manner.
 import { Box } from '@charlietango/ui';
 ```
 
-### Using props to style
-
-<Preview>
-  <Box p={5} fontSize={4} width={[1, 1, 0.5]} color="white" bg="blue">
-    Box
-  </Box>
-</Preview>
-
-### Using the `sx` prop
+### Styling with `sx` prop
 
 The `sx` property allows you to apply styles from a CSS object, while still being able to access the
 [styled-system](https://styled-system.com/) theme values. So you can use arrays to define the
 responsive values.
 
-Note that it doesn't have all of the same transformation methods, so some values will be transformed
-differently from setting the value on the `<Box / >`. As an example, the `width` property doesn't
-transform values between 0 and 1 to percentages.
+```jsx harmony
+import { Box } from '@charlietango/ui';
 
-<Preview>
+const Example = () => (
   <Box
     sx={{
       p: 5,
@@ -46,8 +37,25 @@ transform values between 0 and 1 to percentages.
   >
     Box
   </Box>
-</Preview>
+);
+```
+
+### Margin & padding
+
+To make it easy to modify the `padding` and `margin` of components, the `<Box>` allows you to set
+them as props. They can all be set using the shorthand naming (like `p`, `py`, `pl`, etc.) See the
+API for more details.
+
+```jsx harmony
+import { Box } from '@charlietango/ui';
+
+const Example = () => (
+  <Box m={5} py={[3, 4]}>
+    Space Box
+  </Box>
+);
+```
 
 ### API
 
-<Props of={Text} exclude={[...divProps, 'tx', '__css', 'key', 'ref']} />
+<Props of={Box} exclude={[...divProps, '__themeKey', '__css', 'key', 'ref']} />

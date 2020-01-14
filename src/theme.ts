@@ -18,7 +18,6 @@ export interface UITheme extends Theme {
 
 export const baseTheme: UITheme = {
   breakpoints: [
-    '30em', // 480px - Mobile and above
     '48em', // 768px - Tablets portrait and above
     '62em', // 992px - Tablets landscape and above
     '80em', // 1280px - Desktops up to 13' and above
@@ -33,9 +32,7 @@ export const baseTheme: UITheme = {
   },
   text: {},
   sizes: {
-    container: {
-      maxWidth: 1280,
-    },
+    container: 1280,
   },
   layout: {
     container: {
