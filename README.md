@@ -28,7 +28,7 @@ npm install @charlietango/ui
 | Accordion      | Todo       |
 | Tabs           | Todo       |
 | Modal          | Todo       |
-| VisuallyHidden | ✅       |
+| VisuallyHidden | ✅         |
 
 ### Bundling
 
@@ -74,7 +74,34 @@ const config = { transformIgnorePatterns: ['/node_modules/(?!@charlietango).+\\.
 - [emotion](https://emotion.sh)
 - [styled-system](https://styled-system.com/)
 
-## Publish
+## Contributing
+
+### Storybook development
+
+All the components should be documented using Storybook. We are using the Storybook MDX format to
+ensure we have examples alongside the documentation.
+
+### Testing in another project
+
+You can use [`yarn link`](https://yarnpkg.com/lang/en/docs/cli/link/) to test changes to the library
+in another one of your projects.
+
+In the `charlie-tango/ui` project run:
+
+```shell script
+yarn link
+yarn dev:watch
+```
+
+In the consuming test project, link the project:
+
+```shell script
+yarn link "@charlietango/ui"
+```
+
+You will now be able to see changes immediately.
+
+### Publish
 
 We are using [semantic-release](https://github.com/semantic-release/semantic-release) to
 automatically publish a new package, whenever we merge to `master`. It's important to use the

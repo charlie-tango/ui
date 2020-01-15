@@ -19,7 +19,6 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "jsx": "react",
-    "noEmit": true,
     "isolatedModules": true
   },
   "include": [
@@ -28,6 +27,10 @@
   "exclude": [
     "node_modules",
     "lib",
-    "dist"
+    "dist",
+    "src/stories/**/*",
+    "src/__tests__/**/*",
+    "**/*.story.tsx",
+    "**/*.test.*"
   ]
 }
