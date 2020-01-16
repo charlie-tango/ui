@@ -37,6 +37,46 @@ export const sanitize = css`
 
   /* Grouping content
  * ========================================================================== */
+  /**
+ * Remove the margin on nested lists in Chrome, Edge, IE, and Safari.
+ */
+
+  dl dl,
+  dl ol,
+  dl ul,
+  ol dl,
+  ul dl {
+    margin: 0;
+  }
+
+  /**
+ * Remove the margin on nested lists in Edge 18- and IE.
+ */
+
+  ol ol,
+  ol ul,
+  ul ol,
+  ul ul {
+    margin: 0;
+  }
+
+  /**
+ * 1. Add the correct sizing in Firefox.
+ * 2. Show the overflow in Edge 18- and IE.
+ */
+
+  hr {
+    height: 0; /* 1 */
+    overflow: visible; /* 2 */
+  }
+
+  /**
+ * Add the correct display in IE.
+ */
+
+  main {
+    display: block;
+  }
 
   /**
  * 1. Add the correct sizing in Firefox.
