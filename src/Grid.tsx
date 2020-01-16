@@ -107,7 +107,6 @@ const StyledGrid = styled(Box)<GridWrapperProps>(
     display: 'flex',
     boxSizing: 'border-box',
     flexWrap: 'wrap',
-    margin: 0,
   },
   flexGridConfig,
   props =>
@@ -153,7 +152,6 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
 
 Grid.defaultProps = {
   gridColumns: 12,
-  gridGap: 0,
 };
 
 Grid.displayName = 'Grid';

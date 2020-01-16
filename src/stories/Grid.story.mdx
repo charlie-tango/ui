@@ -79,18 +79,38 @@ the `<Grid>` with a collection of `<GridItem>` elements.
 Since the `<Grid>` is built using [styled-system](), the `gridGap` and `col` values accept a
 responsive value - Like the breakpoints array.
 
-<Preview name="Responsive grid">
-  <Grid gridGap={[16, 32]}>
-    <GridItem col={[12, 6, 8]}>
-      <Item>xs=12, md=6, lg=8</Item>
-    </GridItem>
-    <GridItem col={[6, 3, 2]}>
-      <Item>xs=6, md=3, lg=2</Item>
-    </GridItem>
-    <GridItem col={[6, 3, 2]}>
-      <Item>xs=6, md=3, lg=2</Item>
-    </GridItem>
-  </Grid>
+<Preview>
+  <Story name="Responsive grid">
+    <Grid gridGap={[16, 32]}>
+      <GridItem col={[12, 6, 8]}>
+        <Item>xs=12, md=6, lg=8</Item>
+      </GridItem>
+      <GridItem col={[6, 3, 2]}>
+        <Item>xs=6, md=3, lg=2</Item>
+      </GridItem>
+      <GridItem col={[6, 3, 2]}>
+        <Item>xs=6, md=3, lg=2</Item>
+      </GridItem>
+    </Grid>
+  </Story>
+</Preview>
+
+### Offset columns grid
+
+<Preview>
+  <Story name="Offset grid">
+    <Grid gridGap="24px">
+      <GridItem col={8} colOffset={4}>
+        <Item>col=8 - offset=4</Item>
+      </GridItem>
+      <GridItem col={[3, 2]} colOffset={[3, 4]}>
+        <Item>col=3,2 - offset=3,4</Item>
+      </GridItem>
+      <GridItem col={[3, 2]} colOffset={[3, 4]}>
+        <Item>col=3,2 - offset=3,4</Item>
+      </GridItem>
+    </Grid>
+  </Story>
 </Preview>
 
 ### Grid columns
