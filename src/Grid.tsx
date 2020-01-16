@@ -4,11 +4,14 @@ import { system, ResponsiveValue, Scale, MarginProps, PaddingProps } from 'style
 import { BaseProps, Box } from './Box';
 import { isNumber } from './utils';
 
-type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
+type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
 export interface GridProps extends BaseProps, PaddingProps {
+  /** The gap between each item */
   gridGap?: ResponsiveValue<string | number>;
+  /** The total amount of columns in the grid. */
   gridColumns?: GridCols | GridCols[];
+  /** Force the flexbox fallback rendering - Useful to debug layout issues with the Flexbox implementation */
   forceFlexBox?: boolean;
 }
 
@@ -21,7 +24,10 @@ interface GridWrapperProps {
 }
 
 export interface GridItemProps extends BaseProps, MarginProps {
-  /** Number of columns this item should span */
+  /** Number of columns this item should span.
+   *
+   * Setting the value as `0` or `undefined` will set `display: none`, removing the item from they layout.
+   * */
   col: GridCols | GridCols[];
   /** @internal */
   gridColumns?: GridCols | GridCols[];
@@ -31,6 +37,7 @@ interface GridItemInternalProps {
   forceFlexBox?: boolean;
   flexCol?: string | (string | null | undefined)[] | null;
   gridCol?: GridCols | GridCols[];
+  hideCol?: GridCols | GridCols[];
   flexGap?: ResponsiveValue<string | number>;
 }
 
@@ -99,6 +106,10 @@ const flexGridItemConfig = system({
       if (!value) return undefined;
       return `span ${value}`;
     },
+  },
+  hideCol: {
+    property: 'display',
+    transform: value => (!value ? 'none' : 'block'),
   },
 });
 
@@ -185,12 +196,14 @@ const mapGridColumn = (key: number, gridColumns: GridCols | GridCols[]) => {
 const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | GridCols[] = 12) => {
   if (Array.isArray(col)) {
     return col.map((val, index) =>
-      val ? (val / mapGridColumn(index, gridColumns)) * 100 + '%' : val,
+      val ? (val / mapGridColumn(index, gridColumns)) * 100 + '%' : undefined,
     );
   }
   if (col) {
     return (col / mapGridColumn(0, gridColumns)) * 100 + '%';
   }
+
+  return undefined;
 };
 
 export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, GridItemProps>(
@@ -198,10 +211,11 @@ export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, Grid
     return (
       <StyledGridItem
         ref={ref}
-        flexCol={calculateFlexCols(col, gridColumns)}
-        gridCol={col}
         __themeKey="grids"
         variant="gridItem"
+        flexCol={calculateFlexCols(col, gridColumns)}
+        gridCol={col}
+        hideCol={col}
         {...rest}
       />
     );
