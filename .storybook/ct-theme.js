@@ -1,10 +1,9 @@
 import { create } from '@storybook/theming';
-import pck from '../package';
 
 export default create({
   base: 'light',
   brandTitle: 'Charlie Tango UI',
-  brandUrl: pck.repository ? pck.repository.url : null,
+  brandUrl: 'https://github.com/charlie-tango/ui',
   brandImage: 'CT_Logo.svg',
 
   // UI

@@ -58,9 +58,4 @@ const variant = ({ theme, variant, __themeKey = 'variants' }: Props) =>
 /**
  * The Box hooks into some of the features from styled-system
  */
-export const Box: React.FC<BoxProps> = styled.div<BoxProps>`
-  ${base};
-  ${sx};
-  ${variant};
-  ${space};
-`;
+export const Box: React.FC<BoxProps> = styled.div<BoxProps>(base, sx, variant, space);
