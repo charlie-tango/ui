@@ -1,5 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Grid, GridItem } from '../index';
+import { ThemeProvider } from 'emotion-theming';
 import { Item, Warning } from './story-blocks';
 import { allBoxExcludedProps } from './prop-values.ts';
 
@@ -71,6 +72,38 @@ the `<Grid>` with a collection of `<GridItem>` elements.
         <Item>col=1</Item>
       </GridItem>
     </Grid>
+  </Story>
+</Preview>
+
+### Grid with default gridGap
+
+<Preview>
+  <Story name="Theme grid">
+    <ThemeProvider theme={{ grids: { grid: { gridGap: 24 } } }}>
+      <Grid>
+        <GridItem col={12}>
+          <Item>col=12</Item>
+        </GridItem>
+        <GridItem col={6}>
+          <Item>col=6</Item>
+        </GridItem>
+        <GridItem col={6}>
+          <Item>col=6</Item>
+        </GridItem>
+        <GridItem col={3}>
+          <Item>col=3</Item>
+        </GridItem>
+        <GridItem col={3}>
+          <Item>col=3</Item>
+        </GridItem>
+        <GridItem col={3}>
+          <Item>col=3</Item>
+        </GridItem>
+        <GridItem col={3}>
+          <Item>col=3</Item>
+        </GridItem>
+      </Grid>
+    </ThemeProvider>
   </Story>
 </Preview>
 

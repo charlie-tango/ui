@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { system, ResponsiveValue, Scale, MarginProps, PaddingProps } from 'styled-system';
 import { BaseProps, Box } from './Box';
 import { isNumber } from './utils';
+import { useTheme } from 'emotion-theming';
+import { UITheme } from './theme';
 
 type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
@@ -13,6 +15,7 @@ export interface GridProps extends BaseProps, PaddingProps {
   gridColumns?: GridCols | GridCols[];
   /** Force the flexbox fallback rendering - Useful to debug layout issues with the Flexbox implementation */
   forceFlexBox?: boolean;
+  variant?: string;
 }
 
 interface GridWrapperProps {
@@ -133,11 +136,22 @@ const StyledGrid = styled(Box)<GridWrapperProps>(
 );
 
 export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
-  ({ children, gridGap, gridColumns, forceFlexBox, ...rest }, ref) => {
+  ({ children, gridGap, gridColumns, forceFlexBox, variant = 'grid', ...rest }, ref) => {
+    const theme = useTheme<UITheme>();
+
+    // Override the default variant lookup method here.
+    // Do this because we need to ensure that gridGap is split out into different values, and passed correctly to the children
+    const gridVariant =
+      theme && theme.grids && variant
+        ? (theme.grids[variant] as { gridGap: ResponsiveValue<number | string> })
+        : undefined;
+
+    gridGap = gridGap || (gridVariant && gridVariant.gridGap) || 0;
+
     return (
       <StyledGrid
         ref={ref}
-        variant="grid"
+        variant={variant}
         {...rest}
         __themeKey="grids"
         forceFlexBox={forceFlexBox}
