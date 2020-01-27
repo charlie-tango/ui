@@ -16,8 +16,9 @@ import { Text } from '@charlietango/ui';
 ```
 
 To modify the styling, you should could variants to the `text` area in the theme - preferably using
-a `TextVariant` enum as the key. It might also make sense to wrap the <Text /> inside another
-component that, sets the styling.
+a `TextVariant` enum as the key. It might also make sense to wrap the `<Text />` inside another
+component that, sets the styling. By default the `text.body` variant is used, but it will be
+replaced if you set a custom value.
 
 ```typescript
 export enum TextVariant {

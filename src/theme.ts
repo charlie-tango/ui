@@ -24,7 +24,18 @@ export const baseTheme: UITheme = {
     '90em', // 1440px - Max width, desktops HD and above
   ],
   space: [0, 4, 8, 16, 20, 24, 32, 40, 48, 64],
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
+  fontSizes: [
+    '0.75rem', // 12px
+    '0.875rem', // 14px
+    '1rem', // 16px
+    '1.25rem', // 20px
+    '1.5rem', //24px
+    '1.75rem', //28px
+    '2rem', // 32px
+    '2.5rem', // 40px,
+    '3rem', // 48px,
+    '4rem', // 64px,
+  ],
   fonts: {
     body: `-apple-system, '.SFNSText-Regular', 'San Francisco', BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;`,
     heading: 'body',
