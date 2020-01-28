@@ -6,7 +6,7 @@ import { isNumber } from './utils';
 import { useTheme } from 'emotion-theming';
 import { UITheme } from './theme';
 
-type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
+export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
 export interface GridProps extends BaseProps, PaddingProps {
   /** The gap between each item */
