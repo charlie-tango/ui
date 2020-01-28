@@ -4,6 +4,7 @@ export * from './Container';
 export * from './Grid';
 export * from './Text';
 export * from './Heading';
+export * from './Portal';
 export * from './theme';
 export * from './VisuallyHidden';
 

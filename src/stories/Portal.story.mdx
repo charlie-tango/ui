@@ -1,0 +1,53 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Portal, Box, Text } from '../index';
+
+<Meta title="Components/Portal" component={Portal} />
+
+<Box mt={[6, 0]} />
+
+# Portal
+
+> Read the [Portals documentation](https://reactjs.org/docs/portals.html) on React for more details
+
+The `<Portal />` component allows you to render an element at the root the website, by creating a
+new container element and rendering the content using `createPortal`. This is useful as the basis
+for other components like a Modal.
+
+The containing `<div>` has no styling attached to it. You can identify it by the `data-portal`
+attribute, that will have the value of the `id` you supplied (or an empty string).
+
+## Usage
+
+```jsx harmony
+const Example = () => {
+  return (
+    <Portal>
+      <Text>
+        This is the content inside the Portal that's mounted at the root of the document container.
+      </Text>
+    </Portal>
+  );
+};
+```
+
+<Portal>
+  <Box
+    sx={{
+      border: '1px solid black',
+      position: 'absolute',
+      top: 3,
+      right: 3,
+      left: [3, '50%'],
+      bg: '#f4f4f4',
+    }}
+    p={3}
+  >
+    <Text>
+      This is the content inside the Portal that's mounted at the root of the document container.
+    </Text>
+  </Box>
+</Portal>
+
+### API
+
+<Props of={Portal} />

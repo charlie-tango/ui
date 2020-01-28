@@ -11,6 +11,7 @@ addParameters({
     theme,
     isFullscreen: false,
     panelPosition: 'bottom',
+    showRoots: true,
   },
   docs: {
     container: ({ children, context }) => (
