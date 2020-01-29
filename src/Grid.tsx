@@ -153,7 +153,7 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
         ref={ref}
         variant={variant}
         {...rest}
-        __themeKey="grids"
+        themeKey="grids"
         forceFlexBox={forceFlexBox}
         flexWidthOffset={gridGap}
         flexGap={gridGap}
@@ -225,7 +225,7 @@ export const GridItem: React.FC<GridItemProps> = forwardRef<HTMLDivElement, Grid
     return (
       <StyledGridItem
         ref={ref}
-        __themeKey="grids"
+        themeKey="grids"
         variant="gridItem"
         flexCol={calculateFlexCols(col, gridColumns)}
         gridCol={col}

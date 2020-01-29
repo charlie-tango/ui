@@ -19,9 +19,9 @@ export interface BaseProps extends React.RefAttributes<any> {
 
 interface BoxKnownProps extends BaseProps, StyledSystem.SpaceProps {
   /**
-   * @private The __themeKey prop sets the default lookup area for `variant` values. By default it is `variants`.
+   * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `variants`.
    */
-  __themeKey?: string | undefined;
+  themeKey?: string | undefined;
 }
 
 export interface BoxProps
@@ -34,8 +34,8 @@ interface Props extends BoxProps {
 
 const sx = (props: Props) => css(props.sx)(props.theme);
 
-const variant = ({ theme, variant, __themeKey = 'variants' }: Props) =>
-  css(get(theme, __themeKey + '.' + variant, get(theme, variant as string | string[])))(theme);
+const variant = ({ theme, variant, themeKey = 'variants' }: Props) =>
+  css(get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])))(theme);
 
 /**
  * The Box hooks into some of the features from styled-system

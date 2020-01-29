@@ -10,7 +10,7 @@ export const Button: React.FC<BoxProps> = forwardRef<
     as="button"
     variant="default"
     {...props}
-    __themeKey="buttons"
+    themeKey="buttons"
     sx={{
       display: 'inline-block',
       m: 0,

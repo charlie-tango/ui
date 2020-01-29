@@ -1,5 +1,6 @@
 export * from './AspectRatio';
 export * from './Box';
+export * from './BaseCss';
 export * from './Button';
 export * from './Container';
 export * from './Dialog';

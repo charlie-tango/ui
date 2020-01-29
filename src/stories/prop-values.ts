@@ -1,8 +1,7 @@
 export const boxProps = [
   'sx',
   'css',
-  '__themeKey',
-  '__css',
+  'themeKey',
   'theme',
   'variant',
   'width',

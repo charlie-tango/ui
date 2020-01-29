@@ -36,7 +36,7 @@ export const Dialog = ({
           ref={ref}
           variant="container"
           {...rest}
-          __themeKey="dialog"
+          themeKey="dialog"
           sx={{
             position: 'fixed',
             left: 0,
@@ -77,7 +77,7 @@ export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement, Box
       ref={ref}
       variant="backdrop"
       {...props}
-      __themeKey="dialog"
+      themeKey="dialog"
       sx={{
         position: 'absolute',
         left: 0,
@@ -102,7 +102,7 @@ export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxP
         // Stop click events here, so they trigger the backdrop dismiss
         event.stopPropagation();
       }}
-      __themeKey="dialog"
+      themeKey="dialog"
       sx={{
         position: 'relative',
         margin: '0 auto',
