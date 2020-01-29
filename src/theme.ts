@@ -5,6 +5,11 @@ export interface UITheme extends Theme {
   layout?: {
     container?: SystemStyleObject;
   };
+  dialog?: {
+    container?: SystemStyleObject;
+    backdrop?: SystemStyleObject;
+    content?: SystemStyleObject;
+  };
   grids?: {
     [key: string]: SystemStyleObject | undefined;
   };
@@ -48,6 +53,14 @@ export const baseTheme: UITheme = {
   layout: {
     container: {
       px: 4,
+    },
+  },
+  dialog: {
+    container: {
+      zIndex: 1,
+    },
+    backdrop: {
+      background: `rgba(0,0,0,0.3)`,
     },
   },
 };

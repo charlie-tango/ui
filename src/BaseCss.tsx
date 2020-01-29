@@ -470,14 +470,6 @@ export const sanitize = css`
     clip: rect(0, 0, 0, 0);
     position: absolute;
   }
-
-  /*
-    This will hide the focus indicator if the element receives focus via the mouse,
-    but it will still show up on keyboard focus.
-  */
-  :focus:not([data-focus-visible-added]) {
-    outline: none;
-  }
 `;
 
 export const BaseCss = () => (

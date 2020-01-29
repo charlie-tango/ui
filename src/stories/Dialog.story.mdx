@@ -1,0 +1,148 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Dialog, DialogContent, DialogBackdrop, Box, Text, Heading } from '../index';
+import { allBoxExcludedProps } from './prop-values.ts';
+
+<Meta title="Components/Dialog (Modal)" component={Dialog} />
+
+# Dialog <sup>(Modal)</sup>
+
+## Usage
+
+```jsx
+const DialogExample = () => {
+  const [isOpen, setOpen] = React.useState(false);
+  const onDismiss = () => setOpen(false);
+
+  return (
+    <Dialog isOpen={isOpen} onDismiss={onDismiss}>
+      <DialogBackdrop />
+      <DialogContent aria-labelledby="dialog-header" sx={{ bg: 'white', p: 3, borderRadius: 4 }}>
+        <Heading id="dialog-header">Example dialog</Heading>
+        <Text my={3}>
+          The dialog can present content as needed here. Make sure you style it according to your
+          needs.
+        </Text>
+        <button onClick={onDismiss}>Ok</button>
+      </DialogContent>
+    </Dialog>
+  );
+};
+```
+
+export const OpenState = ({ children }) => {
+  const [isOpen, setOpen] = React.useState(false);
+  return (
+    <div>
+      <button onClick={() => setOpen(!isOpen)}>Toggle modal</button>
+      {children({ isOpen, onDismiss: () => setOpen(false) })}
+    </div>
+  );
+};
+
+### Example
+
+<Preview>
+  <OpenState>
+    {({ isOpen, onDismiss }) => (
+      <Dialog isOpen={isOpen} onDismiss={onDismiss}>
+        <DialogBackdrop />
+        <DialogContent aria-labelledby="dialog-header" sx={{ bg: 'white', p: 3, borderRadius: 4 }}>
+          <Heading id="dialog-header">Example dialog</Heading>
+          <Text my={3}>The dialog can present content as needed here.</Text>
+          <button onClick={onDismiss}>Ok</button>
+        </DialogContent>
+      </Dialog>
+    )}
+  </OpenState>
+</Preview>
+
+### ARIA
+
+The dialog is built to comply with requirements for a
+[Dialog (Modal)](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal). It takes care of most
+of the heavy lifting, but when implementing the Dialog in your application, you still need to handle
+a few things.
+
+For the dialog to be fully accessible, it's important that you supply a valid `aria-label` or
+`aria-labelledby` to the `<DialogContent>` element. This label should be the title of the dialog
+(e.g. what you show in the heading element). If you are rendering the text, you should always use
+the `aria-labelledby` option. Only use the `aria-label` when the title is visually hidden.
+
+#### `aria-labelledby`
+
+> 💡 Use [@charlietango/use-id](https://www.npmjs.com/package/@charlietango/use-id) to generate a
+> unique id.
+
+```jsx
+<DialogContent aria-labelledby="unique-header-id">
+  <Heading id="unique-header-id">Dialog title</Heading>
+  <Text>Grandis, flavum eleatess recte contactus de nobilis, teres exemplar.</Text>
+</DialogContent>
+```
+
+#### `aria-label`
+
+```jsx
+<DialogContent aria-label="Hidden title of dialog">...</DialogContent>
+```
+
+#### Tabbable Elements
+
+Make sure to include at least one tabbable button (e.g. `<button>`) inside the `<DialogContent />`.
+If no tabbable elements are found, the `<DialogContent />` element itself will receive focus, so you
+can still hit `Escape` to dismiss the dialog.
+
+### Animation
+
+The dialog just renders plain HTML elements, but there's nothing preventing you from adding
+animations. You can achieve animations using plain CSS transitions or using an animation library.
+
+If you need to trigger an out animation, make sure to keep the `<Dialog />` open until it's fully
+closed.
+
+## API
+
+### Dialog
+
+The `<Dialog>` has the default `variant` value `dialog.container` - you can use it to modify the
+default styling if needed. You should mainly need to set the correct `zIndex` value.
+
+<Props of={Dialog} exclude={allBoxExcludedProps} />
+
+The component also inherits the [Box](/?path=/docs/components-box--page#props) props.
+
+### DialogBackdrop
+
+The `<DialogBackdrop>` a simple element, used to add a fill background to the dialog. As such, it's
+set up to fill size width and height of the container you render it in. It has the default `variant`
+value `dialog.background`, that you can you modify to change the default `background`.
+
+You'll generally want to render it as the first element inside the `<Dialog />`, since it should be
+placed below the other elements.
+
+The component inherits the [Box](/?path=/docs/components-box--page#props) props. It currently
+doesn't have any special extra props.
+
+### DialogContent
+
+The `<DialogContent>` is where you place all the content of your dialog. It's the element with the
+`role="dialog"` and `modal="true"` attributes. It has the default `variant` value `dialog.content` -
+you can use it to modify the default styling.
+
+By default it ensures your content doesn't doesn't go outside the width/height of the viewport by
+setting `maxWidth` and `maxHeight` to `100%`. If the content does become larger, it will apply
+overflow scrolling.
+
+You can either style the `<DialogContent>` itself, or create a new element inside that contains your
+styling. This all depends on the exact needs of your application.
+
+<Props
+  of={DialogContent}
+  exclude={allBoxExcludedProps.filter(prop => {
+    if (prop === 'aria-label') return false;
+    if (prop === 'aria-labelledby') return false;
+    return true;
+  })}
+/>
+
+The component also inherits the [Box](/?path=/docs/components-box--page#props) props.
