@@ -6,6 +6,18 @@ import base from '../src/theme';
 import theme from './ct-theme';
 import { BaseCss } from '../src/BaseCss';
 
+const previewTheme = {
+  ...base,
+  buttons: {
+    default: {
+      px: 3,
+      py: 2,
+      background: 'rgb(51,51,51)',
+      color: 'white'
+    },
+  },
+};
+
 addParameters({
   options: {
     theme,
@@ -16,7 +28,7 @@ addParameters({
   docs: {
     container: ({ children, context }) => (
       <DocsContainer context={context}>
-        <ThemeProvider theme={base}>
+        <ThemeProvider theme={previewTheme}>
           <BaseCss />
           {children}
         </ThemeProvider>
@@ -25,4 +37,4 @@ addParameters({
   },
 });
 
-addDecorator(storyFn => <ThemeProvider theme={base}>{storyFn()}</ThemeProvider>);
+addDecorator(storyFn => <ThemeProvider theme={previewTheme}>{storyFn()}</ThemeProvider>);

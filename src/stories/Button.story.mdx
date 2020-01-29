@@ -1,0 +1,61 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Button, Heading } from '../index';
+import { divProps } from './prop-values.ts';
+
+<Meta title="Components/Button" component={Button} />
+
+# Button
+
+The `<Button />` should be as the basis for styled buttons and links in your application. By default
+it will render a `button` element, but use the `as` to change it to an `a` tag if you need to render
+an anchor. It applies a default styling values to ensure the `<button>` behaves like `<a>`.
+
+<Preview>
+  <div>
+    <Button mr={3}>Basic button</Button>
+    <Button as="a" href="#">
+      Link button
+    </Button>
+  </div>
+</Preview>
+
+## Usage
+
+```jsx harmony
+import { Button } from '@charlietango/ui';
+```
+
+To modify the styling, you should add variants to the `buttons` area in the theme - preferably using
+a `ButtonVariant` enum as the key. By default the `buttons.default` variant is used, but it will be
+replaced if you set a custom value.
+
+```typescript
+export enum ButtonVariant {
+  Primary = 'primary',
+}
+
+const theme = {
+  buttons: {
+    default: {
+      px: 3,
+      py: 2,
+      background: 'rgb(51,51,51)',
+      color: 'white',
+    },
+    [ButtonVariant.Primary]: {
+      px: 3,
+      py: 2,
+      background: 'aliceblue',
+      color: 'black',
+    },
+  },
+};
+```
+
+You can then create a primary button like:
+
+```jsx harmony
+<Button variant={ButtonVariant.Primary} onClick={() => {}}>
+  Click me
+</Button>
+```
