@@ -4,7 +4,7 @@ import { Box, BoxProps } from '../';
 export const Item = ({ ...props }: BoxProps) => {
   return (
     <Box
-      __css={{
+      sx={{
         fontFamily: 'system-ui, sans-serif',
         boxSizing: 'border-box',
         padding: '1rem 0.25rem',

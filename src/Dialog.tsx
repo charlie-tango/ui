@@ -23,6 +23,7 @@ export const Dialog = ({
   centerContent,
   onClick,
   onKeyDown,
+  sx,
   ...rest
 }: DialogProps) => {
   const ref = useFocusTrap(isOpen, { focusSelector: initialFocus });
@@ -36,7 +37,7 @@ export const Dialog = ({
           variant="container"
           {...rest}
           __themeKey="dialog"
-          __css={{
+          sx={{
             position: 'fixed',
             left: 0,
             right: 0,
@@ -45,6 +46,7 @@ export const Dialog = ({
             display: centerContent ? 'flex' : 'block',
             justifyContent: 'center',
             alignItems: 'center',
+            ...sx,
           }}
           onKeyDown={event => {
             if (onKeyDown) onKeyDown(event);
@@ -69,44 +71,50 @@ Dialog.defaultProps = {
   centerContent: true,
 };
 
-export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement>((props, ref) => (
-  <Box
-    ref={ref}
-    variant="backdrop"
-    {...props}
-    __themeKey="dialog"
-    __css={{
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-    }}
-  />
-));
+export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
+  ({ sx, ...props }, ref) => (
+    <Box
+      ref={ref}
+      variant="backdrop"
+      {...props}
+      __themeKey="dialog"
+      sx={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        ...sx,
+      }}
+    />
+  ),
+);
 
-export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement>((props, ref) => (
-  <Box
-    aria-modal="true"
-    role="dialog"
-    tabIndex={-1}
-    variant="content"
-    {...props}
-    onClick={event => {
-      // Stop click events here, so they trigger the backdrop dismiss
-      event.stopPropagation();
-    }}
-    __themeKey="dialog"
-    __css={{
-      position: 'relative',
-      margin: '0 auto',
-      maxHeight: '100%',
-      maxWidth: '100%',
-      overflow: 'auto',
-      outline: 'none',
-    }}
-  />
-));
+export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
+  ({ sx, ...props }, ref) => (
+    <Box
+      aria-modal="true"
+      role="dialog"
+      tabIndex={-1}
+      variant="content"
+      {...props}
+      onClick={event => {
+        // Stop click events here, so they trigger the backdrop dismiss
+        event.stopPropagation();
+      }}
+      __themeKey="dialog"
+      sx={{
+        position: 'relative',
+        margin: '0 auto',
+        maxHeight: '100%',
+        maxWidth: '100%',
+        overflow: 'auto',
+        outline: 'none',
+        ...sx,
+      }}
+    />
+  ),
+);
 
 if (process.env.NODE_ENV === 'development') {
   DialogContent.displayName = 'DialogContent';
