@@ -3,7 +3,7 @@ export const isNumber = (n: string | number) => typeof n === 'number' && !isNaN(
 /**
  * Ensure an element has a valid aria-label set, by marking the component propTypes.
  * This will throw a warning when rendered during development.
- * Taken from: https://github.com/reach/reach-ui/blob/master/packages/dialog
+ * Taken from: https://github.com/reach/reach-ui/blob/master/packages/dialog - Thanks!
  * */
 export function ariaLabelPropType(
   props: { [key: string]: any },

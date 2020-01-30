@@ -66,8 +66,8 @@
   "dependencies": {
     "@charlietango/use-client-hydrated": "^1.8.1",
     "@charlietango/use-focus-trap": "^1.2.10",
+    "@emotion/is-prop-valid": "^0.8.6",
     "@styled-system/css": "^5.1.4",
-    "@styled-system/should-forward-prop": "^5.1.4",
     "react-remove-scroll": "^2.2.0",
     "styled-system": "^5.1.4"
   },

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
+import isPropValid from '@emotion/is-prop-valid';
 import { space, default as StyledSystem } from 'styled-system';
-import shouldForwardProp from '@styled-system/should-forward-prop';
 import css, { get, SystemStyleObject } from '@styled-system/css';
 import { InterpolationWithTheme } from '@emotion/core';
 
@@ -46,5 +46,5 @@ const variant = ({ theme, variant, themeKey = 'variants' }: Props) =>
  * The Box hooks into some of the features from styled-system
  */
 export const Box: React.FC<BoxPrivateProps> = styled('div', {
-  shouldForwardProp,
+  shouldForwardProp: isPropValid,
 })<BoxProps>(base, variant, sx, space);
