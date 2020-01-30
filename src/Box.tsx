@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { space, default as StyledSystem } from 'styled-system';
+import shouldForwardProp from '@styled-system/should-forward-prop';
 import css, { get, SystemStyleObject } from '@styled-system/css';
 import { InterpolationWithTheme } from '@emotion/core';
 
@@ -17,21 +18,25 @@ export interface BaseProps extends React.RefAttributes<any> {
   variant?: StyledSystem.ResponsiveValue<string>;
 }
 
-interface BoxKnownProps extends BaseProps, StyledSystem.SpaceProps {
+interface BoxKnownProps extends BaseProps, StyledSystem.SpaceProps {}
+
+export interface BoxProps
+  extends BoxKnownProps,
+    Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+
+export interface BoxPrivateProps extends BoxProps {
+  __css?: SystemStyleObject;
   /**
    * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `variants`.
    */
   themeKey?: string | undefined;
 }
 
-export interface BoxProps
-  extends BoxKnownProps,
-    Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
-
-interface Props extends BoxProps {
+interface Props extends BoxPrivateProps {
   theme: any;
 }
 
+const base = (props: Props) => css(props.__css)(props.theme);
 const sx = (props: Props) => css(props.sx)(props.theme);
 
 const variant = ({ theme, variant, themeKey = 'variants' }: Props) =>
@@ -40,4 +45,6 @@ const variant = ({ theme, variant, themeKey = 'variants' }: Props) =>
 /**
  * The Box hooks into some of the features from styled-system
  */
-export const Box: React.FC<BoxProps> = styled.div<BoxProps>(sx, variant, space);
+export const Box: React.FC<BoxPrivateProps> = styled('div', {
+  shouldForwardProp,
+})<BoxProps>(base, variant, sx, space);

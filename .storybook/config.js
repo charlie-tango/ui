@@ -9,9 +9,7 @@ import { BaseCss } from '../src/BaseCss';
 const previewTheme = {
   ...base,
   buttons: {
-    default: {
-      px: 3,
-      py: 2,
+    primary: {
       background: 'rgb(51,51,51)',
       color: 'white'
     },

@@ -23,7 +23,6 @@ export const Dialog = ({
   centerContent,
   onClick,
   onKeyDown,
-  sx,
   ...rest
 }: DialogProps) => {
   const ref = useFocusTrap(isOpen, { focusSelector: initialFocus });
@@ -37,7 +36,7 @@ export const Dialog = ({
           variant="container"
           {...rest}
           themeKey="dialog"
-          sx={{
+          __css={{
             position: 'fixed',
             left: 0,
             right: 0,
@@ -46,7 +45,6 @@ export const Dialog = ({
             display: centerContent ? 'flex' : 'block',
             justifyContent: 'center',
             alignItems: 'center',
-            ...sx,
           }}
           onKeyDown={event => {
             if (onKeyDown) onKeyDown(event);
@@ -72,26 +70,25 @@ Dialog.defaultProps = {
 };
 
 export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
-  ({ sx, ...props }, ref) => (
+  (props, ref) => (
     <Box
       ref={ref}
       variant="backdrop"
       {...props}
       themeKey="dialog"
-      sx={{
+      __css={{
         position: 'absolute',
         left: 0,
         right: 0,
         top: 0,
         bottom: 0,
-        ...sx,
       }}
     />
   ),
 );
 
 export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
-  ({ sx, ...props }, ref) => (
+  (props, ref) => (
     <Box
       aria-modal="true"
       role="dialog"
@@ -103,14 +100,13 @@ export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxP
         event.stopPropagation();
       }}
       themeKey="dialog"
-      sx={{
+      __css={{
         position: 'relative',
         margin: '0 auto',
         maxHeight: '100%',
         maxWidth: '100%',
         overflow: 'auto',
         outline: 'none',
-        ...sx,
       }}
     />
   ),

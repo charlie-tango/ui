@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Button, Heading } from '../index';
+import { Button, Box, Heading } from '../index';
 import { divProps } from './prop-values.ts';
 
 <Meta title="Components/Button" component={Button} />
@@ -13,9 +13,10 @@ an anchor. It applies a default styling values to ensure the `<button>` behaves 
 <Preview>
   <div>
     <Button mr={3}>Basic button</Button>
-    <Button as="a" href="#">
+    <Button mr={3} as="a" href="#">
       Link button
     </Button>
+    <Button as={Box}>Extended Box</Button>
   </div>
 </Preview>
 
@@ -26,7 +27,7 @@ import { Button } from '@charlietango/ui';
 ```
 
 To modify the styling, you should add variants to the `buttons` area in the theme - preferably using
-a `ButtonVariant` enum as the key. By default the `buttons.default` variant is used, but it will be
+a `ButtonVariant` enum as the key. By default the `buttons.primary` variant is used, but it will be
 replaced if you set a custom value.
 
 ```typescript
@@ -36,12 +37,6 @@ export enum ButtonVariant {
 
 const theme = {
   buttons: {
-    default: {
-      px: 3,
-      py: 2,
-      background: 'rgb(51,51,51)',
-      color: 'white',
-    },
     [ButtonVariant.Primary]: {
       px: 3,
       py: 2,
