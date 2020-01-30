@@ -69,6 +69,10 @@ Dialog.defaultProps = {
   centerContent: true,
 };
 
+if (process.env.NODE_ENV === 'development') {
+  Dialog.displayName = 'Dialog';
+}
+
 export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
   (props, ref) => (
     <Box
@@ -87,8 +91,12 @@ export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement, Box
   ),
 );
 
+if (process.env.NODE_ENV === 'development') {
+  DialogBackdrop.displayName = 'DialogBackdrop';
+}
+
 export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
-  (props, ref) => (
+  ({ onClick, ...props }, ref) => (
     <Box
       aria-modal="true"
       role="dialog"
@@ -96,6 +104,7 @@ export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxP
       variant="content"
       {...props}
       onClick={event => {
+        if (onClick) onClick(event);
         // Stop click events here, so they trigger the backdrop dismiss
         event.stopPropagation();
       }}

@@ -3,11 +3,9 @@ import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
 import { space, default as StyledSystem } from 'styled-system';
 import css, { get, SystemStyleObject } from '@styled-system/css';
-import { InterpolationWithTheme } from '@emotion/core';
 
 export interface BaseProps extends React.RefAttributes<any> {
   as?: React.ElementType;
-  css?: InterpolationWithTheme<any>;
   /**
    * The sx prop lets you style elements inline, using values from your theme.
    */
@@ -25,6 +23,10 @@ export interface BoxProps
     Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
 
 export interface BoxPrivateProps extends BoxProps {
+  /**
+   * Use the __css prop to configure the base styling for a component that can be extended further.
+   * These styles will have the lowest priority.
+   */
   __css?: SystemStyleObject;
   /**
    * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `variants`.
