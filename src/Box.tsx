@@ -4,12 +4,14 @@ import isPropValid from '@emotion/is-prop-valid';
 import { space, default as StyledSystem } from 'styled-system';
 import css, { get, SystemStyleObject } from '@styled-system/css';
 
+export type SXStyleProp = SystemStyleObject;
+
 export interface BaseProps extends React.RefAttributes<any> {
   as?: React.ElementType;
   /**
    * The sx prop lets you style elements inline, using values from your theme.
    */
-  sx?: SystemStyleObject;
+  sx?: SXStyleProp;
   /**
    * The variant key from the theme to use for this element.
    * */
@@ -27,7 +29,7 @@ export interface BoxPrivateProps extends BoxProps {
    * Use the __css prop to configure the base styling for a component that can be extended further.
    * These styles will have the lowest priority.
    */
-  __css?: SystemStyleObject;
+  __css?: SXStyleProp;
   /**
    * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `variants`.
    */
