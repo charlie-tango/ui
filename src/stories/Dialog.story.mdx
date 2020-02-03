@@ -44,7 +44,11 @@ export const OpenState = ({ children }) => {
 <Preview>
   <OpenState>
     {({ isOpen, onDismiss }) => (
-      <Dialog isOpen={isOpen} onDismiss={onDismiss}>
+      <Dialog
+        isOpen={isOpen}
+        onDismiss={onDismiss}
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
         <DialogBackdrop />
         <DialogContent aria-labelledby="dialog-header" sx={{ bg: 'white', p: 3, borderRadius: 4 }}>
           <Heading id="dialog-header">Example dialog</Heading>

@@ -8,8 +8,6 @@ import { ariaLabelPropType } from './utils';
 export interface DialogProps extends BoxProps {
   /** When teh user tries to dismiss the dialog, this function will be called. You will need to toggle the open state by responding to this function. */
   onDismiss: () => void;
-  /** Use Flexbox to center the content inside the dialog. You can disable this, or just override the `display: flex` styling itself. */
-  centerContent: boolean;
   /** Set the initial focus to a specific item. By default, it will be set on the first valid focus element, but you can control this by setting a valid querySelector, or specific HTMLElement. */
   initialFocus?: string | HTMLElement;
   /** You can control if dialog is open. It essentially just renders `null` and deactivates the focus trap when false. */
@@ -20,7 +18,6 @@ export const Dialog = ({
   isOpen,
   onDismiss,
   initialFocus,
-  centerContent,
   onClick,
   onKeyDown,
   ...rest
@@ -42,9 +39,6 @@ export const Dialog = ({
             right: 0,
             top: 0,
             bottom: 0,
-            display: centerContent ? 'flex' : 'block',
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
           onKeyDown={event => {
             if (onKeyDown) onKeyDown(event);
