@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { Box } from './Box';
+import { Box, BoxProps } from './Box';
 import { ResponsiveValue, system } from 'styled-system';
 import { isNumber } from './utils';
+import React from 'react';
 
 interface AspectRatioProps {
   /**
@@ -24,7 +25,9 @@ const aspectConfig = system({
   },
 });
 
-export const AspectRatio = styled(Box)<AspectRatioProps>(
+export const AspectRatio: React.FC<AspectRatioProps & BoxProps> = styled(Box)<
+  AspectRatioProps & BoxProps
+>(
   {
     display: 'block',
     position: 'relative',
@@ -32,7 +35,7 @@ export const AspectRatio = styled(Box)<AspectRatioProps>(
   aspectConfig,
 );
 
-export const AspectRatioItem = styled(Box)({
+export const AspectRatioItem: React.FC<BoxProps> = styled(Box)<BoxProps>({
   position: 'absolute',
   top: 0,
   bottom: 0,

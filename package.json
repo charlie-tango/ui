@@ -69,7 +69,8 @@
     "@emotion/is-prop-valid": "^0.8.6",
     "@styled-system/css": "^5.1.4",
     "react-remove-scroll": "^2.2.0",
-    "styled-system": "^5.1.4"
+    "styled-system": "^5.1.4",
+    "tslib": "^1.10.0"
   },
   "peerDependencies": {
     "@emotion/core": ">=10.0.0",
