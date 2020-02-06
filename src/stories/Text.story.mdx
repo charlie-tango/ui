@@ -39,9 +39,29 @@ const theme = {
 
 You could then create a `<p>` like:
 
-```jsx harmony
+```jsx
 <Text variant={TextVariant.paragraph}>
   Amor, exsul, et luna. Heu.Cum ionicis tormento peregrinationes, omnes luraes amor ferox, castus
   calcariaes.
+</Text>
+```
+
+To render a `<span>`:
+
+```jsx
+<Text as="span" variant={TextVariant.inline}>
+  Cur liberi ire?
+</Text>
+```
+
+Text elements can be nested, just like normal HTML elements:
+
+```jsx
+<Text variant={TextVariant.paragraph}>
+  Amor, exsul, et luna.
+  <Text as="span" variant={TextVariant.highlight}>
+    Cur liberi ire?
+  </Text>
+  Ionicis tormento peregrinationes, omnes luraes amor ferox, castus calcariaes.
 </Text>
 ```
