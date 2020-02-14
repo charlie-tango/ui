@@ -12,7 +12,7 @@ export interface UITheme extends Theme {
     content?: SystemStyleObject;
   };
   grids?: {
-    [key: string]: SystemStyleObject & { gridColumns: GridCols | GridCols[] } | undefined;
+    [key: string]: SystemStyleObject & { gridColumns?: GridCols | GridCols[] } | undefined;
   };
   variants?: {
     [key: string]: SystemStyleObject | undefined;
