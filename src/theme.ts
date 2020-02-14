@@ -1,5 +1,6 @@
 import { Theme } from 'styled-system';
 import { SystemStyleObject } from '@styled-system/css';
+import { GridCols } from './Grid';
 
 export interface UITheme extends Theme {
   layout?: {
@@ -11,7 +12,7 @@ export interface UITheme extends Theme {
     content?: SystemStyleObject;
   };
   grids?: {
-    [key: string]: SystemStyleObject | undefined;
+    [key: string]: SystemStyleObject & { gridColumns: GridCols | GridCols[] } | undefined;
   };
   variants?: {
     [key: string]: SystemStyleObject | undefined;

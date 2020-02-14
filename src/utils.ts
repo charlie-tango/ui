@@ -1,4 +1,15 @@
+import css, { get } from '@styled-system/css';
+import { default as StyledSystem } from 'styled-system';
+
 export const isNumber = (n: string | number) => typeof n === 'number' && !isNaN(n);
+
+type VariantProps = {
+  theme: any;
+  variant?: StyledSystem.ResponsiveValue<string>;
+  themeKey?: string;
+};
+export const getVariant = ({ theme, variant, themeKey = 'variants' }: VariantProps) =>
+  css(get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])))(theme);
 
 /**
  * Ensure an element has a valid aria-label set, by marking the component propTypes.
