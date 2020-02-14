@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import styled from '@emotion/styled';
 import { system, ResponsiveValue, Scale, MarginProps, PaddingProps } from 'styled-system';
 import { BaseProps, Box } from './Box';
-import { isNumber } from './utils';
+import { getVariant, isNumber } from './utils';
 import { useTheme } from 'emotion-theming';
 import { UITheme } from './theme';
 
@@ -138,22 +138,25 @@ const StyledGrid = styled(Box)<GridWrapperProps>(
 export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
   ({ children, gridGap, gridColumns, forceFlexBox, variant = 'grid', ...rest }, ref) => {
     const theme = useTheme<UITheme>();
-
     // Override the default variant lookup method here.
     // Do this because we need to ensure that gridGap is split out into different values, and passed correctly to the children
-    const gridVariant =
-      theme && theme.grids && variant
-        ? (theme.grids[variant] as { gridGap: ResponsiveValue<number | string> })
-        : undefined;
+    const { gridGap: variantGridGap, gridColumns: variantGridColumns, ...gridVariant } = getVariant(
+      {
+        theme,
+        variant,
+        themeKey: 'grids',
+      },
+    );
 
-    gridGap = gridGap || (gridVariant && gridVariant.gridGap) || 0;
+    gridGap = gridGap || (variantGridGap as number) || 0;
+    gridColumns = gridColumns || (variantGridColumns as GridCols | GridCols[]) || 12;
 
     return (
       <StyledGrid
         ref={ref}
-        variant={variant}
         {...rest}
-        themeKey="grids"
+        __css={gridVariant}
+        themeKey={'grids'}
         forceFlexBox={forceFlexBox}
         flexWidthOffset={gridGap}
         flexGap={gridGap}
@@ -174,10 +177,6 @@ export const Grid: React.FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(
     );
   },
 );
-
-Grid.defaultProps = {
-  gridColumns: 12,
-};
 
 Grid.displayName = 'Grid';
 
@@ -209,12 +208,25 @@ const mapGridColumn = (key: number, gridColumns: GridCols | GridCols[]) => {
  * */
 const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | GridCols[] = 12) => {
   if (Array.isArray(col)) {
-    return col.map((val, index) =>
-      val ? (val / mapGridColumn(index, gridColumns)) * 100 + '%' : undefined,
-    );
+    return col.map((val, index) => {
+      if (!val) return undefined;
+      const gridColumnSize = mapGridColumn(index, gridColumns);
+      if (process.env.NODE_ENV !== 'production' && val > gridColumnSize) {
+        console.warn(
+          `[grid] Trying to render a column with size ${val} inside a grid with ${gridColumnSize} columns at breakpoint index ${index}.`,
+        );
+      }
+      return (val / gridColumnSize) * 100 + '%';
+    });
   }
   if (col) {
-    return (col / mapGridColumn(0, gridColumns)) * 100 + '%';
+    const gridColumnSize = mapGridColumn(0, gridColumns);
+    if (process.env.NODE_ENV !== 'production' && col > gridColumnSize) {
+      console.warn(
+        `[grid] Trying to render a column with size ${col} inside a grid with ${gridColumnSize} columns.`,
+      );
+    }
+    return (col / gridColumnSize) * 100 + '%';
   }
 
   return undefined;

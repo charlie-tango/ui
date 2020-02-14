@@ -8,8 +8,8 @@ import { allBoxExcludedProps } from './prop-values.ts';
 
 # Grid
 
-The Grid is a 12 column layout, built using CSS Grid but with fallback to Flexbox. It consists of
-the `<Grid>` with a collection of `<GridItem>` elements.
+The Grid is a flexible 12 column layout, built using CSS Grid but with fallback to Flexbox. It
+consists of the `<Grid>` with a collection of `<GridItem>` elements.
 
 <Preview>
   <Story name="Basic grid">
@@ -157,7 +157,7 @@ the next items. If you set the `col` size to `0` this will cause the `<GridItem>
 ### Grid columns
 
 By default the grid uses a standard `12` column layout. You can change this if needed - for example
-when nesting grids. The typings do limit you to value between `1` and `12`.
+when nesting grids, or to have fewer columns on smaller devices.
 
 <Preview>
   <Story name="Grid columns grid">
@@ -187,20 +187,40 @@ when nesting grids. The typings do limit you to value between `1` and `12`.
   </Story>
 </Preview>
 
-Because we need to support the flexbox fallback method, the responsive handling is simplified a
-bit - Only the responsive array is supported.
+#### Responsive Grid Columns
+
+It might make sense to reduce the amount of columns on smaller devices. This ensures the `gridGap`
+can stay on a sane value. Usually you won't need to use more than 4 columns on a mobile, or 8
+columns on a tablet device. Because we need to support the flexbox fallback method, the responsive
+handling is simplified a bit - Only the responsive array is supported.
+
+It's important that the size of a `col` is never larger than the current `gridColumns`. Therefor a
+warning will also be logged if this occurs during development, since you most likely forgot to
+adjust for it.
 
 <Preview>
-  <Story name="Responsive Grid columns grid">
-    <Grid gridColumns={[8, 10, 12]} gridGap="24px">
-      <GridItem col={[8, 10, 12]}>
-        <Item>full</Item>
+  <Story name="Responsive grid columns grid">
+    <Grid gridColumns={[4, 8, 12]} gridGap="24px">
+      <GridItem col={[4, 8, 12]}>
+        <Item>[4, 8, 12]</Item>
       </GridItem>
-      <GridItem col={[4, 5, 6]}>
-        <Item>half</Item>
+      <GridItem col={[2, 4, 6]}>
+        <Item>[2, 4, 6]</Item>
       </GridItem>
-      <GridItem col={[4, 5, 6]}>
-        <Item>half</Item>
+      <GridItem col={[2, 4, 6]}>
+        <Item>[2, 4, 6]</Item>
+      </GridItem>
+      <GridItem col={[1, 2, 3]}>
+        <Item>[1, 2, 3]</Item>
+      </GridItem>
+      <GridItem col={[1, 2, 3]}>
+        <Item>[1, 2, 3]</Item>
+      </GridItem>
+      <GridItem col={[1, 2, 3]}>
+        <Item>[1, 2, 3]</Item>
+      </GridItem>
+      <GridItem col={[1, 2, 3]}>
+        <Item>[1, 2, 3]</Item>
       </GridItem>
     </Grid>
   </Story>
@@ -336,14 +356,18 @@ unique props.
 
 <Props of={Grid} exclude={allBoxExcludedProps} />
 
+#### Variants
+
 The `<Grid>` has the default `variant` value `grids.grid` - you can use it to modify the default
-styling. This can be useful to set a `gridGap` globally that matches the design style guide.
+styling. This can be useful to set `gridColumns` and `gridGap` globally so they match the design
+style guide.
 
 ```typescript
 const theme = {
   grids: {
     grid: {
-      gridGap: [15, 20, 30],
+      gridColumns: [4, 8, 12],
+      gridGap: ['1rem', '1.5rem', '2rem'],
     },
   },
 };
@@ -364,7 +388,8 @@ const theme = {
       gridGap: 0,
     },
     [GridVariant.Layout]: {
-      gridGap: [15, 20, 30],
+      gridColumns: [4, 8, 12],
+      gridGap: ['1rem', '1.5rem', '2rem'],
     },
   },
 };
@@ -373,3 +398,8 @@ const theme = {
 ### GridItem
 
 <Props of={GridItem} exclude={['gridColumns', ...allBoxExcludedProps]} />
+
+#### Variants
+
+The `<GridItem>` has the default `variant` value `grids.gridItem` - you can use it to modify the
+default styling.

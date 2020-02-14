@@ -2,7 +2,8 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
 import { space, default as StyledSystem } from 'styled-system';
-import css, { get, SystemStyleObject } from '@styled-system/css';
+import css, { SystemStyleObject } from '@styled-system/css';
+import { getVariant } from './utils';
 
 export type SXStyleProp = SystemStyleObject;
 
@@ -43,12 +44,9 @@ interface Props extends BoxPrivateProps {
 const base = (props: Props) => css(props.__css)(props.theme);
 const sx = (props: Props) => css(props.sx)(props.theme);
 
-const variant = ({ theme, variant, themeKey = 'variants' }: Props) =>
-  css(get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])))(theme);
-
 /**
  * The Box hooks into some of the features from styled-system
  */
 export const Box: React.FC<BoxPrivateProps> = styled('div', {
   shouldForwardProp: isPropValid,
-})<BoxProps>(base, variant, sx, space);
+})<BoxProps>(base, getVariant, sx, space);
