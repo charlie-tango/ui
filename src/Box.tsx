@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
 import { space, default as StyledSystem } from 'styled-system';
 import css, { SystemStyleObject } from '@styled-system/css';
-import { getVariant } from './utils';
+import { cssVariant } from './utils';
 
 export type SXStyleProp = SystemStyleObject;
 
@@ -49,4 +49,4 @@ const sx = (props: Props) => css(props.sx)(props.theme);
  */
 export const Box: React.FC<BoxPrivateProps> = styled('div', {
   shouldForwardProp: isPropValid,
-})<BoxProps>(base, getVariant, sx, space);
+})<BoxProps>(base, cssVariant, sx, space);

@@ -8,8 +8,18 @@ type VariantProps = {
   variant?: StyledSystem.ResponsiveValue<string>;
   themeKey?: string;
 };
+
+/**
+ * Lookup the values for a variant in the theme.
+ * This returns the raw object from the theme.
+ */
 export const getVariant = ({ theme, variant, themeKey = 'variants' }: VariantProps) =>
-  css(get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])))(theme);
+  get(theme, themeKey + '.' + variant, get(theme, variant as string | string[]));
+
+/*
+ *Get a variant from the theme, and prepare and output it directly to CSS
+ **/
+export const cssVariant = (props: VariantProps) => css(getVariant(props))(props.theme);
 
 /**
  * Ensure an element has a valid aria-label set, by marking the component propTypes.
