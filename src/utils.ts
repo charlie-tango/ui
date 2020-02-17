@@ -13,8 +13,12 @@ type VariantProps = {
  * Lookup the values for a variant in the theme.
  * This returns the raw object from the theme.
  */
-export const getVariant = ({ theme, variant, themeKey = 'variants' }: VariantProps) =>
-  get(theme, themeKey + '.' + variant, get(theme, variant as string | string[]));
+export const getVariant = <VariantType = any>({
+  theme,
+  variant,
+  themeKey = 'variants',
+}: VariantProps): VariantType =>
+  get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])) || {};
 
 /*
  *Get a variant from the theme, and prepare and output it directly to CSS
