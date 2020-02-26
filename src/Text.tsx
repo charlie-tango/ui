@@ -1,6 +1,42 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { forwardRef } from 'react';
-import { Box, BoxProps } from './Box';
+import { Theme } from '@styled-system/css';
+import { ResponsiveValue } from 'styled-system';
 
-export const Text: React.FC<BoxProps> = forwardRef<HTMLParagraphElement, BoxProps>((props, ref) => (
-  <Box ref={ref} as="p" themeKey="text" variant="body" __css={{ my: 0 }} {...props} />
-));
+import { sx } from './index';
+import { cssVariant } from './utils';
+
+export type TextProps = React.HTMLProps<HTMLParagraphElement> & {
+  as: React.ElementType;
+  /**
+   * The variant key from the theme to use for this element.
+   * */
+  variant?: ResponsiveValue<string>;
+  /**
+   * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `text`.
+   */
+  themeKey?: string | undefined;
+};
+
+export const Text = forwardRef<HTMLParagraphElement, TextProps>(
+  ({ themeKey, variant, as: Comp, ...props }, ref) => {
+    return (
+      <Comp
+        ref={ref}
+        css={(theme: Theme) => [
+          sx({
+            my: 0,
+          })(theme),
+          cssVariant({ themeKey: 'text', variant, theme }),
+        ]}
+        {...props}
+      />
+    );
+  },
+);
+
+Text.defaultProps = {
+  variant: 'body',
+  as: 'p',
+};

@@ -459,6 +459,12 @@ export const divProps = [
   'onAnimationIterationCapture',
   'onTransitionEnd',
   'onTransitionEndCapture',
+  'width',
+  'height',
+  'size',
+  'color',
+  'key',
+  'ref',
 ];
 
 export const allBoxExcludedProps = [...boxProps, ...divProps];

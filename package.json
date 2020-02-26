@@ -51,7 +51,13 @@
     ]
   },
   "release": {
-    "branches": ["master", {"name": "beta", "prerelease": true}],
+    "branches": [
+      "master",
+      {
+        "name": "beta",
+        "prerelease": true
+      }
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -68,21 +74,21 @@
     "@charlietango/use-client-hydrated": "^1.8.1",
     "@charlietango/use-focus-trap": "^1.2.10",
     "@emotion/is-prop-valid": "^0.8.6",
+    "@emotion/react": "^11.0.0-next.11",
     "@styled-system/css": "^5.1.4",
     "react-remove-scroll": "^2.2.0",
     "styled-system": "^5.1.4",
     "tslib": "^1.10.0"
   },
   "peerDependencies": {
-    "@emotion/core": ">=10.0.0",
-    "@emotion/styled": ">=10.0.0",
-    "emotion-theming": ">=10.0.0",
+    "@emotion/react": "^11.0.0-next.11",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@storybook/addon-actions": "^5.3.10",

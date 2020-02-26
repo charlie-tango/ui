@@ -1,28 +1,39 @@
-import { Theme } from 'styled-system';
 import { SystemStyleObject } from '@styled-system/css';
+
 import { GridCols } from './Grid';
 
-export interface UITheme extends Theme {
-  layout?: {
-    container?: SystemStyleObject;
-  };
-  dialog?: {
-    container?: SystemStyleObject;
-    backdrop?: SystemStyleObject;
-    content?: SystemStyleObject;
-  };
-  grids?: {
-    [key: string]: SystemStyleObject & { gridColumns?: GridCols | GridCols[] } | undefined;
-  };
-  variants?: {
-    [key: string]: SystemStyleObject | undefined;
-  };
-  text: {
-    [key: string]: SystemStyleObject | undefined;
-  };
+declare module '@emotion/react' {
+  export interface Theme {
+    fonts: {
+      body?: string;
+      heading?: string;
+      mono?: string;
+    };
+    colors: {
+      background?: string;
+      text?: string;
+    };
+    layout?: {
+      container?: SystemStyleObject;
+    };
+    dialog?: {
+      container?: SystemStyleObject;
+      backdrop?: SystemStyleObject;
+      content?: SystemStyleObject;
+    };
+    grids?: {
+      [key: string]: SystemStyleObject & { gridColumns?: GridCols | GridCols[] } | undefined;
+    };
+    variants?: {
+      [key: string]: SystemStyleObject | undefined;
+    };
+    text?: {
+      [key: string]: SystemStyleObject | undefined;
+    };
+  }
 }
 
-export const baseTheme: UITheme = {
+export const baseTheme = {
   breakpoints: [
     '48em', // 768px - Tablets portrait and above
     '62em', // 992px - Tablets landscape and above
@@ -47,7 +58,6 @@ export const baseTheme: UITheme = {
     heading: 'body',
     mono: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
   },
-  text: {},
   sizes: {
     container: 1280,
   },
@@ -56,12 +66,17 @@ export const baseTheme: UITheme = {
       px: 4,
     },
   },
+  variants: {
+    container: {
+      height: [100, 300],
+    },
+  },
   dialog: {
     container: {
       zIndex: 1,
     },
     backdrop: {
-      background: `rgba(0,0,0,0.3)`,
+      background: `rgba(0,0,0,0.5)`,
     },
   },
 };

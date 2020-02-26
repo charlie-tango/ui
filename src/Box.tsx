@@ -1,8 +1,9 @@
 import * as React from 'react';
-import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
-import { space, default as StyledSystem } from 'styled-system';
+import styled from '@emotion/styled';
 import css, { SystemStyleObject } from '@styled-system/css';
+import { default as StyledSystem, space } from 'styled-system';
+
 import { cssVariant } from './utils';
 
 export type SXStyleProp = SystemStyleObject;

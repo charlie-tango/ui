@@ -1,17 +1,34 @@
-import { addDecorator, addParameters } from '@storybook/react';
 import React from 'react';
 import { DocsContainer } from '@storybook/addon-docs/dist/blocks';
-import { ThemeProvider } from 'emotion-theming';
+import { addDecorator, addParameters } from '@storybook/react';
+import { ThemeProvider } from '@emotion/react';
+
+import { BaseCss } from '../src/BaseCss';
 import base from '../src/theme';
 import theme from './ct-theme';
-import { BaseCss } from '../src/BaseCss';
 
 const previewTheme = {
   ...base,
+  dialog: {
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1,
+    },
+    backdrop: {
+      bg: 'rgba(0,0,0,0.5)',
+    },
+    content: {
+      bg: 'white',
+      p: 3,
+      borderRadius: 4,
+    },
+  },
   buttons: {
     primary: {
       background: 'rgb(51,51,51)',
-      color: 'white'
+      color: 'white',
     },
   },
 };

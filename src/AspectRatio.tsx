@@ -1,17 +1,23 @@
-import styled from '@emotion/styled';
-import { Box, BoxProps } from './Box';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import React, { forwardRef } from 'react';
 import { ResponsiveValue, system } from 'styled-system';
-import { isNumber } from './utils';
-import React from 'react';
 
-interface AspectRatioProps {
+import { isNumber } from './utils';
+
+type AspectRatioProps = React.HTMLProps<HTMLDivElement> & {
+  as: React.ElementType;
   /**
    * Ratio is the relation between height and width.
    * You calculate it as `width / height`, so to get the the default video aspect ratio you would say:
    * `ratio={16 / 9}`.
    */
   ratio: ResponsiveValue<number>;
-}
+};
+
+type AspectRatioItemProps = React.HTMLProps<HTMLDivElement> & {
+  as: React.ElementType;
+};
 
 const aspectConfig = system({
   ratio: {
@@ -25,20 +31,34 @@ const aspectConfig = system({
   },
 });
 
-export const AspectRatio: React.FC<AspectRatioProps & BoxProps> = styled(Box)<
-  AspectRatioProps & BoxProps
->(
-  {
-    display: 'block',
-    position: 'relative',
+export const AspectRatio = forwardRef<HTMLHeadingElement, AspectRatioProps>(
+  ({ as: Comp, ratio, ...props }, ref) => {
+    return (
+      <Comp
+        ref={ref}
+        css={[{ display: 'block', position: 'relative' }, aspectConfig({ ratio })]}
+        {...props}
+      />
+    );
   },
-  aspectConfig,
 );
 
-export const AspectRatioItem: React.FC<BoxProps> = styled(Box)<BoxProps>({
-  position: 'absolute',
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0,
-});
+AspectRatio.defaultProps = {
+  as: 'div',
+};
+
+export const AspectRatioItem = forwardRef<HTMLHeadingElement, AspectRatioItemProps>(
+  ({ as: Comp, ...props }, ref) => {
+    return (
+      <Comp
+        ref={ref}
+        css={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
+        {...props}
+      />
+    );
+  },
+);
+
+AspectRatioItem.defaultProps = {
+  as: 'div',
+};

@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { VisuallyHidden } from '../index';
+import { VisuallyHidden, Heading } from '../index';
 import { divProps } from './prop-values.ts';
 
 <Meta title="Components/Visually Hidden" component={VisuallyHidden} />
@@ -18,5 +18,11 @@ import { VisuallyHidden } from '@charlietango/ui';
 const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidden>;
 ```
 
-It intentionally doesn't expose any of the normal `<Box />` properties, since you shouldn't need to
-to style it further.
+<Preview>
+  <div>
+    <Heading as="h3">Content below is hidden</Heading>
+    <VisuallyHidden>This text can still be found</VisuallyHidden>
+  </div>
+</Preview>
+
+<Props of={VisuallyHidden} exclude={[...divProps, 'key', 'ref']} />
