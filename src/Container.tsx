@@ -4,7 +4,6 @@ import React, { forwardRef } from 'react';
 import { Theme } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
 
-import { sx } from './index';
 import { cssVariant } from './utils';
 
 export type ContainerProps = React.HTMLProps<HTMLDivElement> & {
@@ -24,14 +23,8 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <Comp
         ref={ref}
-        css={(theme: Theme) => [
-          sx({
-            mx: 'auto',
-            width: '100%',
-            maxWidth: 'container',
-          })(theme),
-          cssVariant({ themeKey, variant, theme }),
-        ]}
+        sx={{ mx: 'auto', width: '100%', maxWidth: 'container' }}
+        css={(theme: Theme) => [cssVariant({ themeKey, variant, theme })]}
         {...props}
       />
     );

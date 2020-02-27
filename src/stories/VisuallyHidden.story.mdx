@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { VisuallyHidden, Heading } from '../index';
-import { divProps } from './prop-values.ts';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Visually Hidden" component={VisuallyHidden} />
 
@@ -25,4 +25,4 @@ const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidd
   </div>
 </Preview>
 
-<Props of={VisuallyHidden} exclude={[...divProps, 'key', 'ref']} />
+<Props of={VisuallyHidden} exclude={excludedProps} />

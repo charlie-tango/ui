@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Dialog, DialogContent, DialogBackdrop, Box, Text, Heading, Button } from '../index';
-import { allBoxExcludedProps } from './prop-values.ts';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Dialog (Modal)" component={Dialog} />
 
@@ -19,7 +19,7 @@ const DialogExample = () => {
       <DialogBackdrop />
       <DialogContent aria-labelledby={dialogId} css={sx({ bg: 'white', p: 3, borderRadius: 4 })}>
         <Heading id={dialogId}>Example dialog</Heading>
-        <Text my={3}>
+        <Text sx={{ my: 3 }}>
           The dialog can present content as needed here. Make sure you style it according to your
           needs.
         </Text>
@@ -49,7 +49,7 @@ export const OpenState = ({ children }) => {
         <DialogBackdrop />
         <DialogContent aria-labelledby="dialog-header">
           <Heading id="dialog-header">Example dialog</Heading>
-          <Text my={3}>The dialog can present content as needed here.</Text>
+          <Text sx={{ my: 3 }}>The dialog can present content as needed here.</Text>
           <Button onClick={onDismiss}>Ok</Button>
         </DialogContent>
       </Dialog>
@@ -108,7 +108,7 @@ closed.
 The `<Dialog>` has the default `variant` value `dialog.container` - you can use it to modify the
 default styling if needed. You should mainly need to set the correct `zIndex` value.
 
-<Props of={Dialog} exclude={allBoxExcludedProps} />
+<Props of={Dialog} exclude={excludedProps} />
 
 ### DialogBackdrop
 
@@ -134,7 +134,7 @@ styling. This all depends on the exact needs of your application.
 
 <Props
   of={DialogContent}
-  exclude={allBoxExcludedProps.filter(prop => {
+  exclude={excludedProps.filter(prop => {
     if (prop === 'aria-label') return false;
     if (prop === 'aria-labelledby') return false;
     return true;

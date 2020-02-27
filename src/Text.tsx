@@ -4,11 +4,10 @@ import React, { forwardRef } from 'react';
 import { Theme } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
 
-import { sx } from './index';
 import { cssVariant } from './utils';
 
 export type TextProps = React.HTMLProps<HTMLParagraphElement> & {
-  as: React.ElementType;
+  as: React.ElementType<any>;
   /**
    * The variant key from the theme to use for this element.
    * */
@@ -25,9 +24,10 @@ export const Text = forwardRef<HTMLParagraphElement, TextProps>(
       <Comp
         ref={ref}
         css={(theme: Theme) => [
-          sx({
-            my: 0,
-          })(theme),
+          {
+            marginTop: 0,
+            marginBottom: 0,
+          },
           cssVariant({ themeKey, variant, theme }),
         ]}
         {...props}

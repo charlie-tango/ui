@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Text } from '../index';
-import { divProps } from './prop-values.ts';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Text" component={Text} />
 
@@ -66,4 +66,4 @@ Text elements can be nested, just like normal HTML elements:
 </Text>
 ```
 
-<Props of={Text} exclude={[...divProps, 'key', 'ref']} />
+<Props of={Text} exclude={excludedProps} />

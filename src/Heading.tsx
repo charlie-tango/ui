@@ -4,7 +4,6 @@ import React, { forwardRef } from 'react';
 import { Theme } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
 
-import { sx } from './index';
 import { cssVariant } from './utils';
 
 export type HeadingProps = React.HTMLProps<HTMLHeadingElement> & {
@@ -25,9 +24,10 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
       <Comp
         ref={ref}
         css={(theme: Theme) => [
-          sx({
-            my: 0,
-          })(theme),
+          {
+            marginTop: 0,
+            marginBottom: 0,
+          },
           cssVariant({ themeKey, variant, theme }),
         ]}
         {...props}

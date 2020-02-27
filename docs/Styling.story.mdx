@@ -4,28 +4,30 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Styling
 
-### Using `sx` with `css`
+### Using `sx` prop
 
-By running [emotion](https://www.emotion.sh/) through Babel you can use the `css` prop - this allows
-you to write the tagged template or Object styling directly on the components. It's then converted
-into a style and `className` by Babel.
+Normally when running [emotion](https://www.emotion.sh/) through Babel you can use the `css` prop -
+this allows you to write the tagged template or Object styling directly on the components. It's then
+converted into a style and `className` by Babel.
 
-If we combine [@styled-system/css](https://styled-system.com/css) with the `css` prop, we are able
-consume the theme and add responsive values with arrays. As a convention (inspired by `sx` prop from
-Rebass) we reexport the `css` function as `sx`.
+We extend this setup by adding support for [@styled-system/css](https://styled-system.com/css) under
+a new `sx` props. This allows us to consume the theme and add responsive values with arrays. This is
+done by creating a custom JSX Pragma that adds support for the `sx` prop on all React elements.
 
 ```jsx harmony
-import { sx } from '@charlietango/ui';
-
 const Example = () => (
   <div
-    css={sx({
+    sx={{
       color: 'red',
       px: [3, 6],
-    })}
+    }}
   />
 );
 ```
+
+> Make sure the
+> [@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) is
+> installed, otherwise the `sx` prop will not do anything.
 
 ## Base CSS
 

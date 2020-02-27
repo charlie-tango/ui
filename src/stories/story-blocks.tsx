@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx } from '../jsx';
 import * as React from 'react';
-import { sx } from '../index';
 
 export const Item = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
@@ -30,7 +29,7 @@ export const Item = (props: React.HTMLProps<HTMLDivElement>) => {
 export const PortalBlock = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
     <div
-      css={sx({
+      sx={{
         border: '1px solid black',
         position: 'absolute',
         p: 3,
@@ -38,7 +37,7 @@ export const PortalBlock = (props: React.HTMLProps<HTMLDivElement>) => {
         right: 3,
         left: [3, '50%'],
         bg: '#f4f4f4',
-      })}
+      }}
       {...props}
     />
   );

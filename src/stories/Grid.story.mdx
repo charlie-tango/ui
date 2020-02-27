@@ -2,7 +2,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Grid, GridItem } from '../index';
 import { ThemeProvider } from '@emotion/react';
 import { Item, Warning } from './story-blocks';
-import { allBoxExcludedProps } from './prop-values.ts';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Grid" component={Grid} />
 
@@ -354,7 +354,7 @@ unique props.
 
 ### Grid
 
-<Props of={Grid} exclude={allBoxExcludedProps} />
+<Props of={Grid} exclude={excludedProps} />
 
 #### Variants
 
@@ -397,7 +397,7 @@ const theme = {
 
 ### GridItem
 
-<Props of={GridItem} exclude={['gridColumns', ...allBoxExcludedProps]} />
+<Props of={GridItem} exclude={['gridColumns', ...excludedProps]} />
 
 #### Variants
 

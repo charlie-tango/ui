@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Container } from '../index';
 import { Item } from './story-blocks';
-import { divProps } from './prop-values.ts';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Container" component={Container} />
 
@@ -49,4 +49,4 @@ const theme = {
 
 ### API
 
-<Props of={Container} exclude={[...divProps, 'key', 'ref']} />
+<Props of={Container} exclude={excludedProps} />

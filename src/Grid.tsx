@@ -5,7 +5,6 @@ import React, { forwardRef } from 'react';
 import { ResponsiveValue, Scale, system } from 'styled-system';
 import { Theme } from '@styled-system/css';
 
-import { sx } from './index';
 import { cssVariant, getVariant, isNumber } from './utils';
 
 export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
@@ -115,7 +114,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     return (
       <Comp
         ref={ref}
-        css={(theme: Theme) => [
+        sx={gridVariant}
+        css={[
           {
             display: 'flex',
             boxSizing: 'border-box',
@@ -136,7 +136,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 },
               }
             : undefined,
-          sx(gridVariant)(theme),
         ]}
         {...rest}
       >

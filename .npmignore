@@ -6,3 +6,4 @@ tools
 src
 commitlint.config.js
 tsconfig.prod.json
+dist/stories

@@ -9,16 +9,28 @@ A set of UI components built with [Emotion](https://emotion.sh) and
 
 ## Installation
 
-Install using [Yarn](https://yarnpkg.com):
-
-```sh
-yarn add @charlietango/ui
+```bash
+yarn add @charlietango/ui @emotion/react
 ```
 
-or NPM:
+### @charlietango/babel-preset-sx-prop
 
-```sh
-npm install @charlietango/ui
+You should add
+[@charlietango/babel-preset-sx-prop](https://www.npmjs.com/package/@charlietango/babel-preset-sx-prop)
+to enable full support for the `sx` prop. This is a custom version
+[@emotion/babel-preset-css-prop](https://emotion.sh/docs/@emotion/babel-preset-css-prop), and
+replaces it.
+
+```bash
+yarn add @charletango/babel-preset-sx-prop --dev
+```
+
+Add the preset to the project **.babelrc**
+
+```json
+{
+  "presets": ["@charlietango/babel-preset-sx-prop"]
+}
 ```
 
 ### Planned components
@@ -27,7 +39,7 @@ npm install @charlietango/ui
 | -------------- | ---------- |
 | Accordion      | Todo       |
 | Tabs           | Todo       |
-| Modal          | Todo       |
+| Modal          | ✅         |
 | VisuallyHidden | ✅         |
 
 ### Bundling

@@ -15,6 +15,16 @@ import { baseTheme } from '@charlietango/ui';
 export const theme = { ...baseTheme };
 ```
 
+To use the theme, add it the application using a `<ThemeProvider />`
+
+```jsx
+const Example = () => (
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>
+);
+```
+
 ## Base theme [./src/theme.ts](https://github.com/charlie-tango/ui/blob/master/src/theme.ts)
 
 <pre>
