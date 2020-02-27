@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx } from './jsx';
 import React, { forwardRef } from 'react';
 import { Theme } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
@@ -28,7 +28,7 @@ export const Text = forwardRef<HTMLParagraphElement, TextProps>(
           sx({
             my: 0,
           })(theme),
-          cssVariant({ themeKey: 'text', variant, theme }),
+          cssVariant({ themeKey, variant, theme }),
         ]}
         {...props}
       />
@@ -37,6 +37,7 @@ export const Text = forwardRef<HTMLParagraphElement, TextProps>(
 );
 
 Text.defaultProps = {
+  themeKey: 'text',
   variant: 'body',
   as: 'p',
 };

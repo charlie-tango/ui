@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx } from './jsx';
 import React, { forwardRef } from 'react';
 import { Theme } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
@@ -39,7 +39,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 );
 
 Container.defaultProps = {
-  themeKey: 'variants',
+  themeKey: 'layout',
   variant: 'container',
   as: 'div',
 };

@@ -6,6 +6,7 @@ export * from './Container';
 export * from './Dialog';
 export * from './Grid';
 export * from './Heading';
+export * from './jsx';
 export * from './Text';
 export * from './Portal';
 export * from './theme';

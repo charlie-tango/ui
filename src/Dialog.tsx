@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx } from './jsx';
 import React, { forwardRef } from 'react';
 import useFocusTrap from '@charlietango/use-focus-trap';
-import { Theme } from '@styled-system/css';
 import { RemoveScroll } from 'react-remove-scroll';
 import { ResponsiveValue } from 'styled-system';
 

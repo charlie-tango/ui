@@ -1,17 +1,17 @@
-import { SystemStyleObject } from '@styled-system/css';
+import { SystemStyleObject, ResponsiveStyleValue } from '@styled-system/css';
 
 import { GridCols } from './Grid';
 
 declare module '@emotion/react' {
   export interface Theme {
     fonts: {
-      body?: string;
-      heading?: string;
-      mono?: string;
+      body?: ResponsiveStyleValue<string>;
+      heading?: ResponsiveStyleValue<string>;
+      mono?: ResponsiveStyleValue<string>;
     };
     colors: {
-      background?: string;
-      text?: string;
+      background?: ResponsiveStyleValue<string>;
+      text?: ResponsiveStyleValue<string>;
     };
     layout?: {
       container?: SystemStyleObject;
@@ -22,7 +22,7 @@ declare module '@emotion/react' {
       content?: SystemStyleObject;
     };
     grids?: {
-      [key: string]: SystemStyleObject & { gridColumns?: GridCols | GridCols[] } | undefined;
+      [key: string]: (SystemStyleObject & { gridColumns?: GridCols | GridCols[] }) | undefined;
     };
     variants?: {
       [key: string]: SystemStyleObject | undefined;
@@ -64,11 +64,6 @@ export const baseTheme = {
   layout: {
     container: {
       px: 4,
-    },
-  },
-  variants: {
-    container: {
-      height: [100, 300],
     },
   },
   dialog: {

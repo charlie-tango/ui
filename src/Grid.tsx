@@ -1,7 +1,9 @@
 /** @jsx jsx */
-import { jsx, useTheme } from '@emotion/react';
+import { jsx } from './index';
+import { useTheme } from '@emotion/react';
 import React, { forwardRef } from 'react';
-import { ResponsiveValue, Scale, Theme, system } from 'styled-system';
+import { ResponsiveValue, Scale, system } from 'styled-system';
+import { Theme } from '@styled-system/css';
 
 import { sx } from './index';
 import { cssVariant, getVariant, isNumber } from './utils';
@@ -9,6 +11,7 @@ import { cssVariant, getVariant, isNumber } from './utils';
 export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
 export interface GridProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'> {
+  as: React.ElementType<any>;
   /** The gap between each item */
   gridGap?: ResponsiveValue<string | number>;
   /** The total amount of columns in the grid. */
@@ -26,6 +29,7 @@ export interface GridProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'> {
 }
 
 export interface GridItemProps {
+  as: React.ElementType<any>;
   /** Number of columns this item should span.
    *
    * Setting the value as `0` or `undefined` will set `display: none`, removing the item from they layout.
@@ -93,7 +97,7 @@ const flexGridConfig = system({
 });
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
-  ({ children, gridGap, gridColumns, forceFlexBox, variant, themeKey, ...rest }, ref) => {
+  ({ children, as: Comp, gridGap, gridColumns, forceFlexBox, variant, themeKey, ...rest }, ref) => {
     const theme = useTheme();
     // Override the default variant lookup method here.
     // Do this because we need to ensure that gridGap is split out into different values, and passed correctly to the children
@@ -109,9 +113,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     gridColumns = gridColumns || (variantGridColumns as GridCols | GridCols[]) || 12;
 
     return (
-      <div
+      <Comp
         ref={ref}
-        css={theme => [
+        css={(theme: Theme) => [
           {
             display: 'flex',
             boxSizing: 'border-box',
@@ -132,7 +136,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 },
               }
             : undefined,
-          sx(gridVariant)(theme as any),
+          sx(gridVariant)(theme),
         ]}
         {...rest}
       >
@@ -146,12 +150,13 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
               } as GridItemInternalProps)
             : null,
         )}
-      </div>
+      </Comp>
     );
   },
 );
 
 Grid.defaultProps = {
+  as: 'div',
   themeKey: 'grids',
   variant: 'grid',
 };
@@ -234,11 +239,11 @@ const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | G
 export const GridItem: React.FC<GridItemProps> = forwardRef<
   HTMLDivElement,
   GridItemProps & GridItemInternalProps
->(({ col, gridColumns, themeKey, variant, flexGap, forceFlexBox, ...rest }, ref) => {
+>(({ as: Comp, col, gridColumns, themeKey, variant, flexGap, forceFlexBox, ...rest }, ref) => {
   return (
-    <div
+    <Comp
       ref={ref}
-      css={theme => [
+      css={(theme: Theme) => [
         { boxSizing: 'border-box', minWidth: 0, flexGrow: 0 },
         flexGridItemConfig({
           gridCol: col,
@@ -263,6 +268,7 @@ export const GridItem: React.FC<GridItemProps> = forwardRef<
 });
 
 GridItem.defaultProps = {
+  as: 'div',
   col: 1,
   themeKey: 'grids',
   variant: 'gridItem',

@@ -474,6 +474,7 @@ export const sanitize = css`
 
 export const BaseCss = () => (
   <Global
+    // @ts-ignore
     styles={theme => [
       sanitize,
       {

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx } from './jsx';
 import React, { forwardRef } from 'react';
 import { ResponsiveValue, system } from 'styled-system';
 
