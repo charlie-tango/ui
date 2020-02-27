@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { AspectRatio, AspectRatioItem } from '../index';
 import { Item } from './story-blocks';
-import { allBoxExcludedProps } from './prop-values.ts';
+import { divProps } from './prop-values.ts';
 
 <Meta title="Components/AspectRatio" component={AspectRatio} />
 
@@ -33,4 +33,4 @@ export const MyComponent = props => (
 The components inherit the [Box](/?path=/docs/components-box--page#props) props. Below are just the
 unique props.
 
-<Props components={{ AspectRatio, AspectRatioItem }} exclude={allBoxExcludedProps} />
+<Props components={{ AspectRatio, AspectRatioItem }} exclude={divProps} />

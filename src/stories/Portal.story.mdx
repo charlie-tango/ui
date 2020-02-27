@@ -1,9 +1,8 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Portal, Box, Text } from '../index';
+import { Portal, Box, Text, sx } from '../index';
+import { PortalBlock } from './story-blocks';
 
 <Meta title="Components/Portal" component={Portal} />
-
-<Box mt={[6, 0]} />
 
 # Portal
 
@@ -31,21 +30,11 @@ const Example = () => {
 ```
 
 <Portal>
-  <Box
-    sx={{
-      border: '1px solid black',
-      position: 'absolute',
-      top: 3,
-      right: 3,
-      left: [3, '50%'],
-      bg: '#f4f4f4',
-    }}
-    p={3}
-  >
+  <PortalBlock>
     <Text>
       This is the content inside the Portal that's mounted at the root of the document container.
     </Text>
-  </Box>
+  </PortalBlock>
 </Portal>
 
 ### API

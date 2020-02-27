@@ -1,5 +1,5 @@
-import { css, Global } from '@emotion/core';
 import React from 'react';
+import { Global, css } from '@emotion/react';
 
 export const sanitize = css`
   /* Document
@@ -474,6 +474,7 @@ export const sanitize = css`
 
 export const BaseCss = () => (
   <Global
+    // @ts-ignore
     styles={theme => [
       sanitize,
       {

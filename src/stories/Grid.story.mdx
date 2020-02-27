@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Grid, GridItem } from '../index';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { Item, Warning } from './story-blocks';
 import { allBoxExcludedProps } from './prop-values.ts';
 
@@ -317,7 +317,7 @@ Flexbox layout in a modern browser, and ensure you didn't break anything.
 #### With CSS Grid
 
 <Preview name="Forced CSS grid">
-  <Grid gridGap="24px" disableGrid={false}>
+  <Grid gridGap="24px" forceFlexBox={false}>
     <GridItem col={12}>
       <Item>col=12</Item>
     </GridItem>

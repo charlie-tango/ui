@@ -1,11 +1,26 @@
+/** @jsx jsx */
+import { jsx } from './jsx';
 import React, { forwardRef } from 'react';
-import { Box, BoxProps } from './Box';
-import { Portal } from './Portal';
-import { RemoveScroll } from 'react-remove-scroll';
 import useFocusTrap from '@charlietango/use-focus-trap';
-import { ariaLabelPropType } from './utils';
+import { RemoveScroll } from 'react-remove-scroll';
+import { ResponsiveValue } from 'styled-system';
 
-export interface DialogProps extends BoxProps {
+import { Portal } from './Portal';
+import { ariaLabelPropType, cssVariant } from './utils';
+
+export interface DialogBaseProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'> {
+  as: React.ElementType;
+  /**
+   * The variant key from the theme to use for this element.
+   * */
+  variant?: ResponsiveValue<string>;
+  /**
+   * The `themeKey` prop sets the default lookup area for `variant` values.
+   */
+  themeKey?: string | undefined;
+}
+
+export interface DialogProps extends DialogBaseProps {
   /** When teh user tries to dismiss the dialog, this function will be called. You will need to toggle the open state by responding to this function. */
   onDismiss: () => void;
   /** Set the initial focus to a specific item. By default, it will be set on the first valid focus element, but you can control this by setting a valid querySelector, or specific HTMLElement. */
@@ -20,6 +35,8 @@ export const Dialog = ({
   initialFocus,
   onClick,
   onKeyDown,
+  variant,
+  themeKey,
   ...rest
 }: DialogProps) => {
   const ref = useFocusTrap(isOpen, { focusSelector: initialFocus });
@@ -28,18 +45,18 @@ export const Dialog = ({
   return (
     <Portal>
       <RemoveScroll>
-        <Box
+        <div
           ref={ref}
-          variant="container"
-          {...rest}
-          themeKey="dialog"
-          __css={{
-            position: 'fixed',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-          }}
+          css={theme => [
+            {
+              position: 'fixed',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+            },
+            cssVariant({ themeKey, variant, theme }),
+          ]}
           onKeyDown={event => {
             if (onKeyDown) onKeyDown(event);
             if (event.key === 'Escape') {
@@ -52,6 +69,7 @@ export const Dialog = ({
             event.stopPropagation();
             onDismiss();
           }}
+          {...rest}
         />
       </RemoveScroll>
     </Portal>
@@ -60,60 +78,73 @@ export const Dialog = ({
 
 Dialog.defaultProps = {
   isOpen: true,
-  centerContent: true,
+  variant: 'container',
+  themeKey: 'dialog',
 };
 
 if (process.env.NODE_ENV === 'development') {
   Dialog.displayName = 'Dialog';
 }
 
-export const DialogBackdrop: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
-  (props, ref) => (
-    <Box
+export const DialogBackdrop = forwardRef<HTMLDivElement, DialogBaseProps>(
+  ({ themeKey, variant, ...props }, ref) => (
+    <div
       ref={ref}
-      variant="backdrop"
+      css={theme => [
+        {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+        },
+        cssVariant({ themeKey, variant, theme }),
+      ]}
       {...props}
-      themeKey="dialog"
-      __css={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-      }}
     />
   ),
 );
+
+DialogBackdrop.defaultProps = {
+  variant: 'backdrop',
+  themeKey: 'dialog',
+};
 
 if (process.env.NODE_ENV === 'development') {
   DialogBackdrop.displayName = 'DialogBackdrop';
 }
 
-export const DialogContent: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>(
-  ({ onClick, ...props }, ref) => (
-    <Box
+export const DialogContent = forwardRef<HTMLDivElement, DialogBaseProps>(
+  ({ onClick, themeKey, variant, ...props }, ref) => (
+    <div
       aria-modal="true"
       role="dialog"
       tabIndex={-1}
-      variant="content"
-      {...props}
+      css={theme => [
+        {
+          position: 'relative',
+          margin: '0 auto',
+          maxHeight: '100%',
+          maxWidth: '100%',
+          overflow: 'auto',
+          outline: 'none',
+        },
+        cssVariant({ themeKey, variant, theme }),
+      ]}
       onClick={event => {
         if (onClick) onClick(event);
         // Stop click events here, so they trigger the backdrop dismiss
         event.stopPropagation();
       }}
-      themeKey="dialog"
-      __css={{
-        position: 'relative',
-        margin: '0 auto',
-        maxHeight: '100%',
-        maxWidth: '100%',
-        overflow: 'auto',
-        outline: 'none',
-      }}
+      {...props}
     />
   ),
 );
+
+DialogContent.defaultProps = {
+  variant: 'content',
+  themeKey: 'dialog',
+};
 
 if (process.env.NODE_ENV === 'development') {
   DialogContent.displayName = 'DialogContent';

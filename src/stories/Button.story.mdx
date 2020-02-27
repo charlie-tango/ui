@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Button, Box, Heading } from '../index';
+import { Button, Box, sx } from '../index';
 import { divProps } from './prop-values.ts';
 
 <Meta title="Components/Button" component={Button} />
@@ -12,8 +12,8 @@ an anchor. It applies a default styling values to ensure the `<button>` behaves 
 
 <Preview>
   <div>
-    <Button mr={3}>Basic button</Button>
-    <Button mr={3} as="a" href="#">
+    <Button style={{ marginRight: 16 }}>Basic button</Button>
+    <Button style={{ marginRight: 16 }} as="a" href="#">
       Link button
     </Button>
     <Button as={Box}>Extended Box</Button>

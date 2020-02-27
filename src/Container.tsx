@@ -1,16 +1,45 @@
+/** @jsx jsx */
+import { jsx } from './jsx';
 import React, { forwardRef } from 'react';
-import { Box, BoxProps } from './Box';
+import { Theme } from '@styled-system/css';
+import { ResponsiveValue } from 'styled-system';
 
-/**
- * Container is a wrapper that restricts the maxWidth of it's content, and ensures that it is centered on the screen
- */
-export const Container: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>((props, ref) => {
-  return (
-    <Box
-      ref={ref}
-      variant="container"
-      {...props}
-      __css={{ mx: 'auto', width: '100%', maxWidth: 'container' }}
-    />
-  );
-});
+import { sx } from './index';
+import { cssVariant } from './utils';
+
+export type ContainerProps = React.HTMLProps<HTMLDivElement> & {
+  as: React.ElementType;
+  /**
+   * The variant key from the theme to use for this element.
+   * */
+  variant?: ResponsiveValue<string>;
+  /**
+   * The `themeKey` prop sets the default lookup area for `variant` values.
+   */
+  themeKey?: string | undefined;
+};
+
+export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+  ({ themeKey, variant, as: Comp, ...props }, ref) => {
+    return (
+      <Comp
+        ref={ref}
+        css={(theme: Theme) => [
+          sx({
+            mx: 'auto',
+            width: '100%',
+            maxWidth: 'container',
+          })(theme),
+          cssVariant({ themeKey, variant, theme }),
+        ]}
+        {...props}
+      />
+    );
+  },
+);
+
+Container.defaultProps = {
+  themeKey: 'layout',
+  variant: 'container',
+  as: 'div',
+};

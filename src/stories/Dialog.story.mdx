@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Dialog, DialogContent, DialogBackdrop, Box, Text, Heading } from '../index';
+import { Dialog, DialogContent, DialogBackdrop, Box, Text, Heading, Button } from '../index';
 import { allBoxExcludedProps } from './prop-values.ts';
 
 <Meta title="Components/Dialog (Modal)" component={Dialog} />
@@ -10,19 +10,20 @@ import { allBoxExcludedProps } from './prop-values.ts';
 
 ```jsx
 const DialogExample = () => {
+  const dialogId = useId('dialog-header');
   const [isOpen, setOpen] = React.useState(false);
   const onDismiss = () => setOpen(false);
 
   return (
     <Dialog isOpen={isOpen} onDismiss={onDismiss}>
       <DialogBackdrop />
-      <DialogContent aria-labelledby="dialog-header" sx={{ bg: 'white', p: 3, borderRadius: 4 }}>
-        <Heading id="dialog-header">Example dialog</Heading>
+      <DialogContent aria-labelledby={dialogId} css={sx({ bg: 'white', p: 3, borderRadius: 4 })}>
+        <Heading id={dialogId}>Example dialog</Heading>
         <Text my={3}>
           The dialog can present content as needed here. Make sure you style it according to your
           needs.
         </Text>
-        <button onClick={onDismiss}>Ok</button>
+        <Button onClick={onDismiss}>Ok</Button>
       </DialogContent>
     </Dialog>
   );
@@ -33,7 +34,7 @@ export const OpenState = ({ children }) => {
   const [isOpen, setOpen] = React.useState(false);
   return (
     <div>
-      <button onClick={() => setOpen(!isOpen)}>Toggle modal</button>
+      <Button onClick={() => setOpen(!isOpen)}>Toggle modal</Button>
       {children({ isOpen, onDismiss: () => setOpen(false) })}
     </div>
   );
@@ -44,16 +45,12 @@ export const OpenState = ({ children }) => {
 <Preview>
   <OpenState>
     {({ isOpen, onDismiss }) => (
-      <Dialog
-        isOpen={isOpen}
-        onDismiss={onDismiss}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      >
+      <Dialog isOpen={isOpen} onDismiss={onDismiss}>
         <DialogBackdrop />
-        <DialogContent aria-labelledby="dialog-header" sx={{ bg: 'white', p: 3, borderRadius: 4 }}>
+        <DialogContent aria-labelledby="dialog-header">
           <Heading id="dialog-header">Example dialog</Heading>
           <Text my={3}>The dialog can present content as needed here.</Text>
-          <button onClick={onDismiss}>Ok</button>
+          <Button onClick={onDismiss}>Ok</Button>
         </DialogContent>
       </Dialog>
     )}
@@ -113,8 +110,6 @@ default styling if needed. You should mainly need to set the correct `zIndex` va
 
 <Props of={Dialog} exclude={allBoxExcludedProps} />
 
-The component also inherits the [Box](/?path=/docs/components-box--page#props) props.
-
 ### DialogBackdrop
 
 The `<DialogBackdrop>` a simple element, used to add a fill background to the dialog. As such, it's
@@ -123,9 +118,6 @@ value `dialog.background`, that you can you modify to change the default `backgr
 
 You'll generally want to render it as the first element inside the `<Dialog />`, since it should be
 placed below the other elements.
-
-The component inherits the [Box](/?path=/docs/components-box--page#props) props. It currently
-doesn't have any special extra props.
 
 ### DialogContent
 
@@ -148,5 +140,3 @@ styling. This all depends on the exact needs of your application.
     return true;
   })}
 />
-
-The component also inherits the [Box](/?path=/docs/components-box--page#props) props.
