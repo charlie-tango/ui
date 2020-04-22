@@ -49,7 +49,7 @@ export const baseTheme: UITheme = {
   },
   text: {},
   sizes: {
-    container: 1280,
+    container: '80rem', // 1280px
   },
   layout: {
     container: {
