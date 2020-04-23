@@ -59,7 +59,7 @@ export const baseTheme = {
     mono: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
   },
   sizes: {
-    container: 1280,
+    container: '80rem', // 1280px
   },
   layout: {
     container: {
