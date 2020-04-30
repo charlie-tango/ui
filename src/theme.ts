@@ -5,12 +5,12 @@ import { Theme } from '@emotion/react';
 
 declare module '@emotion/react' {
   export interface Theme extends StyledTheme {
-    fonts: {
+    fonts?: {
       body?: ResponsiveStyleValue<string>;
       heading?: ResponsiveStyleValue<string>;
       mono?: ResponsiveStyleValue<string>;
     };
-    colors: {
+    colors?: {
       background?: ResponsiveStyleValue<string>;
       text?: ResponsiveStyleValue<string>;
     };
@@ -54,7 +54,6 @@ export const baseTheme: Theme = {
     '3rem', // 48px,
     '4rem', // 64px,
   ],
-  colors: {},
   fonts: {
     body: `-apple-system, '.SFNSText-Regular', 'San Francisco', BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;`,
     heading: 'body',
