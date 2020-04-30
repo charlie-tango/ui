@@ -1,17 +1,23 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-import React, { forwardRef } from 'react';
+import { ResponsiveValue } from 'styled-system';
+import { forwardRefWithAs, sxVariant } from './utils';
 
-export type BoxProps = React.HTMLProps<HTMLDivElement> & {
-  as?: React.ElementType;
-  variant?: string;
+export type BoxProps = {
+  /**
+   * The variant key from the theme to use for this element.
+   * */
+  variant?: ResponsiveValue<string>;
+  /**
+   * The `themeKey` prop sets the default lookup area for `variant` values.
+   */
+  themeKey?: string;
 };
 
-/**
- * @deprecated Instead of consuming the `<Box>`, you should use normal elements like `<div sx={{bg: 'blue'}}>`.
- */
-export const Box = forwardRef<HTMLDivElement, BoxProps>(
-  ({ as: Comp = 'div', variant, ...props }, ref) => {
-    return <Comp ref={ref} sx={{ variant }} {...props} />;
+export const Box = forwardRefWithAs<BoxProps, 'div'>(
+  ({ as: Element = 'div', variant, themeKey, ...props }, ref) => {
+    return <Element ref={ref} sx={{ variant: sxVariant(variant, themeKey) }} {...props} />;
   },
 );
+
+Box.displayName = 'Box';

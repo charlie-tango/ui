@@ -1,16 +1,14 @@
 /** @jsx jsx */
-import { jsx } from './index';
+import { jsx } from './jsx';
 import { useTheme } from '@emotion/react';
 import React, { forwardRef } from 'react';
 import { ResponsiveValue, Scale, system } from 'styled-system';
-import { Theme } from '@styled-system/css';
 
-import { cssVariant, getVariant, isNumber } from './utils';
+import { getVariant, isNumber, sxVariant } from './utils';
 
 export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
 
-export interface GridProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'> {
-  as: React.ElementType<any>;
+export type GridProps = {
   /** The gap between each item */
   gridGap?: ResponsiveValue<string | number>;
   /** The total amount of columns in the grid. */
@@ -21,14 +19,11 @@ export interface GridProps extends Omit<React.HTMLProps<HTMLDivElement>, 'as'> {
    * The variant key from the theme to use for this element.
    * */
   variant?: ResponsiveValue<string>;
-  /**
-   * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `grids`.
-   */
-  themeKey?: string | undefined;
-}
+  children?: React.ReactNode;
+  className?: string;
+};
 
-export interface GridItemProps {
-  as: React.ElementType<any>;
+export type GridItemProps = {
   /** Number of columns this item should span.
    *
    * Setting the value as `0` or `undefined` will set `display: none`, removing the item from they layout.
@@ -38,20 +33,18 @@ export interface GridItemProps {
    * The variant key from the theme to use for this element.
    * */
   variant?: ResponsiveValue<string>;
-  /**
-   * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `grids`.
-   */
-  themeKey?: string | undefined;
-}
+  children?: React.ReactNode;
+  className?: string;
+};
 
-interface GridItemInternalProps {
+type GridItemInternalProps = {
   forceFlexBox?: boolean;
   flexCol?: string | (string | null | undefined)[] | null;
   gridCol?: GridCols | GridCols[];
   hideCol?: GridCols | GridCols[];
   flexGap?: ResponsiveValue<string | number>;
   gridColumns?: GridCols | GridCols[];
-}
+};
 
 const getGapValue = (value: any, scale?: Scale) => {
   if (!!scale && ((Array.isArray(scale) && value < scale.length) || scale.hasOwnProperty(value))) {
@@ -88,7 +81,7 @@ const flexGridConfig = system({
   },
   gridColumns: {
     property: 'gridTemplateColumns',
-    transform: value => {
+    transform: (value) => {
       return `repeat(${value}, 1fr)`;
     },
   },
@@ -96,7 +89,7 @@ const flexGridConfig = system({
 });
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
-  ({ children, as: Comp, gridGap, gridColumns, forceFlexBox, variant, themeKey, ...rest }, ref) => {
+  ({ children, gridGap, gridColumns, forceFlexBox, variant, ...rest }, ref) => {
     const theme = useTheme();
     // Override the default variant lookup method here.
     // Do this because we need to ensure that gridGap is split out into different values, and passed correctly to the children
@@ -104,7 +97,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       {
         theme,
         variant,
-        themeKey,
+        themeKey: 'grids',
       },
     );
 
@@ -112,7 +105,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     gridColumns = gridColumns || (variantGridColumns as GridCols | GridCols[]) || 12;
 
     return (
-      <Comp
+      <div
         ref={ref}
         sx={gridVariant}
         css={[
@@ -139,7 +132,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         ]}
         {...rest}
       >
-        {React.Children.map(children, child =>
+        {React.Children.map(children, (child) =>
           // Clone the children so we can inject the correct `gridGap` value into it.
           React.isValidElement(child)
             ? React.cloneElement(child, {
@@ -149,14 +142,12 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
               } as GridItemInternalProps)
             : null,
         )}
-      </Comp>
+      </div>
     );
   },
 );
 
 Grid.defaultProps = {
-  as: 'div',
-  themeKey: 'grids',
   variant: 'grid',
 };
 
@@ -185,14 +176,14 @@ const flexGridItemConfig = system({
   },
   gridCol: {
     property: 'gridColumnEnd',
-    transform: value => {
+    transform: (value) => {
       if (!value) return undefined;
       return `span ${value}`;
     },
   },
   hideCol: {
     property: 'display',
-    transform: value => (!value ? 'none' : 'block'),
+    transform: (value) => (!value ? 'none' : 'block'),
   },
 });
 
@@ -235,41 +226,48 @@ const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | G
   return undefined;
 };
 
-export const GridItem: React.FC<GridItemProps> = forwardRef<
-  HTMLDivElement,
-  GridItemProps & GridItemInternalProps
->(({ as: Comp, col, gridColumns, themeKey, variant, flexGap, forceFlexBox, ...rest }, ref) => {
-  return (
-    <Comp
+export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
+  (
+    {
+      col,
+      gridColumns,
+      variant,
+      flexGap,
+      forceFlexBox,
+      ...rest
+    }: GridItemProps & GridItemInternalProps,
+    ref,
+  ) => (
+    <div
       ref={ref}
-      css={(theme: Theme) => [
-        { boxSizing: 'border-box', minWidth: 0, flexGrow: 0 },
-        flexGridItemConfig({
+      sx={{
+        boxSizing: 'border-box',
+        minWidth: 0,
+        flexGrow: 0,
+        // Calculate the Flex styling
+        ...flexGridItemConfig({
           gridCol: col,
           hideCol: col,
           flexCol: calculateFlexCols(col, gridColumns),
           flexGap,
         }),
-        cssVariant({ themeKey, variant, theme }),
-        !forceFlexBox
+        // If "grid" is supported (And we don't want to foreceFlexBox), reset the flexbox styling
+        '@supports (display: grid)': !forceFlexBox
           ? {
-              '@supports (display: grid)': {
-                maxWidth: 'none',
-                padding: 0,
-                flex: 0,
-              },
+              maxWidth: 'none',
+              padding: 0,
+              flex: 0,
             }
           : undefined,
-      ]}
+        variant: sxVariant(variant, 'grids'),
+      }}
       {...rest}
     />
-  );
-});
+  ),
+);
 
 GridItem.defaultProps = {
-  as: 'div',
   col: 1,
-  themeKey: 'grids',
   variant: 'gridItem',
 };
 

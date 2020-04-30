@@ -8,6 +8,9 @@ interface PortalProps {
   children: React.ReactNode;
 }
 
+/**
+ * Render a new portal at the root of the document (inside <body>)
+ * */
 export const Portal: React.FC<PortalProps> = ({ children, id }: PortalProps) => {
   const clientHydrated = useClientHydrated();
   const portalNode = useRef<HTMLDivElement | null>(null);

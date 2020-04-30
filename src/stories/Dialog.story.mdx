@@ -34,7 +34,9 @@ export const OpenState = ({ children }) => {
   const [isOpen, setOpen] = React.useState(false);
   return (
     <div>
-      <Button onClick={() => setOpen(!isOpen)}>Toggle modal</Button>
+      <Button variant="primary" onClick={() => setOpen(!isOpen)}>
+        Toggle modal
+      </Button>
       {children({ isOpen, onDismiss: () => setOpen(false) })}
     </div>
   );
@@ -134,7 +136,7 @@ styling. This all depends on the exact needs of your application.
 
 <Props
   of={DialogContent}
-  exclude={excludedProps.filter(prop => {
+  exclude={excludedProps.filter((prop) => {
     if (prop === 'aria-label') return false;
     if (prop === 'aria-labelledby') return false;
     return true;

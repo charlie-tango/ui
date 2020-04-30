@@ -1,4 +1,4 @@
-import { SystemCssProperties } from '@styled-system/css';
+import { SystemStyleObject } from '@styled-system/css';
 
 export * from './AspectRatio';
 export * from './Box';
@@ -24,7 +24,7 @@ export { default as sx } from '@styled-system/css';
 declare module 'react' {
   interface DOMAttributes<T> {
     /** Style the element with `@styled-system/css` */
-    sx?: SystemCssProperties;
+    sx?: SystemStyleObject;
   }
 }
 
@@ -32,7 +32,7 @@ declare global {
   namespace JSX {
     interface IntrinsicAttributes {
       /** Style the element with `@styled-system/css` */
-      sx?: SystemCssProperties;
+      sx?: SystemStyleObject;
     }
   }
 }

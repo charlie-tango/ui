@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import { VisuallyHidden, Heading } from '../index';
 import { excludedProps } from './prop-values.ts';
 
@@ -12,7 +12,7 @@ screen readers. Instead hide the content with styling, but keep it readable for 
 
 ## Usage
 
-```jsx harmony
+```tsx
 import { VisuallyHidden } from '@charlietango/ui';
 
 const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidden>;
@@ -24,5 +24,3 @@ const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidd
     <VisuallyHidden>This text can still be found</VisuallyHidden>
   </div>
 </Preview>
-
-<Props of={VisuallyHidden} exclude={excludedProps} />

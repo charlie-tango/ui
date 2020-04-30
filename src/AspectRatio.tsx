@@ -1,12 +1,10 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-import React, { forwardRef } from 'react';
 import { ResponsiveValue, system } from 'styled-system';
 
-import { isNumber } from './utils';
+import { forwardRefWithAs, isNumber } from './utils';
 
-type AspectRatioProps = React.HTMLProps<HTMLDivElement> & {
-  as: React.ElementType;
+type AspectRatioProps = {
   /**
    * Ratio is the relation between height and width.
    * You calculate it as `width / height`, so to get the the default video aspect ratio you would say:
@@ -15,14 +13,12 @@ type AspectRatioProps = React.HTMLProps<HTMLDivElement> & {
   ratio: ResponsiveValue<number>;
 };
 
-type AspectRatioItemProps = React.HTMLProps<HTMLDivElement> & {
-  as: React.ElementType;
-};
+type AspectRatioItemProps = {};
 
 const aspectConfig = system({
   ratio: {
     property: 'paddingBottom',
-    transform: ratio => {
+    transform: (ratio) => {
       if (isNumber(ratio)) {
         return 100 / ratio + '%';
       }
@@ -31,10 +27,10 @@ const aspectConfig = system({
   },
 });
 
-export const AspectRatio = forwardRef<HTMLHeadingElement, AspectRatioProps>(
-  ({ as: Comp, ratio, ...props }, ref) => {
+export const AspectRatio = forwardRefWithAs<AspectRatioProps, 'div'>(
+  ({ as: Element = 'div', ratio, ...props }, ref) => {
     return (
-      <Comp
+      <Element
         ref={ref}
         css={[{ display: 'block', position: 'relative' }, aspectConfig({ ratio })]}
         {...props}
@@ -43,14 +39,12 @@ export const AspectRatio = forwardRef<HTMLHeadingElement, AspectRatioProps>(
   },
 );
 
-AspectRatio.defaultProps = {
-  as: 'div',
-};
+AspectRatio.displayName = 'AspectRatio';
 
-export const AspectRatioItem = forwardRef<HTMLHeadingElement, AspectRatioItemProps>(
-  ({ as: Comp, ...props }, ref) => {
+export const AspectRatioItem = forwardRefWithAs<AspectRatioItemProps, 'div'>(
+  ({ as: Element = 'div', ...props }, ref) => {
     return (
-      <Comp
+      <Element
         ref={ref}
         css={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
         {...props}
@@ -59,6 +53,4 @@ export const AspectRatioItem = forwardRef<HTMLHeadingElement, AspectRatioItemPro
   },
 );
 
-AspectRatioItem.defaultProps = {
-  as: 'div',
-};
+AspectRatioItem.displayName = 'AspectRatioItem';
