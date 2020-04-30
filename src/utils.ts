@@ -66,7 +66,10 @@ export const getVariant = <VariantType = any>({
 }: VariantProps): VariantType =>
   get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])) || {};
 
-export const sxVariant = (variant?: ResponsiveValue<string>, themeKey?: string): string => {
+export const sxVariant = (
+  variant?: ResponsiveValue<string>,
+  themeKey: string = 'variants',
+): string => {
   if (!variant || !themeKey) return variant as string;
   if (Array.isArray(variant)) {
     // To fix the invalid type of "VariantProperty", we force Typescript to think we are returning a string.

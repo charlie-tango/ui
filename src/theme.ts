@@ -1,9 +1,10 @@
 import { SystemStyleObject, ResponsiveStyleValue } from '@styled-system/css';
-
+import { Theme as StyledTheme } from 'styled-system';
 import { GridCols } from './Grid';
+import { Theme } from '@emotion/react';
 
 declare module '@emotion/react' {
-  export interface Theme {
+  export interface Theme extends StyledTheme {
     fonts: {
       body?: ResponsiveStyleValue<string>;
       heading?: ResponsiveStyleValue<string>;
@@ -33,7 +34,7 @@ declare module '@emotion/react' {
   }
 }
 
-export const baseTheme = {
+export const baseTheme: Theme = {
   breakpoints: [
     '48em', // 768px - Tablets portrait and above
     '62em', // 992px - Tablets landscape and above
@@ -53,6 +54,7 @@ export const baseTheme = {
     '3rem', // 48px,
     '4rem', // 64px,
   ],
+  colors: {},
   fonts: {
     body: `-apple-system, '.SFNSText-Regular', 'San Francisco', BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;`,
     heading: 'body',

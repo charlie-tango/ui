@@ -14,12 +14,7 @@ export const Container = forwardRefWithAs<ContainerProps, 'div'>(
   ({ as: Element = 'div', variant = 'container', style, ...props }, ref) => (
     <Element
       ref={ref}
-      sx={{
-        mx: 'auto',
-        width: '100%',
-        maxWidth: 'container',
-        variant: sxVariant(variant, 'layout'),
-      }}
+      sx={{ mx: 'auto', width: '100%', maxWidth: 'container', variant: sxVariant(variant) }}
       {...props}
     />
   ),
