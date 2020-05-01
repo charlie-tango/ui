@@ -1,4 +1,6 @@
-import { SystemStyleObject } from '@styled-system/css';
+import { SystemCssProperties } from '@styled-system/css';
+import { ResponsiveValue } from 'styled-system';
+import { Theme } from '@emotion/react';
 
 export * from './AspectRatio';
 export * from './Box';
@@ -21,10 +23,24 @@ export * from './VisuallyHidden';
  **/
 export { default as sx } from '@styled-system/css';
 
+export type VariantProperty = {
+  variant: ResponsiveValue<string>;
+};
+
+export type CSSSelectorObject = {
+  [cssSelector: string]: SxProp;
+};
+
+export type ThemeFunction = {
+  (theme: Theme): SxProp;
+};
+
+export type SxProp = SystemCssProperties | ThemeFunction | CSSSelectorObject | VariantProperty;
+
 declare module 'react' {
   interface DOMAttributes<T> {
     /** Style the element with `@styled-system/css` */
-    sx?: SystemStyleObject;
+    sx?: SxProp;
   }
 }
 
@@ -32,7 +48,7 @@ declare global {
   namespace JSX {
     interface IntrinsicAttributes {
       /** Style the element with `@styled-system/css` */
-      sx?: SystemStyleObject;
+      sx?: SxProp;
     }
   }
 }
