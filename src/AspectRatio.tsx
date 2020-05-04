@@ -2,18 +2,24 @@
 import { jsx } from './jsx';
 import { ResponsiveValue, system } from 'styled-system';
 
-import { forwardRefWithAs, isNumber } from './utils';
+import { isNumber, PolymorphicComponent } from './utils';
+import { ElementType, forwardRef } from 'react';
+import { PropsOf } from '@emotion/react';
+import { BoxOwnProps, Box, BoxProps } from './Box';
 
-type AspectRatioProps = {
+interface AspectRatioOwnProps extends BoxOwnProps {
   /**
    * Ratio is the relation between height and width.
    * You calculate it as `width / height`, so to get the the default video aspect ratio you would say:
    * `ratio={16 / 9}`.
    */
   ratio: ResponsiveValue<number>;
-};
+}
 
-type AspectRatioItemProps = {};
+type AspectRatioProps<E extends ElementType> = BoxOwnProps<E> &
+  Omit<PropsOf<E>, keyof AspectRatioOwnProps>;
+
+const defaultElement = 'div';
 
 const aspectConfig = system({
   ratio: {
@@ -27,30 +33,40 @@ const aspectConfig = system({
   },
 });
 
-export const AspectRatio = forwardRefWithAs<AspectRatioProps, 'div'>(
-  ({ as: Element = 'div', ratio, ...props }, ref) => {
+export const AspectRatio = forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { ref, ratio, ...props }: AspectRatioProps<As>,
+    innerRef: typeof ref,
+  ) => {
     return (
-      <Element
-        ref={ref}
+      <Box
+        ref={innerRef}
+        as={defaultElement}
         css={[{ display: 'block', position: 'relative' }, aspectConfig({ ratio })]}
         {...props}
       />
     );
   },
-);
+) as PolymorphicComponent<AspectRatioOwnProps>;
 
+// @ts-ignore
 AspectRatio.displayName = 'AspectRatio';
 
-export const AspectRatioItem = forwardRefWithAs<AspectRatioItemProps, 'div'>(
-  ({ as: Element = 'div', ...props }, ref) => {
+export const AspectRatioItem = forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { ref, ratio, ...props }: BoxProps<As>,
+    innerRef: typeof ref,
+  ) => {
     return (
-      <Element
-        ref={ref}
+      <Box
+        ref={innerRef}
+        as={defaultElement}
         css={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
         {...props}
       />
     );
   },
-);
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
 
+// @ts-ignore
 AspectRatioItem.displayName = 'AspectRatioItem';

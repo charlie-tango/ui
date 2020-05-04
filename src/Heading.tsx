@@ -1,18 +1,24 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
 
-import { forwardRefWithAs, sxVariant } from './utils';
-import { ResponsiveValue } from 'styled-system';
+import { ElementType, forwardRef } from 'react';
+import { PolymorphicComponent, sxVariant } from './utils';
+import { Box, BoxOwnProps, BoxProps } from './Box';
 
-type HeadingProps = {
-  /**
-   * The variant key from the theme to use for this element.
-   * */
-  variant?: ResponsiveValue<string>;
-};
+const defaultElement = 'h2';
 
-export const Heading = forwardRefWithAs<HeadingProps, 'h2'>(
-  ({ as: Element = 'h2', variant = 'heading', ...props }, ref) => {
-    return <Element ref={ref} sx={{ my: 0, variant: sxVariant(variant, 'text') }} {...props} />;
+export const Heading = forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { variant = 'heading', ref, ...props }: BoxProps<As>,
+    innerRef: typeof ref,
+  ) => {
+    return (
+      <Box
+        as={defaultElement}
+        ref={innerRef}
+        sx={{ my: 0, variant: sxVariant(variant, 'text') }}
+        {...props}
+      />
+    );
   },
-);
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;

@@ -1,15 +1,24 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
 
-import { forwardRefWithAs, sxVariant } from './utils';
-import { ResponsiveValue } from 'styled-system';
+import { ElementType, forwardRef } from 'react';
+import { PolymorphicComponent, sxVariant } from './utils';
+import { Box, BoxOwnProps, BoxProps } from './Box';
 
-export type TextProps = {
-  variant?: ResponsiveValue<string>;
-};
+const defaultElement = 'p';
 
-export const Text = forwardRefWithAs<TextProps, 'p'>(
-  ({ as: Element = 'p', variant = 'body', ...props }, ref) => (
-    <Element ref={ref} sx={{ my: 0, variant: sxVariant(variant, 'text') }} {...props} />
-  ),
-);
+export const Text = forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { variant = 'body', ref, ...props }: BoxProps<As>,
+    innerRef: typeof ref,
+  ) => {
+    return (
+      <Box
+        as={defaultElement}
+        ref={innerRef}
+        sx={{ my: 0, variant: sxVariant(variant, 'text') }}
+        {...props}
+      />
+    );
+  },
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;

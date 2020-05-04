@@ -1,8 +1,17 @@
 import React, { ReactElement } from 'react';
 import { get } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
+import { BoxProps } from './Box';
 
 export const isNumber = (n: string | number) => typeof n === 'number' && !isNaN(n);
+
+export type PolymorphicComponentProps<E extends React.ElementType, P> = P & BoxProps<E>;
+
+export type PolymorphicComponent<P, D extends React.ElementType = 'div'> = <
+  E extends React.ElementType = D
+>(
+  props: PolymorphicComponentProps<E, P>,
+) => JSX.Element;
 
 export type As<BaseProps = any> = React.ElementType<BaseProps>;
 

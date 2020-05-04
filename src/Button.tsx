@@ -1,21 +1,24 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
 
-import { forwardRefWithAs, sxVariant } from './utils';
-import { ResponsiveValue } from 'styled-system';
+import { ElementType, forwardRef } from 'react';
+import { Box, BoxOwnProps, BoxProps } from './Box';
+import { PolymorphicComponent } from './utils';
 
-export type ButtonProps = {
-  /**
-   * The variant key from the theme to use for this element.
-   * */
-  variant?: ResponsiveValue<string>;
-};
+const defaultElement = 'button';
 
-export const Button = forwardRefWithAs<ButtonProps, 'button'>(
-  ({ as: Element = 'button', variant, ...props }, ref) => {
+export const Button = forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { variant, ref, ...props }: BoxProps<As>,
+    innerRef: typeof ref,
+  ) => {
     return (
-      <Element
-        ref={ref}
+      <Box
+        ref={innerRef}
+        // The `as` prop may be overridden by the passed props
+        as={defaultElement}
+        themeKey="buttons"
+        variant={variant}
         sx={{
           display: 'inline-block',
           background: 'none',
@@ -37,12 +40,12 @@ export const Button = forwardRefWithAs<ButtonProps, 'button'>(
           m: 0,
           px: 3,
           py: 2,
-          variant: sxVariant(variant, 'buttons'),
         }}
         {...props}
       />
     );
   },
-);
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
 
+// @ts-ignore
 Button.displayName = 'Button';

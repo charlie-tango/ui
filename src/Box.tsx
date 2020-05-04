@@ -1,9 +1,13 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
+import React, { ElementType, forwardRef } from 'react';
 import { ResponsiveValue } from 'styled-system';
-import { forwardRefWithAs, sxVariant } from './utils';
+import { sxVariant } from './utils';
+import { PropsOf } from '@emotion/react';
+import { SxProp } from './index';
 
-export type BoxProps = {
+export interface BoxOwnProps<E extends ElementType = ElementType> {
+  as?: E;
   /**
    * The variant key from the theme to use for this element.
    * */
@@ -12,12 +16,22 @@ export type BoxProps = {
    * The `themeKey` prop sets the default lookup area for `variant` values.
    */
   themeKey?: string;
-};
+  sx?: SxProp;
+}
 
-export const Box = forwardRefWithAs<BoxProps, 'div'>(
-  ({ as: Element = 'div', variant, themeKey, ...props }, ref) => {
-    return <Element ref={ref} sx={{ variant: sxVariant(variant, themeKey) }} {...props} />;
+export type BoxProps<E extends ElementType> = BoxOwnProps<E> & Omit<PropsOf<E>, keyof BoxOwnProps>;
+
+const defaultElement = 'div';
+
+export const Box = forwardRef(
+  ({ as, variant, themeKey, ...restProps }: BoxOwnProps, ref: React.Ref<Element>) => {
+    const Element = as || defaultElement;
+    return (
+      <Element
+        ref={ref}
+        sx={variant ? { variant: sxVariant(variant, themeKey) } : undefined}
+        {...restProps}
+      />
+    );
   },
-);
-
-Box.displayName = 'Box';
+) as <E extends ElementType = typeof defaultElement>(props: BoxProps<E>) => JSX.Element;

@@ -1,23 +1,26 @@
 /** @jsx jsx */
+import React, { ElementType } from 'react';
 import { jsx } from './jsx';
-import { forwardRefWithAs, sxVariant } from './utils';
-import { ResponsiveValue } from 'styled-system';
+import { sxVariant, PolymorphicComponent } from './utils';
+import { Box, BoxOwnProps, BoxProps } from './Box';
 
-export type ContainerProps = {
-  /**
-   * The variant key from the theme to use for this element.
-   * */
-  variant?: ResponsiveValue<string>;
-};
+// An HTML tag or a different React component can be rendered by default
+const defaultElement = 'div';
 
-export const Container = forwardRefWithAs<ContainerProps, 'div'>(
-  ({ as: Element = 'div', variant = 'container', style, ...props }, ref) => (
-    <Element
-      ref={ref}
+export const Container = React.forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { variant = 'container', ref, ...props }: BoxProps<As>,
+    innerRef: typeof ref,
+  ) => (
+    <Box
+      ref={innerRef}
+      // The `as` prop may be overridden by the passed props
+      as={defaultElement}
       sx={{ mx: 'auto', width: '100%', maxWidth: 'container', variant: sxVariant(variant) }}
       {...props}
     />
   ),
-);
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
 
+// @ts-ignore
 Container.displayName = 'Container';
