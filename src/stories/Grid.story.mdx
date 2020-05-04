@@ -358,7 +358,7 @@ unique props.
 
 #### Variants
 
-The `<Grid>` has the default `variant` value `grids.grid` - you can use it to modify the default
+The `<Grid>` has the default `variant` value `layout.grid` - you can use it to modify the default
 styling. This can be useful to set `gridColumns` and `gridGap` globally so they match the design
 style guide.
 
@@ -383,7 +383,7 @@ export enum GridVariant {
 }
 
 const theme = {
-  grids: {
+  layout: {
     [GridVariant.Default]: {
       gridGap: 0,
     },
@@ -401,5 +401,5 @@ const theme = {
 
 #### Variants
 
-The `<GridItem>` has the default `variant` value `grids.gridItem` - you can use it to modify the
+The `<GridItem>` has the default `variant` value `layout.gridItem` - you can use it to modify the
 default styling.

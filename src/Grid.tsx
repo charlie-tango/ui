@@ -97,7 +97,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       {
         theme,
         variant,
-        themeKey: 'grids',
+        themeKey: 'layout',
       },
     );
 
@@ -259,7 +259,7 @@ export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
               flex: 0,
             }
           : undefined,
-        variant: sxVariant(variant, 'grids'),
+        variant: sxVariant(variant, 'layout'),
       }}
       {...rest}
     />

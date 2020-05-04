@@ -3,7 +3,7 @@ import { jsx } from './jsx';
 
 import { ElementType, forwardRef } from 'react';
 import { Box, BoxOwnProps, BoxProps } from './Box';
-import { PolymorphicComponent } from './utils';
+import { PolymorphicComponent, sxVariant } from './utils';
 
 const defaultElement = 'button';
 
@@ -17,8 +17,6 @@ export const Button = forwardRef(
         ref={innerRef}
         // The `as` prop may be overridden by the passed props
         as={defaultElement}
-        themeKey="buttons"
-        variant={variant}
         sx={{
           display: 'inline-block',
           background: 'none',
@@ -40,6 +38,7 @@ export const Button = forwardRef(
           m: 0,
           px: 3,
           py: 2,
+          variant: sxVariant(variant, 'buttons'),
         }}
         {...props}
       />

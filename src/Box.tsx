@@ -2,7 +2,7 @@
 import { jsx } from './jsx';
 import React, { ElementType, forwardRef } from 'react';
 import { ResponsiveValue } from 'styled-system';
-import { sxVariant } from './utils';
+import { PolymorphicComponent, sxVariant } from './utils';
 import { PropsOf } from '@emotion/react';
 import { SxProp } from './index';
 
@@ -19,13 +19,15 @@ export interface BoxOwnProps<E extends ElementType = ElementType> {
   sx?: SxProp;
 }
 
-export type BoxProps<E extends ElementType> = BoxOwnProps<E> & Omit<PropsOf<E>, keyof BoxOwnProps>;
+export type BoxProps<As extends ElementType> = BoxOwnProps<As> &
+  Omit<PropsOf<As>, keyof BoxOwnProps>;
 
 const defaultElement = 'div';
 
-export const Box = forwardRef(
+export const Box = forwardRef<HTMLDivElement, BoxOwnProps>(
   ({ as, variant, themeKey, ...restProps }: BoxOwnProps, ref: React.Ref<Element>) => {
     const Element = as || defaultElement;
+    console.log(variant);
     return (
       <Element
         ref={ref}
@@ -34,4 +36,4 @@ export const Box = forwardRef(
       />
     );
   },
-) as <E extends ElementType = typeof defaultElement>(props: BoxProps<E>) => JSX.Element;
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;

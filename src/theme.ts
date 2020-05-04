@@ -16,14 +16,13 @@ declare module '@emotion/react' {
     };
     layout?: {
       container?: SystemStyleObject;
+      grid?: SystemStyleObject & { gridColumns?: GridCols | GridCols[] };
+      gridItem?: SystemStyleObject;
     };
     dialog?: {
       container?: SystemStyleObject;
       backdrop?: SystemStyleObject;
       content?: SystemStyleObject;
-    };
-    grids?: {
-      [key: string]: (SystemStyleObject & { gridColumns?: GridCols | GridCols[] }) | undefined;
     };
     variants?: {
       [key: string]: SystemStyleObject | undefined;
