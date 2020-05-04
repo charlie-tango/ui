@@ -22,3 +22,6 @@ export const Text = forwardRef(
     );
   },
 ) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+
+// @ts-ignore
+Text.displayName = 'Text';

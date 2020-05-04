@@ -22,3 +22,6 @@ export const Heading = forwardRef(
     );
   },
 ) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+
+// @ts-ignore
+Heading.displayName = 'Heading';

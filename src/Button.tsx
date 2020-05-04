@@ -9,7 +9,7 @@ const defaultElement = 'button';
 
 export const Button = forwardRef(
   <As extends ElementType = typeof defaultElement>(
-    { variant, as: Element, ...props }: BoxProps<As>,
+    { variant, ...props }: BoxProps<As>,
     ref: React.Ref<any>,
   ) => {
     return (
