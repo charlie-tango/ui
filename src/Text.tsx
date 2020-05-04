@@ -10,6 +10,6 @@ export type TextProps = {
 
 export const Text = forwardRefWithAs<TextProps, 'p'>(
   ({ as: Element = 'p', variant = 'body', ...props }, ref) => (
-    <Element ref={ref} sx={{ variant: sxVariant(variant, 'text') }} {...props} />
+    <Element ref={ref} sx={{ my: 0, variant: sxVariant(variant, 'text') }} {...props} />
   ),
 );

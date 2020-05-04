@@ -7,6 +7,9 @@
 A set of UI components built with [Emotion](https://emotion.sh) and
 [styled-system](https://styled-system.com/), to be used between Charlie Tango projects.
 
+It's built for Emotion 11 _(still in beta, but should be finalized soon)_, so it can be used with
+the `@emotion/react` package.
+
 ## Installation
 
 ```bash
@@ -17,9 +20,9 @@ yarn add @charlietango/ui @emotion/react
 
 You should add
 [@charlietango/babel-preset-sx-prop](https://www.npmjs.com/package/@charlietango/babel-preset-sx-prop)
-to enable full support for the `sx` prop. This is a custom version
+to enable full support for the `sx` prop. This is a custom version of
 [@emotion/babel-preset-css-prop](https://emotion.sh/docs/@emotion/babel-preset-css-prop), and
-replaces it.
+replaces it (still includes support for the `css` prop).
 
 ```bash
 yarn add @charletango/babel-preset-sx-prop --dev
@@ -32,6 +35,22 @@ Add the preset to the project **.babelrc**
   "presets": ["@charlietango/babel-preset-sx-prop"]
 }
 ```
+
+#### Custom JSX pragma
+
+If you can't add
+[@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) to the
+project, you can still use the `sx` prop by defining a custom JSX Pragma in the React file.
+
+Include this at the top of the file:
+
+```tsx
+/** @jsx jsx */
+import { jsx } from '@charlietango/ui';
+```
+
+This replaces the normal `import * as React from 'react'` (which imports the default JSX from
+React).
 
 ### Planned components
 

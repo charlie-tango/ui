@@ -25,8 +25,25 @@ const Example = () => (
 );
 ```
 
-> Make sure [@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) is
+> Make sure
+> [@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) is
 > installed, otherwise the `sx` prop will not do anything.
+
+### Custom JSX pragma
+
+If you can't add
+[@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) to the
+project, you can still use the `sx` prop by defining a custom JSX Pragma in the React file.
+
+Include this at the top of the file:
+
+```tsx
+/** @jsx jsx */
+import { jsx } from '@charlietango/ui';
+```
+
+This replaces the normal `import * as React from 'react'` (which imports the default JSX from
+React).
 
 ## Base CSS
 
@@ -34,7 +51,7 @@ The library includes a `<BaseCss />` Global styles file - It's built on top of
 [sanitize.css](https://github.com/csstools/sanitize.css), with some of our settings included.
 
 ```typescript jsx
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { BaseCss, baseTheme } from '@charlietango/ui';
 
 const App = () => (
