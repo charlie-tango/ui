@@ -3,7 +3,7 @@ import { jsx } from './jsx';
 import { ResponsiveValue, system } from 'styled-system';
 
 import { isNumber, PolymorphicComponent } from './utils';
-import { ElementType, forwardRef } from 'react';
+import React, { ElementType, forwardRef } from 'react';
 import { PropsOf } from '@emotion/react';
 import { BoxOwnProps, Box, BoxProps } from './Box';
 
@@ -35,12 +35,12 @@ const aspectConfig = system({
 
 export const AspectRatio = forwardRef(
   <As extends ElementType = typeof defaultElement>(
-    { ref, ratio, ...props }: AspectRatioProps<As>,
-    innerRef: typeof ref,
+    { ratio, ...props }: AspectRatioProps<As>,
+    ref: React.Ref<any>,
   ) => {
     return (
       <Box
-        ref={innerRef}
+        ref={ref}
         as={defaultElement}
         css={[{ display: 'block', position: 'relative' }, aspectConfig({ ratio })]}
         {...props}
@@ -54,12 +54,12 @@ AspectRatio.displayName = 'AspectRatio';
 
 export const AspectRatioItem = forwardRef(
   <As extends ElementType = typeof defaultElement>(
-    { ref, ratio, ...props }: BoxProps<As>,
-    innerRef: typeof ref,
+    { ratio, ...props }: BoxProps<As>,
+    ref: React.Ref<any>,
   ) => {
     return (
       <Box
-        ref={innerRef}
+        ref={ref}
         as={defaultElement}
         css={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
         {...props}

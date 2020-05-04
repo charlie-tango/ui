@@ -9,11 +9,11 @@ const defaultElement = 'div';
 
 export const Container = React.forwardRef(
   <As extends ElementType = typeof defaultElement>(
-    { variant = 'container', ref, ...props }: BoxProps<As>,
-    innerRef: typeof ref,
+    { variant = 'container', ...props }: BoxProps<As>,
+    ref: React.Ref<any>,
   ) => (
     <Box
-      ref={innerRef}
+      ref={ref}
       // The `as` prop may be overridden by the passed props
       as={defaultElement}
       sx={{ mx: 'auto', width: '100%', maxWidth: 'container', variant: sxVariant(variant) }}

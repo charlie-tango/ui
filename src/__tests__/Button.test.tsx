@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { render } from '@testing-library/react';
 import { Button } from '../Button';
 
@@ -16,4 +16,13 @@ test('render button as anchor with HTML attributes', () => {
       Link
     </Button>,
   );
+});
+
+test('render button with ref', () => {
+  const RefComponent = () => {
+    const ref = useRef(null);
+    return <Button ref={ref}>Button</Button>;
+  };
+
+  render(<RefComponent />);
 });

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
 
-import { ElementType, forwardRef } from 'react';
+import React, { ElementType, forwardRef } from 'react';
 import { PolymorphicComponent, sxVariant } from './utils';
 import { Box, BoxOwnProps, BoxProps } from './Box';
 
@@ -9,13 +9,13 @@ const defaultElement = 'p';
 
 export const Text = forwardRef(
   <As extends ElementType = typeof defaultElement>(
-    { variant = 'body', ref, ...props }: BoxProps<As>,
-    innerRef: typeof ref,
+    { variant = 'body', ...props }: BoxProps<As>,
+    ref: React.Ref<any>,
   ) => {
     return (
       <Box
         as={defaultElement}
-        ref={innerRef}
+        ref={ref}
         sx={{ my: 0, variant: sxVariant(variant, 'text') }}
         {...props}
       />

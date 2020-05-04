@@ -25,9 +25,10 @@ export type BoxProps<As extends ElementType> = BoxOwnProps<As> &
 const defaultElement = 'div';
 
 export const Box = forwardRef<HTMLDivElement, BoxOwnProps>(
-  ({ as, variant, themeKey, ...restProps }: BoxOwnProps, ref: React.Ref<Element>) => {
-    const Element = as || defaultElement;
-    console.log(variant);
+  (
+    { as: Element = defaultElement, variant, themeKey, ...restProps }: BoxOwnProps,
+    ref: React.Ref<Element>,
+  ) => {
     return (
       <Element
         ref={ref}
