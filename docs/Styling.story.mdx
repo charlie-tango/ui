@@ -4,17 +4,19 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Styling
 
-## `sx`
+### Using `sx` prop
 
-One of the concepts implemented in [rebass](https://rebassjs.org/) is the `sx` prop. This allows you
-to define a CSS styles object on all `<Box>` components, that can consume the `theme` values. This
-is really useful for defining responsive styles using the `[]` syntax.
+Normally when running [emotion](https://www.emotion.sh/) through Babel you can use the `css` prop -
+this allows you to write the tagged template or Object styling directly on the components. It's then
+converted into a style and `className` by Babel.
+
+We extend this setup by adding support for [@styled-system/css](https://styled-system.com/css) under
+a new `sx` props. This allows us to consume the theme and add responsive values with arrays. This is
+done by creating a custom JSX Pragma that adds support for the `sx` prop on all React elements.
 
 ```jsx harmony
-import { Box } from '@charlietango/ui';
-
 const Example = () => (
-  <Box
+  <div
     sx={{
       color: 'red',
       px: [3, 6],
@@ -23,31 +25,25 @@ const Example = () => (
 );
 ```
 
-Under the hood, this is using [@styled-system/css](https://styled-system.com/css) to convert the
-`sx` prop into styles.
+> Make sure
+> [@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) is
+> installed, otherwise the `sx` prop will not do anything.
 
-### Using `sx` with `css`
+### Custom JSX pragma
 
-By running [emotion](https://www.emotion.sh/) through Babel you can use the `css` prop - the allows
-you to write the tagged template or Object styling directly on the components. It's then converted
-into a style and `className` by Babel.
+If you can't add
+[@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) to the
+project, you can still use the `sx` prop by defining a custom JSX Pragma in the React file.
 
-If we combine [@styled-system/css](https://styled-system.com/css) with the `css` prop, we can
-actually replicate the `sx` prop on any element, so we still have access to the theme and responsive
-values.
+Include this at the top of the file:
 
-```jsx harmony
-import { sx } from '@charlietango/ui';
-
-const Example = () => (
-  <div
-    css={sx({
-      color: 'red',
-      px: [3, 6],
-    })}
-  />
-);
+```tsx
+/** @jsx jsx */
+import { jsx } from '@charlietango/ui';
 ```
+
+This replaces the normal `import * as React from 'react'` (which imports the default JSX from
+React).
 
 ## Base CSS
 
@@ -55,7 +51,7 @@ The library includes a `<BaseCss />` Global styles file - It's built on top of
 [sanitize.css](https://github.com/csstools/sanitize.css), with some of our settings included.
 
 ```typescript jsx
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { BaseCss, baseTheme } from '@charlietango/ui';
 
 const App = () => (

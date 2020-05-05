@@ -1,52 +1,41 @@
-import * as React from 'react';
-import styled from '@emotion/styled';
-import isPropValid from '@emotion/is-prop-valid';
-import { space, default as StyledSystem } from 'styled-system';
-import css, { SystemStyleObject } from '@styled-system/css';
-import { cssVariant } from './utils';
+/** @jsx jsx */
+import { jsx } from './jsx';
+import React, { ElementType, forwardRef } from 'react';
+import { PropsOf } from '@emotion/react';
+import { ResponsiveValue } from 'styled-system';
 
-export type SXStyleProp = SystemStyleObject;
+import { SxProp } from './index';
+import { PolymorphicComponent, sxVariant } from './utils';
 
-export interface BaseProps extends React.RefAttributes<any> {
-  as?: React.ElementType;
-  /**
-   * The sx prop lets you style elements inline, using values from your theme.
-   */
-  sx?: SXStyleProp;
+export interface BoxOwnProps<E extends ElementType = ElementType> {
+  as?: E;
   /**
    * The variant key from the theme to use for this element.
    * */
-  variant?: StyledSystem.ResponsiveValue<string>;
-}
-
-interface BoxKnownProps extends BaseProps, StyledSystem.SpaceProps {}
-
-export interface BoxProps
-  extends BoxKnownProps,
-    Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
-
-export interface BoxPrivateProps extends BoxProps {
+  variant?: ResponsiveValue<string>;
   /**
-   * Use the __css prop to configure the base styling for a component that can be extended further.
-   * These styles will have the lowest priority.
+   * The `themeKey` prop sets the default lookup area for `variant` values.
    */
-  __css?: SXStyleProp;
-  /**
-   * The `themeKey` prop sets the default lookup area for `variant` values. By default it is `variants`.
-   */
-  themeKey?: string | undefined;
+  themeKey?: string;
+  sx?: SxProp;
 }
 
-interface Props extends BoxPrivateProps {
-  theme: any;
-}
+export type BoxProps<As extends ElementType> = BoxOwnProps<As> &
+  Omit<PropsOf<As>, keyof BoxOwnProps>;
 
-const base = (props: Props) => css(props.__css)(props.theme);
-const sx = (props: Props) => css(props.sx)(props.theme);
+const defaultElement = 'div';
 
-/**
- * The Box hooks into some of the features from styled-system
- */
-export const Box: React.FC<BoxPrivateProps> = styled('div', {
-  shouldForwardProp: isPropValid,
-})<BoxProps>(base, cssVariant, sx, space);
+export const Box = forwardRef<HTMLDivElement, BoxOwnProps>(
+  (
+    { as: Element = defaultElement, variant, themeKey, ...restProps }: BoxOwnProps,
+    ref: React.Ref<Element>,
+  ) => {
+    return (
+      <Element
+        ref={ref}
+        sx={variant ? { variant: sxVariant(variant, themeKey) } : undefined}
+        {...restProps}
+      />
+    );
+  },
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;

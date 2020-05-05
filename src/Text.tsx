@@ -1,6 +1,27 @@
-import React, { forwardRef } from 'react';
-import { Box, BoxProps } from './Box';
+/** @jsx jsx */
+import { jsx } from './jsx';
+import React, { ElementType, forwardRef } from 'react';
 
-export const Text: React.FC<BoxProps> = forwardRef<HTMLParagraphElement, BoxProps>((props, ref) => (
-  <Box ref={ref} as="p" themeKey="text" variant="body" __css={{ my: 0 }} {...props} />
-));
+import { Box, BoxOwnProps, BoxProps } from './Box';
+import { PolymorphicComponent, sxVariant } from './utils';
+
+const defaultElement = 'p';
+
+export const Text = forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { variant = 'body', ...props }: BoxProps<As>,
+    ref: React.Ref<any>,
+  ) => {
+    return (
+      <Box
+        as={defaultElement}
+        ref={ref}
+        sx={{ my: 0, variant: sxVariant(variant, 'text') }}
+        {...props}
+      />
+    );
+  },
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+
+// @ts-ignore
+Text.displayName = 'Text';

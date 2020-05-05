@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Container } from '../index';
 import { Item } from './story-blocks';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Container" component={Container} />
 
@@ -48,5 +49,4 @@ const theme = {
 
 ### API
 
-The component inherits the [Box](/?path=/docs/components-box--page#props) props. It currently
-doesn't have any special extra props.
+<Props of={Container} exclude={excludedProps} />

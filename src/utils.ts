@@ -1,11 +1,67 @@
-import css, { get } from '@styled-system/css';
-import { default as StyledSystem } from 'styled-system';
+import React, { ReactElement } from 'react';
+import { get } from '@styled-system/css';
+import { ResponsiveValue } from 'styled-system';
+
+import { BoxProps } from './Box';
 
 export const isNumber = (n: string | number) => typeof n === 'number' && !isNaN(n);
 
+export type PolymorphicComponentProps<E extends React.ElementType, P> = P & BoxProps<E>;
+
+export type PolymorphicComponent<P, D extends React.ElementType = 'div'> = <
+  E extends React.ElementType = D
+>(
+  props: PolymorphicComponentProps<E, P>,
+) => JSX.Element;
+
+export type As<BaseProps = any> = React.ElementType<BaseProps>;
+
+export type PropsWithAs<ComponentType extends As, ComponentProps> = ComponentProps &
+  Omit<React.ComponentPropsWithRef<ComponentType>, 'as' | keyof ComponentProps> & {
+    as?: ComponentType;
+  };
+
+export type PropsFromAs<ComponentType extends As, ComponentProps> = (PropsWithAs<
+  ComponentType,
+  ComponentProps
+> & { as: ComponentType }) &
+  PropsWithAs<ComponentType, ComponentProps>;
+
+export interface ComponentWithAs<ComponentType extends As, ComponentProps> {
+  // These types are a bit of a hack, but cover us in cases where the `as` prop
+  // is not a JSX string type. Makes the compiler happy so 🤷‍♂️
+  <TT extends As>(props: PropsWithAs<TT, ComponentProps>): ReactElement | null;
+  (props: PropsWithAs<ComponentType, ComponentProps>): ReactElement | null;
+  displayName?: string;
+  propTypes?: React.WeakValidationMap<PropsWithAs<ComponentType, ComponentProps>>;
+  contextTypes?: React.ValidationMap<any>;
+  defaultProps?: Partial<PropsWithAs<ComponentType, ComponentProps>>;
+}
+
+/**
+ * This is a hack for sure. The thing is, getting a component to intelligently
+ * infer props based on a component or JSX string passed into an `as` prop is
+ * kind of a huge pain. Getting it to work and satisfy the constraints of
+ * `forwardRef` seems dang near impossible. To avoid needing to do this awkward
+ * type song-and-dance every time we want to forward a ref into a component
+ * that accepts an `as` prop, we abstract all of that mess to this function for
+ * the time time being.
+ *
+ * This does unfortunately seem to break `react-docgen`, preventing us from
+ * extracting the props from a component and showcasing them in the Storybook.
+ */
+export function forwardRefWithAs<Props, ComponentType extends As = 'div'>(
+  comp: (
+    props: PropsFromAs<ComponentType, Props>,
+    ref: React.RefObject<any>,
+  ) => React.ReactElement | null,
+) {
+  return (React.forwardRef(comp as any) as unknown) as ComponentWithAs<ComponentType, Props>;
+}
+
 type VariantProps = {
   theme: any;
-  variant?: StyledSystem.ResponsiveValue<string>;
+  variant?: ResponsiveValue<string>;
   themeKey?: string;
 };
 
@@ -20,10 +76,17 @@ export const getVariant = <VariantType = any>({
 }: VariantProps): VariantType =>
   get(theme, themeKey + '.' + variant, get(theme, variant as string | string[])) || {};
 
-/*
- *Get a variant from the theme, and prepare and output it directly to CSS
- **/
-export const cssVariant = (props: VariantProps) => css(getVariant(props))(props.theme);
+export const sxVariant = (
+  variant?: ResponsiveValue<string>,
+  themeKey: string = 'variants',
+): string => {
+  if (!variant || !themeKey) return variant as string;
+  if (Array.isArray(variant)) {
+    // To fix the invalid type of "VariantProperty", we force Typescript to think we are returning a string.
+    return (variant.map((item) => (!!item ? `${themeKey}.${item}` : item)) as unknown) as string;
+  }
+  return `${themeKey}.${variant}`;
+};
 
 /**
  * Ensure an element has a valid aria-label set, by marking the component propTypes.

@@ -1,16 +1,27 @@
-import React, { forwardRef } from 'react';
-import { Box, BoxProps } from './Box';
+/** @jsx jsx */
+import { jsx } from './jsx';
+import React, { ElementType } from 'react';
 
-/**
- * Container is a wrapper that restricts the maxWidth of it's content, and ensures that it is centered on the screen
- */
-export const Container: React.FC<BoxProps> = forwardRef<HTMLDivElement, BoxProps>((props, ref) => {
-  return (
+import { Box, BoxOwnProps, BoxProps } from './Box';
+import { PolymorphicComponent, sxVariant } from './utils';
+
+// An HTML tag or a different React component can be rendered by default
+const defaultElement = 'div';
+
+export const Container = React.forwardRef(
+  <As extends ElementType = typeof defaultElement>(
+    { variant = 'container', ...props }: BoxProps<As>,
+    ref: React.Ref<any>,
+  ) => (
     <Box
       ref={ref}
-      variant="container"
+      // The `as` prop may be overridden by the passed props
+      as={defaultElement}
+      sx={{ mx: 'auto', width: '100%', maxWidth: 'container', variant: sxVariant(variant) }}
       {...props}
-      __css={{ mx: 'auto', width: '100%', maxWidth: 'container' }}
     />
-  );
-});
+  ),
+) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+
+// @ts-ignore
+Container.displayName = 'Container';

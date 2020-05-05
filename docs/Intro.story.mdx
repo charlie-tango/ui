@@ -1,28 +1,44 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Docs/Intro" />
 
-# Charlie Tango UI
-[![GitHub Workflow Status][build-svg]][github-url]
-[![Version Badge][npm-version-svg]][package-url]
-[![dependency status][deps-svg]][deps-url]
-[![dev dependency status][dev-deps-svg]][dev-deps-url]
+# Charlie Tango UI **(WIP)**
+
+> The storybook is not fully updated at the moment, pending a larger rewrite.
+
+[![GitHub Workflow Status][build-svg]][github-url] [![Version Badge][npm-version-svg]][package-url]
+[![dependency status][deps-svg]][deps-url] [![dev dependency status][dev-deps-svg]][dev-deps-url]
 [![License][license-image]][license-url]
 
 **Go to: [Github Repository](https://github.com/charlie-tango/ui)**
 
+A set of UI components built with [Emotion 11](https://emotion.sh) and
+[styled-system](https://styled-system.com/), to be used between Charlie Tango projects.
+
 ## Installation
 
-Install using [Yarn](https://yarnpkg.com):
-
-```sh
-yarn add @charlietango/ui
+```bash
+yarn add @charlietango/ui @emotion/react
 ```
 
-or NPM:
+### @charlietango/babel-preset-sx-prop
 
-```sh
-npm install @charlietango/ui
+You should add
+[@charlietango/babel-preset-sx-prop](https://www.npmjs.com/package/@charlietango/babel-preset-sx-prop)
+to enable full support for the `sx` prop. This is a custom version
+[@emotion/babel-preset-css-prop](https://emotion.sh/docs/@emotion/babel-preset-css-prop), and
+replaces it.
+
+```bash
+yarn add @charletango/babel-preset-sx-prop --dev
+```
+
+Add the preset to the project **.babelrc**
+
+```json
+{
+  "presets": ["@charlietango/babel-preset-sx-prop"]
+}
 ```
 
 ## Related

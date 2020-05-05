@@ -1,6 +1,6 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { VisuallyHidden } from '../index';
-import { divProps } from './prop-values.ts';
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { VisuallyHidden, Heading } from '../index';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Visually Hidden" component={VisuallyHidden} />
 
@@ -12,11 +12,15 @@ screen readers. Instead hide the content with styling, but keep it readable for 
 
 ## Usage
 
-```jsx harmony
+```tsx
 import { VisuallyHidden } from '@charlietango/ui';
 
 const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidden>;
 ```
 
-It intentionally doesn't expose any of the normal `<Box />` properties, since you shouldn't need to
-to style it further.
+<Preview>
+  <div>
+    <Heading as="h3">Content below is hidden</Heading>
+    <VisuallyHidden>This text can still be found</VisuallyHidden>
+  </div>
+</Preview>

@@ -1,10 +1,11 @@
-import React from 'react';
-import { Box, BoxProps } from '../';
+/** @jsx jsx */
+import { jsx } from '../jsx';
+import * as React from 'react';
 
-export const Item = ({ ...props }: BoxProps) => {
+export const Item = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
-    <Box
-      __css={{
+    <div
+      css={{
         fontFamily: 'system-ui, sans-serif',
         boxSizing: 'border-box',
         padding: '1rem 0.25rem',
@@ -25,6 +26,23 @@ export const Item = ({ ...props }: BoxProps) => {
   );
 };
 
-export const Warning = (props: BoxProps) => {
-  return <Box sx={{}} {...props} />;
+export const PortalBlock = (props: React.HTMLProps<HTMLDivElement>) => {
+  return (
+    <div
+      sx={{
+        border: '1px solid black',
+        position: 'absolute',
+        p: 3,
+        top: 3,
+        right: 3,
+        left: [3, '50%'],
+        bg: '#f4f4f4',
+      }}
+      {...props}
+    />
+  );
+};
+
+export const Warning = (props: React.HTMLProps<HTMLDivElement>) => {
+  return <div css={{}} {...props} />;
 };

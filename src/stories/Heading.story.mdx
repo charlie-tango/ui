@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Heading } from '../index';
-import { divProps } from './prop-values.ts';
+import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Heading" component={Heading} />
 
@@ -52,3 +52,5 @@ You could then create a `h1` like:
   Page header
 </Heading>
 ```
+
+<Props of={Heading} exclude={excludedProps} />
