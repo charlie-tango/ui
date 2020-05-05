@@ -39,3 +39,6 @@ export const Box = forwardRef<HTMLDivElement, BoxOwnProps>(
     );
   },
 ) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+
+// @ts-ignore
+Box.displayName = 'Box';
