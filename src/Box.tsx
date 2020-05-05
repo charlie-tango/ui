@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
 import React, { ElementType, forwardRef } from 'react';
-import { ResponsiveValue } from 'styled-system';
-import { PolymorphicComponent, sxVariant } from './utils';
 import { PropsOf } from '@emotion/react';
+import { ResponsiveValue } from 'styled-system';
+
 import { SxProp } from './index';
+import { PolymorphicComponent, sxVariant } from './utils';
 
 export interface BoxOwnProps<E extends ElementType = ElementType> {
   as?: E;

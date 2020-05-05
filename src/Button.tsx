@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-
 import React, { ElementType, forwardRef } from 'react';
+
 import { Box, BoxOwnProps, BoxProps } from './Box';
 import { PolymorphicComponent, sxVariant } from './utils';
 
@@ -32,9 +32,6 @@ export const Button = forwardRef(
           cursor: 'pointer',
           userSelect: 'none',
           appearance: 'none',
-          '&[disabled]': {
-            cursor: 'default',
-          },
           m: 0,
           px: 3,
           py: 2,

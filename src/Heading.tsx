@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-
 import React, { ElementType, forwardRef } from 'react';
-import { PolymorphicComponent, sxVariant } from './utils';
+
 import { Box, BoxOwnProps, BoxProps } from './Box';
+import { PolymorphicComponent, sxVariant } from './utils';
 
 const defaultElement = 'h2';
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-import { useTheme } from '@emotion/react';
 import React, { forwardRef } from 'react';
+import { useTheme } from '@emotion/react';
 import { ResponsiveValue, Scale, system } from 'styled-system';
 
 import { getVariant, isNumber, sxVariant } from './utils';

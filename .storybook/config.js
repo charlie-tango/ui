@@ -1,7 +1,7 @@
 import React from 'react';
+import { ThemeProvider } from '@emotion/react';
 import { DocsContainer } from '@storybook/addon-docs/dist/blocks';
 import { addDecorator, addParameters } from '@storybook/react';
-import { ThemeProvider } from '@emotion/react';
 
 import { BaseCss } from '../src/BaseCss';
 import base from '../src/theme';
@@ -52,4 +52,4 @@ addParameters({
   },
 });
 
-addDecorator(storyFn => <ThemeProvider theme={previewTheme}>{storyFn()}</ThemeProvider>);
+addDecorator((storyFn) => <ThemeProvider theme={previewTheme}>{storyFn()}</ThemeProvider>);

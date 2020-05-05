@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { get } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
+
 import { BoxProps } from './Box';
 
 export const isNumber = (n: string | number) => typeof n === 'number' && !isNaN(n);

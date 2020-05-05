@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-import { ResponsiveValue, system } from 'styled-system';
-
-import { isNumber, PolymorphicComponent } from './utils';
 import React, { ElementType, forwardRef } from 'react';
 import { PropsOf } from '@emotion/react';
-import { BoxOwnProps, Box, BoxProps } from './Box';
+import { ResponsiveValue, system } from 'styled-system';
+
+import { Box, BoxOwnProps, BoxProps } from './Box';
+import { PolymorphicComponent, isNumber } from './utils';
 
 interface AspectRatioOwnProps extends BoxOwnProps {
   /**

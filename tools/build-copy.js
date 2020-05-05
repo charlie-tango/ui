@@ -7,12 +7,12 @@ const distDir = path.resolve(__dirname, '../dist');
 const globby = require('globby');
 
 const filesToCopy = ['package.json', 'README.md', 'LICENSE'];
-filesToCopy.forEach(file => {
+filesToCopy.forEach((file) => {
   fs.copyFileSync(path.resolve(rootDir, file), path.resolve(distDir, file));
 });
 
 const srcFilesToCopy = globby.sync('**/*.d.ts', { cwd: srcDir, ignore: 'react-app-env.d.ts' });
-srcFilesToCopy.forEach(file => {
+srcFilesToCopy.forEach((file) => {
   fs.copyFileSync(path.resolve(srcDir, file), path.resolve(distDir, file));
 });
 
@@ -30,7 +30,7 @@ const packageFieldsToRemove = [
   'files',
 ];
 
-packageFieldsToRemove.forEach(field => {
+packageFieldsToRemove.forEach((field) => {
   delete pck[field];
 });
 

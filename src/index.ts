@@ -1,6 +1,6 @@
+import { Theme } from '@emotion/react';
 import { SystemCssProperties } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
-import { Theme } from '@emotion/react';
 
 export * from './AspectRatio';
 export * from './Box';

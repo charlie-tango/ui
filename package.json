@@ -30,7 +30,7 @@
     "lint": "eslint . --ext js,ts,tsx",
     "storybook": "start-storybook -p 9000 -s public",
     "build-storybook": "build-storybook -s public -o build",
-    "pretty": "prettier '**/*.{js,ts,tsx,md,json,yml,html}' --write",
+    "pretty": "prettier '**/*.{js,ts,tsx,md,json,yml,html,mdx}' --write",
     "version": "run-p build",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test"

@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import React, { ElementType } from 'react';
 import { jsx } from './jsx';
-import { sxVariant, PolymorphicComponent } from './utils';
+import React, { ElementType } from 'react';
+
 import { Box, BoxOwnProps, BoxProps } from './Box';
+import { PolymorphicComponent, sxVariant } from './utils';
 
 // An HTML tag or a different React component can be rendered by default
 const defaultElement = 'div';

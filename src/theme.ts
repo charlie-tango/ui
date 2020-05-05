@@ -1,7 +1,8 @@
-import { SystemStyleObject, ResponsiveStyleValue } from '@styled-system/css';
-import { Theme as StyledTheme } from 'styled-system';
-import { GridCols } from './Grid';
 import { Theme } from '@emotion/react';
+import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
+import { Theme as StyledTheme } from 'styled-system';
+
+import { GridCols } from './Grid';
 
 declare module '@emotion/react' {
   export interface Theme extends StyledTheme {
