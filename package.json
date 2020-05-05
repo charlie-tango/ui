@@ -1,7 +1,7 @@
 {
   "name": "@charlietango/ui",
   "description": "Collection of shared UI elements for Charlie Tango projects",
-  "version": "0.1.1",
+  "version": "0.9.1",
   "author": "Charlie Tango",
   "sideEffects": false,
   "license": "MIT",
