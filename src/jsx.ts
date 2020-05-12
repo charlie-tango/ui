@@ -17,7 +17,6 @@ type Props = {
  * @param props
  */
 const getCSS = (props: Props) => {
-  if (!props.sx && !props.css) return undefined;
   return (theme: Theme) => {
     const raw = typeof props.css === 'function' ? props.css(theme) : props.css;
     if (props.sx) {
@@ -32,7 +31,7 @@ const getCSS = (props: Props) => {
  * */
 const parseProps = (props: Props) => {
   // We only need to modify the props if it includes the `sx` prop - That's when the user wants to modify the styling.
-  if (!props || !props.sx) return props;
+  if (!props || (!props.sx && !props.css)) return props;
   const next: Props = {};
 
   // Clone the props
