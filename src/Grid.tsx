@@ -132,16 +132,32 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         ]}
         {...rest}
       >
-        {React.Children.map(children, (child) =>
-          // Clone the children so we can inject the correct `gridGap` value into it.
-          React.isValidElement(child)
-            ? React.cloneElement(child, {
+        {React.Children.map(children, (child) => {
+          // Clone the children so we can inject the correct `gridGap`, `gridColumns` and `forceFlexBox` value into it.
+          if (React.isValidElement(child)) {
+            if (child.type === React.Fragment) {
+              // If the child is a Fragment, we'll allow it and loop over the children of the fragment.
+              return React.Children.map(child.props.children, (subChild) => {
+                if (React.isValidElement(child)) {
+                  return React.cloneElement(subChild, {
+                    flexGap: gridGap,
+                    gridColumns,
+                    forceFlexBox,
+                  } as GridItemInternalProps);
+                }
+                return null;
+              });
+            } else {
+              return React.cloneElement(child, {
                 flexGap: gridGap,
                 gridColumns,
                 forceFlexBox,
-              } as GridItemInternalProps)
-            : null,
-        )}
+              } as GridItemInternalProps);
+            }
+          }
+
+          return null;
+        })}
       </div>
     );
   },
