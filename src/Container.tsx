@@ -1,27 +1,29 @@
 /** @jsx jsx */
 import { jsx } from './jsx';
-import React, { ElementType } from 'react';
+import { forwardRef } from 'react';
 
-import { Box, BoxOwnProps, BoxProps } from './Box';
-import { PolymorphicComponent, sxVariant } from './utils';
+import { sxVariant } from './utils';
+import { ThemeProps } from './index';
+import { PolymorphicComponent } from './polymorphic';
 
-// An HTML tag or a different React component can be rendered by default
-const defaultElement = 'div';
-
-export const Container = React.forwardRef(
-  <As extends ElementType = typeof defaultElement>(
-    { variant = 'container', ...props }: BoxProps<As>,
-    ref: React.Ref<any>,
-  ) => (
-    <Box
+/**
+ * The `<Container />` component is used to limit the maximum width of your content, while keeping it
+ * centered on the page.
+ */
+export const Container = forwardRef<HTMLDivElement, ThemeProps<'div'>>(
+  ({ as: Element = 'div', variant = 'container', themeKey, ...props }, ref) => (
+    <Element
       ref={ref}
-      // The `as` prop may be overridden by the passed props
-      as={defaultElement}
-      sx={{ mx: 'auto', width: '100%', maxWidth: 'container', variant: sxVariant(variant) }}
+      sx={{
+        mx: 'auto',
+        width: '100%',
+        maxWidth: 'container',
+        variant: sxVariant(variant, themeKey),
+      }}
       {...props}
     />
   ),
-) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+) as PolymorphicComponent<ThemeProps>;
 
 // @ts-ignore
 Container.displayName = 'Container';

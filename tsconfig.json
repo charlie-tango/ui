@@ -20,5 +20,5 @@
     "importHelpers": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "lib", "dist", "src/__tests__/**/*", "**/*.story.tsx", "**/*.test.*"]
+  "exclude": ["node_modules", "lib", "dist", "src/__tests__/**/*", "**/*.story.tsx", "src/stories/**", "**/*.test.*"]
 }

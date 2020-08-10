@@ -85,6 +85,9 @@ const flexGridConfig = system({
       return `repeat(${value}, 1fr)`;
     },
   },
+});
+
+const gridConfig = system({
   gridGap: { scale: 'space', property: 'gridGap' },
 });
 
@@ -117,7 +120,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           flexGridConfig({
             flexWidthOffset: gridGap,
             flexGap: gridGap,
-            gridGap,
             gridColumns,
           }),
           !forceFlexBox
@@ -126,6 +128,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                   display: 'grid',
                   margin: 0,
                   width: '100%',
+                  ...gridConfig({ gridGap }),
                 },
               }
             : undefined,

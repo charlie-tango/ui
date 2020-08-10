@@ -79,7 +79,7 @@ consists of the `<Grid>` with a collection of `<GridItem>` elements.
 
 <Preview>
   <Story name="Theme grid">
-    <ThemeProvider theme={{ grids: { grid: { gridGap: 24 } } }}>
+    <ThemeProvider theme={{ layout: { grid: { gridGap: 24 } } }}>
       <Grid>
         <GridItem col={12}>
           <Item>col=12</Item>
@@ -364,7 +364,7 @@ style guide.
 
 ```typescript
 const theme = {
-  grids: {
+  layout: {
     grid: {
       gridColumns: [4, 8, 12],
       gridGap: ['1rem', '1.5rem', '2rem'],

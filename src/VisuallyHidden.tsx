@@ -23,3 +23,6 @@ export const VisuallyHidden = forwardRef<HTMLSpanElement, ComponentPropsWithRef<
     />
   ),
 );
+
+// @ts-ignore
+VisuallyHidden.displayName = 'VisuallyHidden';
