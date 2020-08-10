@@ -7,6 +7,7 @@ import { ResponsiveValue, Scale, system } from 'styled-system';
 import { getVariant, isNumber, sxVariant } from './utils';
 
 export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
+export type GridSize = number | null | undefined;
 
 export type GridProps = {
   /** The gap between each item */
@@ -24,11 +25,12 @@ export type GridProps = {
 };
 
 export type GridItemProps = {
-  /** Number of columns this item should span.
-   *
+  /**
+   * Size of the column, relative to the grid columns.
+   * Example values could be: (1, 1/2, 1/4, 1/8 or 1/12)
    * Setting the value as `0` or `undefined` will set `display: none`, removing the item from they layout.
    * */
-  col: GridCols | GridCols[];
+  size?: GridSize | GridSize[];
   /**
    * The variant key from the theme to use for this element.
    * */
@@ -79,16 +81,16 @@ const flexGridConfig = system({
       return output * -0.5;
     },
   },
+});
+
+const gridConfig = system({
+  gridGap: { scale: 'space', property: 'gridGap' },
   gridColumns: {
     property: 'gridTemplateColumns',
     transform: (value) => {
       return `repeat(${value}, 1fr)`;
     },
   },
-});
-
-const gridConfig = system({
-  gridGap: { scale: 'space', property: 'gridGap' },
 });
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
@@ -120,7 +122,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           flexGridConfig({
             flexWidthOffset: gridGap,
             flexGap: gridGap,
-            gridColumns,
           }),
           !forceFlexBox
             ? {
@@ -128,7 +129,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                   display: 'grid',
                   margin: 0,
                   width: '100%',
-                  ...gridConfig({ gridGap }),
+                  ...gridConfig({ gridGap, gridColumns }),
                 },
               }
             : undefined,
@@ -176,7 +177,7 @@ Grid.displayName = 'Grid';
  * GridItem
  *********************/
 
-const flexGridItemConfig = system({
+const gridItemConfig = system({
   flexGap: {
     scale: 'space',
     property: 'padding',
@@ -202,7 +203,7 @@ const flexGridItemConfig = system({
   },
   hideCol: {
     property: 'display',
-    transform: (value) => (!value ? 'none' : 'block'),
+    transform: (value) => (value === 0 || value === undefined ? 'none' : 'block'),
   },
 });
 
@@ -216,39 +217,54 @@ const mapGridColumn = (key: number, gridColumns: GridCols | GridCols[]) => {
 };
 
 /**
- * Need to convert the cols to a percentage value so they can be used by the Flexbox fallback.
+ * Need to convert the size to a grid columns span value.
  * We need to take into account that the user can supply responsive values.
  * */
-const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | GridCols[] = 12) => {
-  if (Array.isArray(col)) {
-    return col.map((val, index) => {
-      if (!val) return undefined;
+const calculateGridSize = (
+  size: GridSize | GridSize[],
+  gridColumns: GridCols | GridCols[] = 12,
+) => {
+  if (Array.isArray(size)) {
+    return size.map((val, index) => {
+      if (!val) return val;
       const gridColumnSize = mapGridColumn(index, gridColumns);
-      if (process.env.NODE_ENV !== 'production' && val > gridColumnSize) {
-        console.warn(
-          `[grid] Trying to render a column with size ${val} inside a grid with ${gridColumnSize} columns at breakpoint index ${index}.`,
-        );
-      }
-      return (val / gridColumnSize) * 100 + '%';
+      return Math.ceil(val * gridColumnSize);
     });
   }
-  if (col) {
-    const gridColumnSize = mapGridColumn(0, gridColumns);
-    if (process.env.NODE_ENV !== 'production' && col > gridColumnSize) {
-      console.warn(
-        `[grid] Trying to render a column with size ${col} inside a grid with ${gridColumnSize} columns.`,
-      );
+
+  if (size && gridColumns) {
+    if (Array.isArray(gridColumns)) {
+      // Map the size value to all grid column entries. This ensures we use the correct column span on each breakpoint
+      return gridColumns.map((columns) => (columns ? Math.ceil(size * columns) : columns));
     }
-    return (col / gridColumnSize) * 100 + '%';
+    return Math.ceil(size * gridColumns);
   }
 
-  return undefined;
+  return size;
+};
+
+/**
+ * Need to convert the size to a percentage value so they can be used by the Flexbox fallback.
+ * We need to take into account that the user can supply responsive values.
+ * */
+const calculateFlexSize = (size: GridSize | GridSize[]) => {
+  if (Array.isArray(size)) {
+    return size.map((val) => {
+      if (!val) return val;
+      return Math.min(val * 100, 100) + '%';
+    });
+  }
+  if (size) {
+    return Math.min(size * 100, 100) + '%';
+  }
+
+  return size;
 };
 
 export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
   (
     {
-      col,
+      size,
       gridColumns,
       variant,
       flexGap,
@@ -263,11 +279,11 @@ export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
         boxSizing: 'border-box',
         minWidth: 0,
         flexGrow: 0,
-        // Calculate the Flex styling
-        ...flexGridItemConfig({
-          gridCol: col,
-          hideCol: col,
-          flexCol: calculateFlexCols(col, gridColumns),
+        // Calculate the styling
+        ...gridItemConfig({
+          gridCol: calculateGridSize(size, gridColumns),
+          hideCol: size,
+          flexCol: calculateFlexSize(size),
           flexGap,
         }),
         // If "grid" is supported (And we don't want to foreceFlexBox), reset the flexbox styling
@@ -286,7 +302,7 @@ export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
 );
 
 GridItem.defaultProps = {
-  col: 1,
+  size: 1,
   variant: 'gridItem',
 };
 
