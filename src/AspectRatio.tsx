@@ -39,7 +39,6 @@ export const AspectRatio = forwardRef<HTMLDivElement, AspectRatioProps<'div'>>(
   },
 ) as PolymorphicComponent<AspectRatioProps>;
 
-// @ts-ignore
 AspectRatio.displayName = 'AspectRatio';
 
 export const AspectRatioItem = forwardRef<HTMLDivElement, PolymorphicProps<'div'>>(
@@ -54,5 +53,4 @@ export const AspectRatioItem = forwardRef<HTMLDivElement, PolymorphicProps<'div'
   },
 ) as PolymorphicComponent<PolymorphicProps>;
 
-// @ts-ignore
 AspectRatioItem.displayName = 'AspectRatioItem';

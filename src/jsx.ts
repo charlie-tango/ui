@@ -40,6 +40,7 @@ const parseProps = (props: Props) => {
     next[key] = props[key];
   }
 
+  // @ts-ignore
   next.css = getCSS(props);
   return next;
 };

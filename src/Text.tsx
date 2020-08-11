@@ -12,5 +12,4 @@ export const Text = forwardRef<HTMLParagraphElement, ThemeProps<'p'>>(
   ),
 ) as PolymorphicComponent<ThemeProps, 'p'>;
 
-// @ts-ignore
 Text.displayName = 'Text';

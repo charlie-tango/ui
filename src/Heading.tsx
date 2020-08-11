@@ -12,5 +12,4 @@ export const Heading = forwardRef<HTMLHeadingElement, ThemeProps<'h2'>>(
   ),
 ) as PolymorphicComponent<ThemeProps, 'h2'>;
 
-// @ts-ignore
 Heading.displayName = 'Heading';

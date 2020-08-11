@@ -2,7 +2,7 @@ import React, { ElementType, WeakValidationMap } from 'react';
 import { PropsOf } from '@emotion/react';
 
 export interface PolymorphicProps<Element extends ElementType = ElementType> {
-  /** The React.Element to use for this component - This is using the generic, so we can set a default value */
+  /** The React.Element to use for this component */
   as?: Element;
 }
 

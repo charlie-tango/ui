@@ -25,5 +25,4 @@ export const Container = forwardRef<HTMLDivElement, ThemeProps<'div'>>(
   ),
 ) as PolymorphicComponent<ThemeProps>;
 
-// @ts-ignore
 Container.displayName = 'Container';

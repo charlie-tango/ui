@@ -16,5 +16,4 @@ export const Box = forwardRef<HTMLDivElement, ThemeProps<'div'>>(
   ),
 ) as PolymorphicComponent<ThemeProps>;
 
-// @ts-ignore
 Box.displayName = 'Box';

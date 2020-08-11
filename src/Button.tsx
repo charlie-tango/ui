@@ -37,5 +37,4 @@ export const Button = forwardRef<HTMLButtonElement, ThemeProps<'button'>>(
   },
 ) as PolymorphicComponent<ThemeProps, 'button'>;
 
-// @ts-ignore
 Button.displayName = 'Button';

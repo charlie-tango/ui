@@ -90,7 +90,6 @@ export const DialogBackdrop = forwardRef<HTMLDivElement, ThemeProps<'div'>>(
   ),
 ) as PolymorphicComponent<ThemeProps>;
 
-// @ts-ignore
 DialogBackdrop.displayName = 'DialogBackdrop';
 
 export const DialogContent = forwardRef<
@@ -120,7 +119,6 @@ export const DialogContent = forwardRef<
   />
 )) as PolymorphicComponent<ThemeProps>;
 
-// @ts-ignore
 DialogContent.displayName = 'DialogContent';
 
 if (process.env.NODE_ENV === 'development') {
