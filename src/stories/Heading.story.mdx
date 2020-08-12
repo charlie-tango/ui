@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Heading } from '../index';
 import { excludedProps } from './prop-values.ts';
 
@@ -53,4 +53,4 @@ You could then create a `h1` like:
 </Heading>
 ```
 
-<Props of={Heading} exclude={excludedProps} />
+<ArgsTable of={Heading} exclude={excludedProps} />
