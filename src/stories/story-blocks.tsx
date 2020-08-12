@@ -5,6 +5,7 @@ import * as React from 'react';
 export const Item = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
     <div
+      // @ts-ignore
       css={{
         fontFamily: 'system-ui, sans-serif',
         boxSizing: 'border-box',
@@ -29,6 +30,7 @@ export const Item = (props: React.HTMLProps<HTMLDivElement>) => {
 export const PortalBlock = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
     <div
+      // @ts-ignore
       sx={{
         border: '1px solid black',
         position: 'absolute',

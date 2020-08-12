@@ -223,6 +223,68 @@ columns on a tablet device.
   </Story>
 </Preview>
 
+#### Edge cases
+
+This is just to show a bunch of different edge cases being handled
+
+<Preview>
+  <Story name="Edge cases">
+    <div>
+      <h3>Null, undefined and 0</h3>
+      <Grid gridColumns={[4, 8, 12]} gridGap="24px">
+        <GridItem size={[null, 0, 1]}>
+          <Item>[null, 0, 1]</Item>
+        </GridItem>
+        <GridItem size={[undefined, 0, 1]}>
+          <Item>[undefined, 0, 1]</Item>
+        </GridItem>
+        <GridItem size={[0, undefined, 1]}>
+          <Item>[0, undefined, 1]</Item>
+        </GridItem>
+        <GridItem size={[1, null, 1]}>
+          <Item>[1, null, 1]</Item>
+        </GridItem>
+      </Grid>
+      <h3>Columns array, fixed size</h3>
+      <Grid gridColumns={[4, 8, 12]} gridGap="24px">
+        <GridItem size={1 / 2}>
+          <Item>1/2</Item>
+        </GridItem>
+        <GridItem size={1 / 2}>
+          <Item>1/2</Item>
+        </GridItem>
+      </Grid>
+      <h3>Size array, fixed column</h3>
+      <Grid gridColumns={12} gridGap="24px">
+        <GridItem size={[1 / 4, 1 / 2]}>
+          <Item>[1/4, 1/2]</Item>
+        </GridItem>
+        <GridItem size={[1 / 4, 1 / 2]}>
+          <Item>1/4, 1/2</Item>
+        </GridItem>
+      </Grid>
+      <h3>With gridColumns.length &gt; size.length</h3>
+      <Grid gridColumns={[4, 8, 12]} gridGap="24px">
+        <GridItem size={[1 / 2]}>
+          <Item>[1/2]</Item>
+        </GridItem>
+        <GridItem size={[1, 1 / 2]}>
+          <Item>[1, 1/2]</Item>
+        </GridItem>
+      </Grid>
+      <h3>With gridColumns.length &lt; size.length</h3>
+      <Grid gridColumns={[4, 8]} gridGap="24px">
+        <GridItem size={[1 / 2, 1 / 2, 1]}>
+          <Item>[1 / 2, 1 / 2, 1]</Item>
+        </GridItem>
+        <GridItem size={[1, 1 / 2]}>
+          <Item>[1, 1/2]</Item>
+        </GridItem>
+      </Grid>
+    </div>
+  </Story>
+</Preview>
+
 ### Nested grid
 
 When nesting Grids, it might make sense to adjust the columns to match the outer Grid. This ensures
