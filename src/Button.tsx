@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
+import { jsx } from '@charlietango/emotion-sx';
 import { forwardRef } from 'react';
 
 import { sxVariant } from './utils';

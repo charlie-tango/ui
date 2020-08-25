@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '../jsx';
+import { jsx } from '@charlietango/emotion-sx';
 import * as React from 'react';
 
 export const Item = (props: React.HTMLProps<HTMLDivElement>) => {
@@ -46,5 +46,5 @@ export const PortalBlock = (props: React.HTMLProps<HTMLDivElement>) => {
 };
 
 export const Warning = (props: React.HTMLProps<HTMLDivElement>) => {
-  return <div css={{}} {...props} />;
+  return <div {...props} />;
 };

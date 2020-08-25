@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
+import { jsx } from '@charlietango/emotion-sx';
 import React, { forwardRef } from 'react';
 import { useTheme } from '@emotion/react';
 import { ResponsiveValue, Scale, system } from 'styled-system';
