@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
 import { VisuallyHidden, Heading } from '../index';
 import { excludedProps } from './prop-values.ts';
 
@@ -18,9 +18,9 @@ import { VisuallyHidden } from '@charlietango/ui';
 const Example = () => <VisuallyHidden>This text can still be found</VisuallyHidden>;
 ```
 
-<Preview>
+<Canvas>
   <div>
     <Heading as="h3">Content below is hidden</Heading>
     <VisuallyHidden>This text can still be found</VisuallyHidden>
   </div>
-</Preview>
+</Canvas>

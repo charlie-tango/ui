@@ -3,7 +3,7 @@ import { ThemeProvider } from '@emotion/react';
 import { DocsContainer } from '@storybook/addon-docs/dist/blocks';
 import { addDecorator, addParameters } from '@storybook/react';
 
-import { BaseCss } from '../src/BaseCss';
+import { BaseCss } from "../src";
 import base from '../src/theme';
 import theme from './ct-theme';
 

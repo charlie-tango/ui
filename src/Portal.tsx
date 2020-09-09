@@ -51,3 +51,5 @@ export const Portal: React.FC<PortalProps> = ({ children, id }: PortalProps) => 
 
   return portalNode.current ? createPortal(children, portalNode.current) : null;
 };
+
+Portal.displayName = 'Portal';

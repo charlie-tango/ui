@@ -1,22 +1,16 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
-import React, { ElementType, forwardRef } from 'react';
+import { jsx } from '@charlietango/emotion-sx';
+import { forwardRef } from 'react';
 
-import { Box, BoxOwnProps, BoxProps } from './Box';
-import { PolymorphicComponent, sxVariant } from './utils';
+import { sxVariant } from './utils';
+import { ThemeProps } from './index';
+import { PolymorphicComponent } from './polymorphic';
 
-const defaultElement = 'button';
-
-export const Button = forwardRef(
-  <As extends ElementType = typeof defaultElement>(
-    { variant, ...props }: BoxProps<As>,
-    ref: React.Ref<any>,
-  ) => {
+export const Button = forwardRef<HTMLButtonElement, ThemeProps<'button'>>(
+  ({ as: Element = 'button', variant, themeKey = 'buttons', ...props }, ref) => {
     return (
-      <Box
+      <Element
         ref={ref}
-        // The `as` prop may be overridden by the passed props
-        as={defaultElement}
         sx={{
           appearance: 'none',
           background: 'none',
@@ -35,13 +29,12 @@ export const Button = forwardRef(
           m: 0,
           px: 3,
           py: 2,
-          variant: sxVariant(variant, 'buttons'),
+          variant: sxVariant(variant, themeKey),
         }}
         {...props}
       />
     );
   },
-) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
+) as PolymorphicComponent<ThemeProps, 'button'>;
 
-// @ts-ignore
 Button.displayName = 'Button';

@@ -1,6 +1,13 @@
+import { ElementType } from 'react';
 import { Theme } from '@emotion/react';
+import type {} from '@emotion/react/types/css-prop';
 import { SystemCssProperties } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
+import { PolymorphicProps } from './polymorphic';
+
+////////////////////////////////////
+// EXPORTED COMPONENTS            //
+////////////////////////////////////
 
 export * from './AspectRatio';
 export * from './Box';
@@ -16,12 +23,9 @@ export * from './Portal';
 export * from './theme';
 export * from './VisuallyHidden';
 
-/**
- * @deprecated
- * Export the `css` prop as `sx` to avoid confusing it with the `Emotion` css prop.
- * It enables you to hook into the styled-system theme on any component:
- **/
-export { default as sx } from '@styled-system/css';
+////////////////////////////////////
+// EXPORTED TYPES                 //
+////////////////////////////////////
 
 export type VariantProperty = {
   variant: ResponsiveValue<string>;
@@ -37,15 +41,34 @@ export type ThemeFunction = {
 
 export type SxProp = SystemCssProperties | ThemeFunction | CSSSelectorObject | VariantProperty;
 
+export interface ThemeProps<E extends ElementType = ElementType> extends PolymorphicProps<E> {
+  /**
+   * The variant key from the theme to use for this element.
+   * */
+  variant?: ResponsiveValue<string>;
+  /**
+   * The `themeKey` prop sets the default lookup area for `variant` values.
+   */
+  themeKey?: string;
+  sx?: SxProp;
+}
+
+////////////////////////////////////
+// EXTEND GLOBAL MODULES          //
+////////////////////////////////////
+
 declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface DOMAttributes<T> {
     /** Style the element with `@styled-system/css` */
     sx?: SxProp;
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare global {
   namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface IntrinsicAttributes {
       /** Style the element with `@styled-system/css` */
       sx?: SxProp;

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Container } from '../index';
 import { Item } from './story-blocks';
 import { excludedProps } from './prop-values.ts';
@@ -10,13 +10,13 @@ import { excludedProps } from './prop-values.ts';
 The `<Container />` component is used to limit the maximum width of your content, while keeping it
 centered on the page.
 
-<Preview>
+<Canvas>
   <Story name="Basic container">
     <Container>
       <Item>Basic container</Item>
     </Container>
   </Story>
-</Preview>
+</Canvas>
 
 ## Configuration
 
@@ -49,4 +49,4 @@ const theme = {
 
 ### API
 
-<Props of={Container} exclude={excludedProps} />
+<ArgsTable of={Container} exclude={excludedProps} />

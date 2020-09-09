@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Lint
-        run: yarn lint
+        run: yarn lint --max-warnings=0
       - name: Test
         run: yarn test
         env:

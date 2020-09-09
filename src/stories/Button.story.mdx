@@ -1,6 +1,5 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Button, Box, sx } from '../index';
-import { excludedProps } from './prop-values.ts';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Button, Box } from '../index';
 
 <Meta title="Components/Button" component={Button} />
 
@@ -10,7 +9,7 @@ The `<Button />` should be as the basis for styled buttons and links in your app
 it will render a `button` element, but use the `as` to change it to an `a` tag if you need to render
 an anchor. It applies a default styling values to ensure the `<button>` behaves like `<a>`.
 
-<Preview>
+<Canvas>
   <div>
     <Button style={{ marginRight: 16 }} variant="primary">
       Basic button
@@ -22,7 +21,7 @@ an anchor. It applies a default styling values to ensure the `<button>` behaves 
       Extended Box
     </Button>
   </div>
-</Preview>
+</Canvas>
 
 ## Usage
 

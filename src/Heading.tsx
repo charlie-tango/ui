@@ -1,27 +1,15 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
-import React, { ElementType, forwardRef } from 'react';
+import { jsx } from '@charlietango/emotion-sx';
+import { forwardRef } from 'react';
 
-import { Box, BoxOwnProps, BoxProps } from './Box';
-import { PolymorphicComponent, sxVariant } from './utils';
+import { sxVariant } from './utils';
+import { PolymorphicComponent } from './polymorphic';
+import { ThemeProps } from './index';
 
-const defaultElement = 'h2';
+export const Heading = forwardRef<HTMLHeadingElement, ThemeProps<'h2'>>(
+  ({ as: Element = 'h2', variant = 'heading', themeKey = 'text', ...props }, ref) => (
+    <Element ref={ref} sx={{ my: 0, variant: sxVariant(variant, themeKey) }} {...props} />
+  ),
+) as PolymorphicComponent<ThemeProps, 'h2'>;
 
-export const Heading = forwardRef(
-  <As extends ElementType = typeof defaultElement>(
-    { variant = 'heading', ...props }: BoxProps<As>,
-    ref: React.Ref<any>,
-  ) => {
-    return (
-      <Box
-        as={defaultElement}
-        ref={ref}
-        sx={{ my: 0, variant: sxVariant(variant, 'text') }}
-        {...props}
-      />
-    );
-  },
-) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
-
-// @ts-ignore
 Heading.displayName = 'Heading';

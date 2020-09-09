@@ -1,44 +1,22 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
-import React, { ElementType, forwardRef } from 'react';
-import { PropsOf } from '@emotion/react';
-import { ResponsiveValue } from 'styled-system';
+import { jsx } from '@charlietango/emotion-sx';
+import { forwardRef } from 'react';
 
-import { SxProp } from './index';
-import { PolymorphicComponent, sxVariant } from './utils';
+import { ThemeProps } from './index';
+import { sxVariant } from './utils';
+import { PolymorphicComponent } from './polymorphic';
 
-export interface BoxOwnProps<E extends ElementType = ElementType> {
-  as?: E;
-  /**
-   * The variant key from the theme to use for this element.
-   * */
-  variant?: ResponsiveValue<string>;
-  /**
-   * The `themeKey` prop sets the default lookup area for `variant` values.
-   */
-  themeKey?: string;
-  sx?: SxProp;
-}
+/**
+ * Basic Box component that allow you to hook into the Theme
+ */
+export const Box = forwardRef<HTMLDivElement, ThemeProps<'div'>>(
+  ({ as: Element = 'div', variant, themeKey, ...restProps }, ref) => (
+    <Element
+      ref={ref}
+      sx={variant ? { variant: sxVariant(variant, themeKey) } : undefined}
+      {...restProps}
+    />
+  ),
+) as PolymorphicComponent<ThemeProps>;
 
-export type BoxProps<As extends ElementType> = BoxOwnProps<As> &
-  Omit<PropsOf<As>, keyof BoxOwnProps>;
-
-const defaultElement = 'div';
-
-export const Box = forwardRef<HTMLDivElement, BoxOwnProps>(
-  (
-    { as: Element = defaultElement, variant, themeKey, ...restProps }: BoxOwnProps,
-    ref: React.Ref<Element>,
-  ) => {
-    return (
-      <Element
-        ref={ref}
-        sx={variant ? { variant: sxVariant(variant, themeKey) } : undefined}
-        {...restProps}
-      />
-    );
-  },
-) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
-
-// @ts-ignore
 Box.displayName = 'Box';

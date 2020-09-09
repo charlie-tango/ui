@@ -1,12 +1,13 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
+import { jsx } from '@charlietango/emotion-sx';
 import React, { forwardRef } from 'react';
 import { useTheme } from '@emotion/react';
 import { ResponsiveValue, Scale, system } from 'styled-system';
 
 import { getVariant, isNumber, sxVariant } from './utils';
 
-export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | null | undefined;
+export type GridCols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type GridSize = number | null | undefined;
 
 export type GridProps = {
   /** The gap between each item */
@@ -24,11 +25,12 @@ export type GridProps = {
 };
 
 export type GridItemProps = {
-  /** Number of columns this item should span.
-   *
+  /**
+   * Size of the column, relative to the grid columns.
+   * Example values could be: (1, 1/2, 1/4, 1/8 or 1/12)
    * Setting the value as `0` or `undefined` will set `display: none`, removing the item from they layout.
    * */
-  col: GridCols | GridCols[];
+  size?: GridSize | GridSize[];
   /**
    * The variant key from the theme to use for this element.
    * */
@@ -79,13 +81,16 @@ const flexGridConfig = system({
       return output * -0.5;
     },
   },
+});
+
+const gridConfig = system({
+  gridGap: { scale: 'space', property: 'gridGap' },
   gridColumns: {
     property: 'gridTemplateColumns',
     transform: (value) => {
       return `repeat(${value}, 1fr)`;
     },
   },
-  gridGap: { scale: 'space', property: 'gridGap' },
 });
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
@@ -117,8 +122,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           flexGridConfig({
             flexWidthOffset: gridGap,
             flexGap: gridGap,
-            gridGap,
-            gridColumns,
           }),
           !forceFlexBox
             ? {
@@ -126,6 +129,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                   display: 'grid',
                   margin: 0,
                   width: '100%',
+                  ...gridConfig({ gridGap, gridColumns }),
                 },
               }
             : undefined,
@@ -173,7 +177,7 @@ Grid.displayName = 'Grid';
  * GridItem
  *********************/
 
-const flexGridItemConfig = system({
+const gridItemConfig = system({
   flexGap: {
     scale: 'space',
     property: 'padding',
@@ -193,13 +197,15 @@ const flexGridItemConfig = system({
   gridCol: {
     property: 'gridColumnEnd',
     transform: (value) => {
-      if (!value) return undefined;
+      if (value === undefined || value === null) return undefined;
       return `span ${value}`;
     },
   },
   hideCol: {
     property: 'display',
-    transform: (value) => (!value ? 'none' : 'block'),
+    transform: (value) => {
+      return value === 0 || value === undefined ? 'none' : 'block';
+    },
   },
 });
 
@@ -213,39 +219,78 @@ const mapGridColumn = (key: number, gridColumns: GridCols | GridCols[]) => {
 };
 
 /**
- * Need to convert the cols to a percentage value so they can be used by the Flexbox fallback.
+ * Need to convert the size to a grid columns span value.
  * We need to take into account that the user can supply responsive values.
  * */
-const calculateFlexCols = (col: GridCols | GridCols[], gridColumns: GridCols | GridCols[] = 12) => {
-  if (Array.isArray(col)) {
-    return col.map((val, index) => {
-      if (!val) return undefined;
-      const gridColumnSize = mapGridColumn(index, gridColumns);
-      if (process.env.NODE_ENV !== 'production' && val > gridColumnSize) {
-        console.warn(
-          `[grid] Trying to render a column with size ${val} inside a grid with ${gridColumnSize} columns at breakpoint index ${index}.`,
-        );
+const calculateGridSize = (
+  size: GridSize | GridSize[],
+  gridColumns: GridCols | GridCols[] = 12,
+) => {
+  if (Array.isArray(size) && size.length) {
+    let lastValue = 0;
+    if (Array.isArray(gridColumns)) {
+      // If the grid columns is also an array, then we need to make sure to calculate the size for each grid item.
+      // Otherwise we end up with the wrong column span size
+      if (size.length < gridColumns.length) {
+        let filledSize = size.concat();
+        filledSize.length = gridColumns.length;
+        size = filledSize.fill(size[size.length - 1], size.length - 1);
       }
-      return (val / gridColumnSize) * 100 + '%';
-    });
-  }
-  if (col) {
-    const gridColumnSize = mapGridColumn(0, gridColumns);
-    if (process.env.NODE_ENV !== 'production' && col > gridColumnSize) {
-      console.warn(
-        `[grid] Trying to render a column with size ${col} inside a grid with ${gridColumnSize} columns.`,
-      );
+      return size.map((val, index) => {
+        if (val === null) val = lastValue; // If null, use the last valid grid size
+        if (val === 0 || val === undefined) return 0;
+        lastValue = val;
+        const gridColumnSize = mapGridColumn(index, gridColumns);
+        return Math.ceil(val * gridColumnSize);
+      });
+    } else {
+      // We can rely on styled-system fallback values for null
+      return size.map((val, index) => {
+        if (val === null && lastValue !== 0) return null;
+        if (!val) return 0;
+        lastValue = val;
+        return Math.ceil(val * gridColumns);
+      });
     }
-    return (col / gridColumnSize) * 100 + '%';
   }
 
-  return undefined;
+  if (typeof size === 'number') {
+    let gridSize: number = size;
+
+    if (Array.isArray(gridColumns)) {
+      // Map the size value to all grid column entries. This ensures we use the correct column span on each breakpoint
+      return gridColumns.map((columns) =>
+        columns && size ? Math.ceil(gridSize * columns) : columns,
+      );
+    }
+    return Math.ceil(gridSize * gridColumns);
+  }
+
+  return size;
+};
+
+/**
+ * Need to convert the size to a percentage value so they can be used by the Flexbox fallback.
+ * We need to take into account that the user can supply responsive values.
+ * */
+const calculateFlexSize = (size: GridSize | GridSize[]) => {
+  if (Array.isArray(size)) {
+    return size.map((val) => {
+      if (!val) return val;
+      return Math.min(val * 100, 100) + '%';
+    });
+  }
+  if (size) {
+    return Math.min(size * 100, 100) + '%';
+  }
+
+  return size;
 };
 
 export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
   (
     {
-      col,
+      size,
       gridColumns,
       variant,
       flexGap,
@@ -253,38 +298,64 @@ export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
       ...rest
     }: GridItemProps & GridItemInternalProps,
     ref,
-  ) => (
-    <div
-      ref={ref}
-      sx={{
-        boxSizing: 'border-box',
-        minWidth: 0,
-        flexGrow: 0,
-        // Calculate the Flex styling
-        ...flexGridItemConfig({
-          gridCol: col,
-          hideCol: col,
-          flexCol: calculateFlexCols(col, gridColumns),
-          flexGap,
-        }),
-        // If "grid" is supported (And we don't want to foreceFlexBox), reset the flexbox styling
-        '@supports (display: grid)': !forceFlexBox
-          ? {
-              maxWidth: 'none',
-              padding: 0,
-              flex: 0,
-            }
-          : undefined,
-        variant: sxVariant(variant, 'layout'),
-      }}
-      {...rest}
-    />
-  ),
+  ) => {
+    const gridSize = calculateGridSize(size, gridColumns);
+    return (
+      <div
+        ref={ref}
+        sx={{
+          boxSizing: 'border-box',
+          minWidth: 0,
+          flexGrow: 0,
+          // Calculate the styling
+          ...gridItemConfig({
+            gridCol: gridSize,
+            hideCol: gridSize,
+            flexCol: calculateFlexSize(size),
+            flexGap,
+          }),
+          // If "grid" is supported (And we don't want to foreceFlexBox), reset the flexbox styling
+          '@supports (display: grid)': !forceFlexBox
+            ? {
+                maxWidth: 'none',
+                padding: 0,
+                flex: 0,
+              }
+            : undefined,
+          variant: sxVariant(variant, 'layout'),
+        }}
+        {...rest}
+      />
+    );
+  },
 );
 
 GridItem.defaultProps = {
-  col: 1,
+  size: 1,
   variant: 'gridItem',
 };
+
+if (process.env.NODE_ENV === 'development') {
+  GridItem.propTypes = {
+    // Ensure the size property is valid. Otherwise it can really screw up the layout :)
+    size: (props, propName, compName, location, propFullName) => {
+      const size = props['size'];
+      if (Array.isArray(size)) {
+        const hasInvalidSize = size.some((val) => (val ? val > 1 || val < 0 || isNaN(val) : false));
+        if (hasInvalidSize) {
+          return new Error(
+            `A <${compName}> must have a valid \`size\` prop, with values between \`0\` and \`1\`. 
+Found component with size: \`[${size.join(', ')}]\``,
+          );
+        }
+      } else if (isNaN(size) || size > 1 || size < 0) {
+        return new Error(`A <${compName}> must have a valid \`size\` prop, with a value between \`0\` and \`1\`. 
+Found component with size: \`${size}\``);
+      }
+
+      return null;
+    },
+  };
+}
 
 GridItem.displayName = 'GridItem';

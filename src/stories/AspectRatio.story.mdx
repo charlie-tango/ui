@@ -1,7 +1,7 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { AspectRatio, AspectRatioItem } from '../index';
+import { Meta, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Item } from './story-blocks';
 import { excludedProps } from './prop-values.ts';
+import { AspectRatio, AspectRatioItem } from '../AspectRatio';
 
 <Meta title="Components/AspectRatio" component={AspectRatio} />
 
@@ -10,11 +10,11 @@ import { excludedProps } from './prop-values.ts';
 Use the `<AspectRatio />` to force a fixed height and width ratio. This is commonly used to give
 images and video a fixed size.
 
-<Preview>
+<Canvas>
   <AspectRatio ratio={16 / 9}>
     <AspectRatioItem as={Item}>16:9 Aspect Ratio</AspectRatioItem>
   </AspectRatio>
-</Preview>
+</Canvas>
 
 ## Usage
 
@@ -30,4 +30,4 @@ export const MyComponent = (props) => (
 
 ### API
 
-<Props components={{ AspectRatio, AspectRatioItem }} exclude={excludedProps} />
+<ArgsTable components={{ AspectRatio, AspectRatioItem }} exclude={excludedProps} />

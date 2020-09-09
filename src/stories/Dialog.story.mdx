@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Dialog, DialogContent, DialogBackdrop, Box, Text, Heading, Button } from '../index';
 import { excludedProps } from './prop-values.ts';
 
@@ -44,7 +44,7 @@ export const OpenState = ({ children }) => {
 
 ### Example
 
-<Preview>
+<Canvas>
   <OpenState>
     {({ isOpen, onDismiss }) => (
       <Dialog isOpen={isOpen} onDismiss={onDismiss}>
@@ -57,7 +57,7 @@ export const OpenState = ({ children }) => {
       </Dialog>
     )}
   </OpenState>
-</Preview>
+</Canvas>
 
 ### ARIA
 
@@ -110,7 +110,7 @@ closed.
 The `<Dialog>` has the default `variant` value `dialog.container` - you can use it to modify the
 default styling if needed. You should mainly need to set the correct `zIndex` value.
 
-<Props of={Dialog} exclude={excludedProps} />
+ArgsTable of={Dialog} exclude={excludedProps} />
 
 ### DialogBackdrop
 
@@ -134,7 +134,7 @@ overflow scrolling.
 You can either style the `<DialogContent>` itself, or create a new element inside that contains your
 styling. This all depends on the exact needs of your application.
 
-<Props
+<ArgsTable
   of={DialogContent}
   exclude={excludedProps.filter((prop) => {
     if (prop === 'aria-label') return false;

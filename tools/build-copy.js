@@ -34,8 +34,9 @@ packageFieldsToRemove.forEach((field) => {
   delete pck[field];
 });
 
-pck.main = pck.main.replace('dist/', '');
-pck.module = pck.module.replace('dist/', '');
-pck.typings = pck.typings.replace('dist/', '');
+// Remove 'dist' from the files inside the 'dist' dir, after we move them
+['main', 'module', 'esmodule', 'typings'].forEach(
+  (key) => (pck[key] = pck[key].replace('dist/', '')),
+);
 
 fs.writeFileSync(path.resolve(distDir, 'package.json'), JSON.stringify(pck, undefined, 2), 'utf-8');

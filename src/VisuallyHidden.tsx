@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
+import { jsx } from '@charlietango/emotion-sx';
 import { ComponentPropsWithRef, forwardRef } from 'react';
 
 /**
@@ -23,3 +23,5 @@ export const VisuallyHidden = forwardRef<HTMLSpanElement, ComponentPropsWithRef<
     />
   ),
 );
+
+VisuallyHidden.displayName = 'VisuallyHidden';

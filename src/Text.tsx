@@ -1,27 +1,15 @@
 /** @jsx jsx */
-import { jsx } from './jsx';
-import React, { ElementType, forwardRef } from 'react';
+import { jsx } from '@charlietango/emotion-sx';
+import { forwardRef } from 'react';
 
-import { Box, BoxOwnProps, BoxProps } from './Box';
-import { PolymorphicComponent, sxVariant } from './utils';
+import { sxVariant } from './utils';
+import { PolymorphicComponent } from './polymorphic';
+import { ThemeProps } from './index';
 
-const defaultElement = 'p';
+export const Text = forwardRef<HTMLParagraphElement, ThemeProps<'p'>>(
+  ({ as: Element = 'p', variant = 'body', themeKey = 'text', ...props }, ref) => (
+    <Element ref={ref} sx={{ my: 0, variant: sxVariant(variant, themeKey) }} {...props} />
+  ),
+) as PolymorphicComponent<ThemeProps, 'p'>;
 
-export const Text = forwardRef(
-  <As extends ElementType = typeof defaultElement>(
-    { variant = 'body', ...props }: BoxProps<As>,
-    ref: React.Ref<any>,
-  ) => {
-    return (
-      <Box
-        as={defaultElement}
-        ref={ref}
-        sx={{ my: 0, variant: sxVariant(variant, 'text') }}
-        {...props}
-      />
-    );
-  },
-) as PolymorphicComponent<BoxOwnProps, typeof defaultElement>;
-
-// @ts-ignore
 Text.displayName = 'Text';
