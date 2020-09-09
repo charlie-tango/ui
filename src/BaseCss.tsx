@@ -101,14 +101,6 @@ export const sanitize = css`
  * ========================================================================== */
 
   /**
- * Remove the gray background on active links in IE 10.
- */
-
-  a {
-    background-color: transparent;
-  }
-
-  /**
  * Add the correct text decoration in Edge 18-, IE, and Safari.
  */
 
@@ -167,14 +159,6 @@ export const sanitize = css`
  */
 
   iframe {
-    border-style: none;
-  }
-
-  /**
- * Remove the border on images within links in IE 10-.
- */
-
-  img {
     border-style: none;
   }
 
@@ -402,8 +386,7 @@ export const sanitize = css`
  * ========================================================================== */
 
   /*
- * 1. Remove the tapping delay in IE 10.
- * 2. Remove the tapping delay on clickable elements
+ * 1. Remove the tapping delay on clickable elements
       in all browsers (opinionated).
  */
 
@@ -416,7 +399,6 @@ export const sanitize = css`
   summary,
   textarea,
   [tabindex] {
-    -ms-touch-action: manipulation; /* 1 */
     touch-action: manipulation; /* 2 */
   }
 

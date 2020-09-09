@@ -6,6 +6,9 @@ import { ThemeProps } from './index';
 import { sxVariant } from './utils';
 import { PolymorphicComponent } from './polymorphic';
 
+/**
+ * Basic Box component that allow you to hook into the Theme
+ */
 export const Box = forwardRef<HTMLDivElement, ThemeProps<'div'>>(
   ({ as: Element = 'div', variant, themeKey, ...restProps }, ref) => (
     <Element

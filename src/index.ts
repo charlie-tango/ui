@@ -5,6 +5,10 @@ import { SystemCssProperties } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
 import { PolymorphicProps } from './polymorphic';
 
+////////////////////////////////////
+// EXPORTED COMPONENTS            //
+////////////////////////////////////
+
 export * from './AspectRatio';
 export * from './Box';
 export * from './BaseCss';
@@ -18,6 +22,10 @@ export * from './Text';
 export * from './Portal';
 export * from './theme';
 export * from './VisuallyHidden';
+
+////////////////////////////////////
+// EXPORTED TYPES                 //
+////////////////////////////////////
 
 export type VariantProperty = {
   variant: ResponsiveValue<string>;
@@ -45,15 +53,22 @@ export interface ThemeProps<E extends ElementType = ElementType> extends Polymor
   sx?: SxProp;
 }
 
+////////////////////////////////////
+// EXTEND GLOBAL MODULES          //
+////////////////////////////////////
+
 declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface DOMAttributes<T> {
     /** Style the element with `@styled-system/css` */
     sx?: SxProp;
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare global {
   namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface IntrinsicAttributes {
       /** Style the element with `@styled-system/css` */
       sx?: SxProp;
