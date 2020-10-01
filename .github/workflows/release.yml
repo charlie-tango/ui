@@ -15,6 +15,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Install dependencies
+        run: yarn --immutable-cache
       - name: Build
         run: yarn build
       - name: Release

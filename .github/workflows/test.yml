@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn --immutable-cache
       - name: Lint
         run: yarn lint --max-warnings=0
       - name: Test
