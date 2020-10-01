@@ -14,3 +14,10 @@ coverage/
 .tmp
 *.log
 src/react-app-env.d.ts
+
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

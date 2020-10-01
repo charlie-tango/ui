@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "run-s storybook",
     "dev:watch": "microbundle --watch --jsx React.createElement -f modern,es,cjs --no-compress",
-    "build": "run-s build:*",
+    "build": "run-s build:bundle build:copy",
     "build:bundle": "microbundle --jsx React.createElement -f modern,es,cjs --no-compress",
     "build:copy": "node tools/build-copy",
     "now-build": "run-s build-storybook",
@@ -87,6 +87,7 @@
     "@charlietango/use-client-hydrated": "^1.8.2",
     "@charlietango/use-focus-trap": "^1.2.11",
     "@emotion/is-prop-valid": "^0.8.8",
+    "@styled-system/css": "^5.1.5",
     "react-remove-scroll": "^2.4.0",
     "styled-system": "^5.1.4",
     "tslib": "^2.0.0"
@@ -110,6 +111,8 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@emotion/react": "^11.0.0-next.17",
+    "@mdx-js/react": "^1.6.18",
+    "@storybook/addon-docs": "^6.0.22",
     "@storybook/addon-essentials": "^6.0.21",
     "@storybook/addons": "^6.0.21",
     "@storybook/react": "^6.0.21",
@@ -129,6 +132,7 @@
     "@typescript-eslint/parser": "^4.1.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
     "eslint": "^7.8.1",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-flowtype": "^5.2.0",
@@ -147,6 +151,7 @@
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
     "ts-loader": "^8.0.2",
-    "typescript": "~4.0.2"
+    "typescript": "~4.0.2",
+    "webpack": "^4.44.2"
   }
 }
