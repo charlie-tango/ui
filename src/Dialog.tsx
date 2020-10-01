@@ -36,7 +36,14 @@ export const Dialog = ({
   variant = 'container',
   ...rest
 }: DialogProps) => {
-  const ref = useFocusTrap(isOpen, { focusSelector: initialFocus });
+  const ref = useFocusTrap(isOpen, {
+    focusSelector:
+      // Only set the focus to the button if the user has actively interacted with the website, otherwise set to the DialogContent.
+      // This avoids showing the initial focus visible outline, since it's set before we know if the user is using mouse or keyboard
+      typeof document !== 'undefined' && document.activeElement !== document.body
+        ? initialFocus
+        : '[role="dialog"]',
+  });
   if (!isOpen) return null;
 
   return (

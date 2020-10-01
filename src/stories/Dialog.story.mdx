@@ -1,5 +1,5 @@
 import { Meta, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { Dialog, DialogContent, DialogBackdrop, Box, Text, Heading, Button } from '../index';
+import { Dialog, DialogContent, DialogBackdrop, Text, Heading, Button } from '../index';
 import { excludedProps } from './prop-values.ts';
 
 <Meta title="Components/Dialog (Modal)" component={Dialog} />
@@ -47,7 +47,7 @@ export const OpenState = ({ children }) => {
 <Canvas>
   <OpenState>
     {({ isOpen, onDismiss }) => (
-      <Dialog isOpen={isOpen} onDismiss={onDismiss}>
+      <Dialog isOpen onDismiss={onDismiss}>
         <DialogBackdrop />
         <DialogContent aria-labelledby="dialog-header">
           <Heading id="dialog-header">Example dialog</Heading>
