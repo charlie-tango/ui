@@ -36,22 +36,6 @@ Add the preset to the project **.babelrc**
 }
 ```
 
-#### Custom JSX pragma
-
-If you can't add
-[@charlie-tango/babel-preset-sx-prop](https://github.com/charlie-tango/babel-preset-sx-prop) to the
-project, you can still use the `sx` prop by defining a custom JSX Pragma in the React file.
-
-Include this at the top of the file:
-
-```tsx
-/** @jsx jsx */
-import { jsx } from '@charlietango/ui';
-```
-
-This replaces the normal `import * as React from 'react'` (which imports the default JSX from
-React).
-
 ### Planned components
 
 | **Component**  | **Status** |
@@ -61,44 +45,6 @@ React).
 | Modal          | ✅         |
 | VisuallyHidden | ✅         |
 
-### Bundling
-
-The library is built for **ESNext**, and does not contain a **CommonJS** build. This means you will
-need to compile the library with the consuming applications bundler. Usually tools skip processing
-`node_modules` to speed up the build process, so you will need to configure this.
-
-#### Webpack
-
-Include the `@charlietango` namespace in the `babel-loader` rule:
-
-```js
-const config = {
-  modules: {
-    rules: [
-      {
-        test: /\.(js|ts|tsx)$/,
-        include: [path.resolve('src'), path.resolve('node_modules/@charlietango')],
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: DEBUG,
-            },
-          },
-        ],
-      },
-    ],
-  },
-};
-```
-
-#### Jest
-
-Jest will also need to include the library when transforming files:
-
-```js
-const config = { transformIgnorePatterns: ['/node_modules/(?!@charlietango).+\\.js$'] };
-```
 
 ### Related libraries
 
