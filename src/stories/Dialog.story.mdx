@@ -47,7 +47,7 @@ export const OpenState = ({ children }) => {
 <Canvas>
   <OpenState>
     {({ isOpen, onDismiss }) => (
-      <Dialog isOpen onDismiss={onDismiss}>
+      <Dialog isOpen={isOpen} onDismiss={onDismiss}>
         <DialogBackdrop />
         <DialogContent aria-labelledby="dialog-header">
           <Heading id="dialog-header">Example dialog</Heading>
