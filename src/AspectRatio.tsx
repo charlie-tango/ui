@@ -32,6 +32,7 @@ export const AspectRatio = forwardRef<HTMLDivElement, AspectRatioProps<'div'>>(
     return (
       <Element
         ref={ref}
+        // @ts-ignore
         css={[{ display: 'block', position: 'relative' }, aspectConfig({ ratio })]}
         {...props}
       />
@@ -46,6 +47,7 @@ export const AspectRatioItem = forwardRef<HTMLDivElement, PolymorphicProps<'div'
     return (
       <Element
         ref={ref}
+        // @ts-ignore
         css={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
         {...props}
       />

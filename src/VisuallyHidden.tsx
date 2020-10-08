@@ -9,6 +9,7 @@ export const VisuallyHidden = forwardRef<HTMLSpanElement, ComponentPropsWithRef<
   (props, ref) => (
     <span
       ref={ref}
+      // @ts-ignore
       css={{
         position: 'absolute',
         height: 1,

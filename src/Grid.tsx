@@ -113,6 +113,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       <div
         ref={ref}
         sx={gridVariant}
+        // @ts-ignore css prop not detected by TS
         css={[
           {
             display: 'flex',
@@ -314,7 +315,7 @@ export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
             flexCol: calculateFlexSize(size),
             flexGap,
           }),
-          // If "grid" is supported (And we don't want to foreceFlexBox), reset the flexbox styling
+          // If "grid" is supported (And we don't want to forceFlexBox), reset the flexbox styling
           '@supports (display: grid)': !forceFlexBox
             ? {
                 maxWidth: 'none',

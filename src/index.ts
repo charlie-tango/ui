@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import { Interpolation, Theme } from '@emotion/react';
+import { Theme } from '@emotion/react';
 import { SystemCssProperties } from '@styled-system/css';
 import { ResponsiveValue } from 'styled-system';
 import { PolymorphicProps } from './polymorphic';
@@ -61,7 +61,6 @@ declare module 'react' {
   interface DOMAttributes<T> {
     /** Style the element with `@styled-system/css` */
     sx?: SxProp;
-    css?: Interpolation<Theme>;
   }
 }
 
