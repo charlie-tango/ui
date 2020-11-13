@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@charlietango/emotion-sx';
 import React, { forwardRef } from 'react';
